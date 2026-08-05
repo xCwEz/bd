@@ -1,0 +1,284 @@
+<body>
+
+  <!-- ── SOCIAL ─────────────────────────────────────── -->
+  <div id="social">
+    <a href="mailto:isitritarita@gmail.com" title="Email">
+      <svg viewBox="0 0 24 24">
+        <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+      </svg>
+    </a>
+    <a href="https://codepen.io/Margarita-the-solid" target="_blank" rel="noopener" title="CodePen">
+      <svg viewBox="0 0 24 24">
+        <path d="M24 8.182l-.018-.087-.017-.05c-.01-.024-.018-.05-.03-.075-.003-.018-.015-.034-.02-.05l-.035-.067-.03-.05-.044-.06-.046-.045-.06-.045-.046-.03-.06-.044-.044-.04-.015-.02L12.58.19a1.024 1.024 0 0 0-1.142 0L.453 7.502l-.015.015-.044.035-.06.05-.038.04-.05.056-.037.045-.05.06c-.02.017-.03.03-.03.046l-.05.06-.02.06c-.02.01-.02.04-.03.07l-.01.05C0 7.938 0 7.964 0 8v7.933c0 .035 0 .06.01.083l.01.045.03.072.05.073.008.04.04.06.04.045.06.06.04.04.06.04.04.03.086.05 11.985 7.32c.06.03.12.056.19.056.06 0 .12-.02.18-.056l11.984-7.32.087-.05.04-.03.06-.04.04-.04.06-.06.04-.045.04-.06.01-.04.05-.073.03-.072.01-.045.01-.083V8c0-.036 0-.06-.01-.082zM12 2.383l9.616 5.855L17.91 10.7 12 6.963V2.383zm-1 0v4.58L5.09 10.7 1.384 8.238 11 2.383zm-10 7.28l3.434 2.095L2 13.854V9.663zm11 11.54l-9.616-5.855 3.706-2.26L12 17.03v4.18zm.5-5.98L6.693 12l5.308-3.233L17.308 12 12.5 15.222zm.5 5.98v-4.18l5.91-3.604 3.706 2.26L13 21.2zm10-7.346l-3.434-2.096L23 9.662v4.19z" />
+      </svg>
+    </a>
+  </div>
+
+  <!-- ── SCROLL PROGRESS / BACK-TO-TOP ───────────────── -->
+  <button id="scroll-top" type="button" aria-label="Back to top" title="Back to top">
+    <svg viewBox="0 0 44 44">
+      <circle class="track" cx="22" cy="22" r="19" />
+      <circle class="fill" cx="22" cy="22" r="19" />
+    </svg>
+    <span id="scroll-pct">00</span>
+  </button>
+
+  <!-- ── PRELOADER ───────────────────────────────────── -->
+  <div id="loader">
+    <div class="wrap">
+      <span>M</span><span>A</span><span>R</span><span>G</span>
+      <span>A</span><span>R</span><span>I</span><span>T</span>
+      <span>A</span><span>✦</span>
+    </div>
+  </div>
+
+  <!-- ── CURSOR ─────────────────────────────────────── -->
+  <div id="cursor">
+    <strong class="circle">
+      <span class="word">
+        <span class="char" data-char="C">C</span>
+        <span class="char" data-char="L">L</span>
+        <span class="char" data-char="I">I</span>
+        <span class="char" data-char="C">C</span>
+        <span class="char" data-char="K">K</span>
+        <span class="char" data-char="·">·</span>
+        <span class="char" data-char="C">C</span>
+        <span class="char" data-char="L">L</span>
+        <span class="char" data-char="I">I</span>
+      </span>
+    </strong>
+  </div>
+
+  <!-- ── IFRAME MODAL ───────────────────────────────── -->
+  <div id="frame">
+    <div id="close">
+      <div></div>
+      <strong class="circle">
+        <span class="word">
+          <span class="char" data-char="C">C</span>
+          <span class="char" data-char="L">L</span>
+          <span class="char" data-char="O">O</span>
+          <span class="char" data-char="S">S</span>
+          <span class="char" data-char="E">E</span>
+          <span class="char" data-char="·">·</span>
+          <span class="char" data-char="E">E</span>
+          <span class="char" data-char="S">S</span>
+          <span class="char" data-char="C">C</span>
+        </span>
+      </strong>
+    </div>
+    <div class="frame-wrap">
+      <div class="frame-container">
+
+        <div class="frame-info">
+          <p class="frame-index"><span id="frame-current">01</span> / <span id="frame-total">09</span></p>
+          <h3 id="frame-title">—</h3>
+          <p class="frame-desc" id="frame-desc">—</p>
+        </div>
+
+        <div class="pen-wrap">
+          <div id="pen-holder"></div>
+          <button id="prev-pen" class="nav-btn nav-prev" type="button" aria-label="Previous project">‹</button>
+          <button id="next-pen" class="nav-btn nav-next" type="button" aria-label="Next project">›</button>
+        </div>
+
+        <div class="frame-footer">
+          <a id="backlink" href="#" class="frame-nav-link secondary">
+            <span>←</span> <strong>BACK TO WORK</strong>
+          </a>
+          <a id="penlink" href="#" target="_blank" rel="noopener" class="frame-nav-link">
+            <strong>VIEW ON CODEPEN</strong> <span>→</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+     MAIN
+══════════════════════════════════════════════════ -->
+  <div id="wrap">
+
+    <p class="subhead">✦ &nbsp; MARGARITA &nbsp;—&nbsp; BRANDING &amp; DEV &nbsp; ✦</p>
+
+    <h1>
+      <span class="word" data-word="SELECTED">SELECTED</span>
+      <br>
+      <span class="word" data-word="WORK">WORK</span>
+    </h1>
+
+    <p class="subhead">CODEPEN EXPERIMENTS &amp; CLIENT PROJECTS</p>
+
+    <!-- ════ 01 ════ -->
+    <div class="panel">
+      <h2>
+        <span class="word" data-word="LIQUID">LIQUID</span>
+        <span class="word" data-word="GLASS">GLASS</span>
+      </h2>
+      <div class="thumb">
+        <p>CSS · UI KIT</p>
+        <div class="inner">
+          <picture>
+            <source type="image/webp" srcset="https://shots.codepen.io/Margarita-the-solid/pen/NPRPBjd-800.webp" />
+            <img src="https://shots.codepen.io/Margarita-the-solid/pen/NPRPBjd-512.jpg" alt="Pure CSS Glassmorphism Liquid Glass UI kit" loading="lazy" />
+          </picture>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ 02 ════ -->
+    <div class="panel">
+      <h2>
+        <span class="word" data-word="PLUMBOB">PLUMBOB</span>
+        <span class="word" data-word="SPIN">SPIN</span>
+      </h2>
+      <div class="thumb">
+        <p>3D · MOTION</p>
+        <div class="inner">
+          <picture>
+            <source type="image/webp" srcset="https://shots.codepen.io/Margarita-the-solid/pen/LERbOMR-800.webp" />
+            <img src="https://shots.codepen.io/Margarita-the-solid/pen/LERbOMR-512.jpg" alt="The Sims Game Plumbob 3D Spin Animation" loading="lazy" class="invert" />
+          </picture>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ 03 ════ -->
+    <div class="panel">
+      <h2>
+        <span class="word" data-word="BUTTON">BUTTON</span>
+        <span class="word" data-word="STATES">STATES</span>
+      </h2>
+      <div class="thumb">
+        <p>UI · TOOL</p>
+        <div class="inner">
+          <picture>
+            <source type="image/webp" srcset="https://shots.codepen.io/Margarita-the-solid/pen/XJpgEXm-800.webp" />
+            <img src="https://shots.codepen.io/Margarita-the-solid/pen/XJpgEXm-512.jpg" alt="Button State Builder" loading="lazy" class="light" />
+          </picture>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ 04 ════ -->
+    <div class="panel">
+      <h2>
+        <span class="word" data-word="NEVER">NEVER</span>
+        <span class="word" data-word="COMPETITION">COMPETITION</span>
+      </h2>
+      <div class="thumb">
+        <p>NARRATIVE · SCROLL</p>
+        <div class="inner">
+          <picture>
+            <source type="image/webp" srcset="https://shots.codepen.io/Margarita-the-solid/pen/OPRxZmV-800.webp" />
+            <img src="https://shots.codepen.io/Margarita-the-solid/pen/OPRxZmV-512.jpg" alt="It Was Never A Competition — Full Story" loading="lazy" />
+          </picture>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ 05 ════ -->
+    <div class="panel">
+      <h2>
+        <span class="word" data-word="OCEAN">OCEAN</span>
+        <span class="word" data-word="SHADER">SHADER</span>
+      </h2>
+      <div class="thumb">
+        <p>WEBGL · SHADER</p>
+        <div class="inner">
+          <picture>
+            <source type="image/webp" srcset="https://shots.codepen.io/Margarita-the-solid/pen/xbgrWpd-800.webp" />
+            <img src="https://shots.codepen.io/Margarita-the-solid/pen/xbgrWpd-512.jpg" alt="Ocean Shader" loading="lazy" class="lighter" />
+          </picture>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ 06 ════ -->
+    <div class="panel">
+      <h2>
+        <span class="word" data-word="SCROLL">SCROLL</span>
+        <span class="word" data-word="ZOOM">ZOOM</span>
+      </h2>
+      <div class="thumb">
+        <p>GSAP · SCROLLTRIGGER</p>
+        <div class="inner">
+          <picture>
+            <source type="image/webp" srcset="https://shots.codepen.io/Margarita-the-solid/pen/VYKLMBd-800.webp" />
+            <img src="https://shots.codepen.io/Margarita-the-solid/pen/VYKLMBd-512.jpg" alt="Scroll — GSAP ScrollTrigger Zoom with Background" loading="lazy" class="invert" />
+          </picture>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ 07 ════ -->
+    <div class="panel">
+      <h2>
+        <span class="word" data-word="GLYPH">GLYPH</span>
+        <span class="word" data-word="WALLET">WALLET</span>
+      </h2>
+      <div class="thumb">
+        <p>LANDING · PAGE</p>
+        <div class="inner">
+          <picture>
+            <source type="image/webp" srcset="https://shots.codepen.io/Margarita-the-solid/pen/raLXezZ-800.webp" />
+            <img src="https://shots.codepen.io/Margarita-the-solid/pen/raLXezZ-512.jpg" alt="Glyph - Smart Crypto Wallet Landing Page" loading="lazy" />
+          </picture>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ 08 ════ -->
+    <div class="panel">
+      <h2>
+        <span class="word" data-word="LYNCH">LYNCH</span>
+        <span class="word" data-word="SLIDER">SLIDER</span>
+      </h2>
+      <div class="thumb">
+        <p>CONCEPT · SLIDER</p>
+        <div class="inner">
+          <picture>
+            <source type="image/webp" srcset="https://shots.codepen.io/Margarita-the-solid/pen/vEXmXyy-800.webp" />
+            <img src="https://shots.codepen.io/Margarita-the-solid/pen/vEXmXyy-512.jpg" alt="David Lynch slider" loading="lazy" class="light" />
+          </picture>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ 09 ════ -->
+    <div class="panel">
+      <h2>
+        <span class="word" data-word="WATER">WATER</span>
+        <span class="word" data-word="TEXT">TEXT</span>
+      </h2>
+      <div class="thumb">
+        <p>THREE.JS · SHADER</p>
+        <div class="inner">
+          <picture>
+            <source type="image/webp" srcset="https://shots.codepen.io/Margarita-the-solid/pen/LERyLvw-800.webp" />
+            <img src="https://shots.codepen.io/Margarita-the-solid/pen/LERyLvw-512.jpg" alt="Three.js Animated Water Inside Text" loading="lazy" class="light" />
+          </picture>
+        </div>
+      </div>
+    </div>
+
+    <p class="subhead final">✦</p>
+
+    <!-- ── FOOTER ─────────────────────────────────────── -->
+    <footer id="site-footer">
+      <p class="subhead">GOT A PROJECT IN MIND?</p>
+      <div class="footer-btns">
+        <a href="mailto:isitritarita@gmail.com" class="footer-btn">
+          <strong>SAY HELLO</strong> <span>✉</span>
+        </a>
+        <a href="https://codepen.io/Margarita-the-solid" target="_blank" rel="noopener" class="footer-btn secondary">
+          <strong>MORE ON CODEPEN</strong> <span>→</span>
+        </a>
+      </div>
+      <p class="footer-credit">© 2026 MARGARITA &nbsp;·&nbsp; BUILT WITH GSAP + CSS</p>
+    </footer>
+
+  </div><!-- /wrap -->
+
+</body>

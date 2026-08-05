@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="demos.css" />
+  <style>
+    #scene { position: fixed; inset: 0; z-index: 0; display: block; width: 100%; height: 100%; }
+    .scene-veil { position: fixed; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(circle at 38% 45%, rgba(9,10,18,0) 10%, rgba(9,10,18,.5) 62%, rgba(9,10,18,.9) 100%); }
+    main > section { position: relative; }
+    main > section::before { content: ""; position: absolute; inset: -8% 0; background: linear-gradient(180deg, rgba(9,10,18,.2) 0%, rgba(9,10,18,.9) 20%, rgba(9,10,18,.9) 80%, rgba(9,10,18,.2) 100%); pointer-events: none; z-index: -1; }
+    .hero-content { align-items: flex-start; text-align: left; margin: auto clamp(24px, 8vw, 120px) auto clamp(24px, 8vw, 96px); max-width: 640px; }
+    .hero-content .kicker { justify-content: flex-start; }
+  </style>
+  <title>Démo — Sculpture qui se déforme</title>
+</head>
+<body>
+  <canvas id="scene" aria-hidden="true"></canvas>
+  <div class="scene-veil" aria-hidden="true"></div>
+
+  <nav class="demo-nav">
+    <a href="index.html" class="demo-nav-back">← Comparatif</a>
+    <span class="demo-nav-tag">2 / 4 — Sculpture</span>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-content">
+      <div class="kicker"><span class="kicker-line"></span>Direction artistique — Lyon &amp; à distance</div>
+      <h1 class="hero-title">Mickael<br />Leyssenne</h1>
+      <p class="hero-tagline">Je conçois des univers web où le mouvement raconte une histoire.</p>
+      <div class="hero-scroll-hint">Défiler pour explorer</div>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="wrap">
+        <p class="eyebrow-num">01 — Manifeste</p>
+        <p class="manifesto-text" data-reveal>
+          Un seul objet, une caméra fixe. Il se <em>déforme</em> au scroll puis se love
+          dans un coin en totem discret — l'immersion est sculpturale, pas cinétique.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <header class="section-head" data-reveal>
+          <div class="kicker" style="justify-content:flex-start"><span class="kicker-line"></span>Sensation</div>
+          <h2>Une pièce, pas un décor</h2>
+          <p class="section-lead">La cristallisation réagit au scroll comme une matière vivante, puis se stabilise en repère visuel permanent.</p>
+        </header>
+        <div class="cards-grid">
+          <article class="glass-card" data-reveal>
+            <div class="glass-card-num">01</div>
+            <h3>Focalisé</h3>
+            <p>Un centerpiece unique concentre l'attention — pas de dispersion visuelle.</p>
+          </article>
+          <article class="glass-card" data-reveal>
+            <div class="glass-card-num">02</div>
+            <h3>Économe</h3>
+            <p>Une seule géométrie, un seul draw call GPU — très peu coûteux comparé à un couloir.</p>
+          </article>
+          <article class="glass-card" data-reveal>
+            <div class="glass-card-num">03</div>
+            <h3>Signature</h3>
+            <p>Le totem qui reste dans le coin peut devenir un élément de marque récurrent du site.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">Démo d'immersion — Sculpture qui se déforme · <span id="footer-year"></span></footer>
+
+  <script type="module" src="sculpture.js"></script>
+</body>
+</html>

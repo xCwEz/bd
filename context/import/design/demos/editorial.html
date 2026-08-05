@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="demos.css" />
+  <style>
+    /* Pas de canvas WebGL ici : le fond est fait de blobs CSS + grain. */
+    .bg-blobs { position: fixed; inset: 0; z-index: 0; overflow: hidden; }
+    .blob { position: absolute; border-radius: 50%; filter: blur(70px); opacity: .5; }
+    .blob-a { width: 46vw; height: 46vw; background: radial-gradient(circle, var(--cyan), transparent 70%); top: -12%; left: -8%; animation: driftA 22s ease-in-out infinite; }
+    .blob-b { width: 38vw; height: 38vw; background: radial-gradient(circle, var(--violet), transparent 70%); bottom: -14%; right: -6%; animation: driftB 26s ease-in-out infinite; }
+    @keyframes driftA { 0%,100% { transform: translate(0,0); } 50% { transform: translate(4vw, 6vh); } }
+    @keyframes driftB { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-5vw, -4vh); } }
+    .grain { position: fixed; inset: 0; z-index: 2; pointer-events: none; opacity: .06; mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+    /* --- Watermark + spotlight qui suit le curseur (masque radial CSS) --- */
+    .spotlight { position: relative; overflow: hidden; }
+    .watermark {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      font: 700 clamp(90px, 22vw, 340px)/1 'Clash Display', sans-serif; color: transparent;
+      -webkit-text-stroke: 1px rgba(255,255,255,.09); letter-spacing: -.03em; pointer-events: none; user-select: none;
+    }
+    .watermark-glow {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      font: 700 clamp(90px, 22vw, 340px)/1 'Clash Display', sans-serif; letter-spacing: -.03em; pointer-events: none; user-select: none;
+      background: var(--accent-grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+      -webkit-mask-image: radial-gradient(circle 220px at var(--mx, 50%) var(--my, 50%), #000 0%, transparent 100%);
+      mask-image: radial-gradient(circle 220px at var(--mx, 50%) var(--my, 50%), #000 0%, transparent 100%);
+    }
+
+    /* --- Typo cinétique du titre (générée par JS, un span par lettre) --- */
+    .kw { display: inline-block; overflow: hidden; vertical-align: top; }
+    .kw-inner { display: inline-block; transform: translateY(115%); opacity: 0; animation: kwIn .8s cubic-bezier(.16,1,.3,1) forwards; }
+    @keyframes kwIn { to { transform: translateY(0); opacity: 1; } }
+    .hero-tagline, .hero-scroll-hint, .kicker { opacity: 0; animation: fadeUp .8s cubic-bezier(.16,1,.3,1) forwards; }
+    .kicker { animation-delay: .05s; }
+    .hero-tagline { animation-delay: .75s; }
+    .hero-scroll-hint { animation-delay: .95s; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* --- Rideau au scroll : déclenché une fois par IntersectionObserver -- */
+    [data-wipe] { clip-path: inset(0 0 100% 0); opacity: 0; transition: clip-path .9s cubic-bezier(.16,1,.3,1), opacity .5s ease; }
+    [data-wipe].is-in { clip-path: inset(0 0 0% 0); opacity: 1; }
+    [data-wipe][data-wipe-delay="1"] { transition-delay: .08s; }
+    [data-wipe][data-wipe-delay="2"] { transition-delay: .16s; }
+    [data-wipe][data-wipe-delay="3"] { transition-delay: .24s; }
+
+    /* --- Bouton magnétique --------------------------------------------- */
+    .magnetic { display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: 999px; border: 1px solid var(--panel-border); background: var(--panel); font: 500 12px/1 'Satoshi', sans-serif; letter-spacing: .04em; color: var(--ink); transition: border-color .2s ease, transform .15s ease; }
+    .magnetic:hover { border-color: var(--cyan); }
+
+    main > section { position: relative; }
+    main > section::before { content: ""; position: absolute; inset: -8% 0; background: radial-gradient(ellipse 78% 68% at 50% 50%, rgba(9,10,18,.9) 0%, rgba(9,10,18,.75) 45%, rgba(9,10,18,0) 78%); pointer-events: none; z-index: -1; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .kw-inner, .hero-tagline, .hero-scroll-hint, .kicker { animation: none !important; opacity: 1 !important; transform: none !important; }
+      [data-wipe] { clip-path: inset(0) !important; opacity: 1 !important; }
+      .blob { animation: none !important; }
+    }
+  </style>
+  <title>Démo — Éditorial cinétique (sans WebGL)</title>
+</head>
+<body>
+  <div class="bg-blobs" aria-hidden="true"><span class="blob blob-a"></span><span class="blob blob-b"></span></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <nav class="demo-nav">
+    <a href="index.html" class="demo-nav-back">← Comparatif</a>
+    <span class="demo-nav-tag">3 / 4 — Éditorial</span>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-content">
+      <div class="kicker"><span class="kicker-line"></span>Direction artistique — Lyon &amp; à distance</div>
+      <h1 class="hero-title kinetic-title">Mickael<br />Leyssenne</h1>
+      <p class="hero-tagline">Je conçois des univers web où le mouvement raconte une histoire.</p>
+      <div class="hero-scroll-hint">Défiler pour explorer</div>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="wrap">
+        <p class="eyebrow-num">01 — Manifeste</p>
+        <p class="manifesto-text" data-wipe>
+          Aucun WebGL ici. L'immersion vient de la <em>typo cinétique</em>, du rideau qui se lève
+          une fois par section, et d'un spotlight qui suit le curseur — léger, rapide, éditorial.
+        </p>
+      </div>
+    </section>
+
+    <section class="spotlight">
+      <div class="watermark" aria-hidden="true">ML</div>
+      <div class="watermark-glow" aria-hidden="true">ML</div>
+      <div class="wrap">
+        <header class="section-head" data-wipe>
+          <div class="kicker" style="justify-content:flex-start"><span class="kicker-line"></span>Sensation</div>
+          <h2>Mise en scène 2D, pas un univers 3D</h2>
+          <p class="section-lead">Le curseur révèle un filigrane en dégradé — une pointe de spectacle sans une seule ligne de WebGL.</p>
+        </header>
+        <div class="cards-grid">
+          <article class="glass-card" data-wipe data-wipe-delay="1">
+            <div class="glass-card-num">01</div>
+            <h3>Ultra léger</h3>
+            <p>Pas de Three.js, pas de shaders — juste CSS et un peu de JS. Chargement quasi instantané.</p>
+          </article>
+          <article class="glass-card" data-wipe data-wipe-delay="2">
+            <div class="glass-card-num">02</div>
+            <h3>Éditorial</h3>
+            <p>Le ton s'approche d'un site d'agence ou de presse plutôt que d'un univers immersif 3D.</p>
+          </article>
+          <article class="glass-card" data-wipe data-wipe-delay="3">
+            <div class="glass-card-num">03</div>
+            <h3>Trade-off assumé</h3>
+            <p>Moins spectaculaire qu'un couloir 3D, mais imbattable sur mobile bas de gamme.</p>
+          </article>
+        </div>
+        <p style="margin-top:40px"><a href="#" class="magnetic">Un bouton qui se dérobe →</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">Démo d'immersion — Éditorial cinétique, sans WebGL · <span id="footer-year"></span></footer>
+
+  <script type="module" src="editorial.js"></script>
+</body>
+</html>

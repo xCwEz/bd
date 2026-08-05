@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="demos.css" />
+  <style>
+    body { min-height: 100vh; }
+    .compare-wrap { max-width: 980px; margin: 0 auto; padding: clamp(90px, 12vh, 140px) clamp(20px, 5vw, 64px) 80px; }
+    .compare-head { max-width: 640px; margin-bottom: clamp(48px, 7vh, 80px); }
+    .compare-head .kicker { justify-content: flex-start; margin-bottom: 18px; }
+    .compare-head h1 { font: 600 clamp(34px, 4.6vw, 56px)/1.08 'Clash Display', sans-serif; letter-spacing: -.01em; margin-bottom: 16px; }
+    .compare-head p { margin: 0; font: 400 15px/1.7 'Satoshi', sans-serif; color: var(--ink-muted); max-width: 58ch; }
+    .compare-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 20px; }
+    .compare-card {
+      position: relative; display: flex; flex-direction: column; gap: 14px;
+      border: 1px solid var(--panel-border); background: var(--panel); border-radius: 18px;
+      padding: clamp(24px, 2.6vw, 32px); transition: border-color .25s ease, transform .25s ease, background-color .25s ease;
+    }
+    .compare-card:hover { border-color: rgba(255,255,255,.18); background: rgba(255,255,255,.05); transform: translateY(-3px); }
+    .compare-num { font: 500 12px/1 'Satoshi', sans-serif; letter-spacing: .1em; color: var(--violet); }
+    .compare-card h2 { font: 600 clamp(20px, 1.8vw, 24px)/1.2 'Clash Display', sans-serif; color: var(--ink); }
+    .compare-card p { margin: 0; font: 400 14px/1.65 'Satoshi', sans-serif; color: var(--ink-muted); flex: 1; }
+    .compare-meta { display: flex; flex-wrap: wrap; gap: 8px; }
+    .compare-meta span { font: 500 11px/1 'Satoshi', sans-serif; letter-spacing: .03em; color: var(--ink-muted); border: 1px solid var(--panel-border); border-radius: 999px; padding: 6px 11px; }
+    .compare-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 4px; font: 500 12px/1 'Satoshi', sans-serif; letter-spacing: .04em; color: var(--ink); border-bottom: 1px solid transparent; padding-bottom: 4px; transition: border-color .2s ease, color .2s ease; }
+    .compare-card:hover .compare-link { color: var(--cyan); border-color: var(--cyan); }
+    .compare-note { margin-top: clamp(48px, 6vh, 72px); padding-top: 28px; border-top: 1px solid rgba(255,255,255,.08); font: 400 13px/1.7 'Satoshi', sans-serif; color: var(--ink-faint); max-width: 60ch; }
+  </style>
+  <title>Comparatif — 4 pistes d'immersion</title>
+</head>
+<body>
+  <div class="compare-wrap">
+    <div class="compare-head">
+      <div class="kicker"><span class="kicker-line"></span>Portfolio — pistes d'immersion</div>
+      <h1>4 mécaniques d'animation à comparer</h1>
+      <p>Même identité visuelle (couleurs, typos, contenu court), quatre approches différentes de l'immersion —
+        du voyage caméra continu à une mise en scène purement 2D. Ouvre chacune, scrolle, et note laquelle
+        se marie le mieux avec le type de projets que tu veux attirer.</p>
+    </div>
+
+    <div class="compare-grid">
+      <article class="compare-card">
+        <span class="compare-num">01</span>
+        <h2>Nébuleuse de particules</h2>
+        <p>Nuage de poussière en 3 couches de profondeur, caméra quasi fixe. L'immersion vient de la parallaxe entre couches, pas d'un déplacement — sensation de flotter.</p>
+        <div class="compare-meta"><span>WebGL léger</span><span>Ambiance</span><span>Parallax</span></div>
+        <a href="particules.html" class="compare-link">Ouvrir la démo →</a>
+      </article>
+
+      <article class="compare-card">
+        <span class="compare-num">02</span>
+        <h2>Sculpture qui se déforme</h2>
+        <p>Un seul objet centerpiece, caméra fixe. Il se déforme au scroll puis migre en totem discret dans un coin — immersion sculpturale, très économe en GPU.</p>
+        <div class="compare-meta"><span>WebGL minimal</span><span>Focus objet</span><span>Signature</span></div>
+        <a href="sculpture.html" class="compare-link">Ouvrir la démo →</a>
+      </article>
+
+      <article class="compare-card">
+        <span class="compare-num">03</span>
+        <h2>Éditorial cinétique</h2>
+        <p>Zéro WebGL. Typo qui entre lettre par lettre, rideau qui se lève une fois par section, spotlight qui suit le curseur. Ton agence/presse, ultra léger.</p>
+        <div class="compare-meta"><span>CSS + JS</span><span>Très rapide</span><span>Ton éditorial</span></div>
+        <a href="editorial.html" class="compare-link">Ouvrir la démo →</a>
+      </article>
+
+      <article class="compare-card">
+        <span class="compare-num">04</span>
+        <h2>Chapitres 3D</h2>
+        <p>Trois scènes distinctes (halo, sculpture, grille), fondu de l'une à l'autre selon la section visible — pas un couloir traversé en continu, une succession de tableaux.</p>
+        <div class="compare-meta"><span>WebGL</span><span>Narratif</span><span>Modulaire</span></div>
+        <a href="chapitres.html" class="compare-link">Ouvrir la démo →</a>
+      </article>
+    </div>
+
+    <p class="compare-note">
+      À titre de repère : la version actuelle du portfolio (couloir de fragments de verre traversé en continu)
+      n'est pas reprise ici — c'est la 5ᵉ option, déjà connue. Ces 4 démos ne montrent que le hero + un aperçu
+      du scroll, pas le contenu complet : une fois la mécanique choisie, on l'applique à toutes les sections.
+    </p>
+  </div>
+</body>
+</html>

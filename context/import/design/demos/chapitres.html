@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="demos.css" />
+  <style>
+    #scene { position: fixed; inset: 0; z-index: 0; display: block; width: 100%; height: 100%; }
+    .scene-veil { position: fixed; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(circle at 50% 42%, rgba(9,10,18,0) 15%, rgba(9,10,18,.55) 72%, rgba(9,10,18,.92) 100%); }
+    main > section { position: relative; min-height: 90vh; display: flex; align-items: center; }
+    main > section::before { content: ""; position: absolute; inset: -8% 0; background: radial-gradient(ellipse 78% 68% at 50% 50%, rgba(9,10,18,.92) 0%, rgba(9,10,18,.8) 45%, rgba(9,10,18,0) 78%); pointer-events: none; z-index: -1; }
+    .chapter-tag { display: inline-block; margin-bottom: 14px; font: 500 11px/1 'Satoshi', sans-serif; letter-spacing: .14em; text-transform: uppercase; color: var(--cyan); }
+  </style>
+  <title>Démo — Chapitres 3D</title>
+</head>
+<body>
+  <canvas id="scene" aria-hidden="true"></canvas>
+  <div class="scene-veil" aria-hidden="true"></div>
+
+  <nav class="demo-nav">
+    <a href="index.html" class="demo-nav-back">← Comparatif</a>
+    <span class="demo-nav-tag">4 / 4 — Chapitres</span>
+  </nav>
+
+  <header class="hero" data-chapter="0">
+    <div class="hero-content">
+      <div class="kicker"><span class="kicker-line"></span>Direction artistique — Lyon &amp; à distance</div>
+      <h1 class="hero-title">Mickael<br />Leyssenne</h1>
+      <p class="hero-tagline">Je conçois des univers web où le mouvement raconte une histoire.</p>
+      <div class="hero-scroll-hint">Défiler pour explorer</div>
+    </div>
+  </header>
+
+  <main>
+    <section data-chapter="1">
+      <div class="wrap">
+        <span class="chapter-tag">Chapitre 01</span>
+        <p class="eyebrow-num">Manifeste</p>
+        <p class="manifesto-text" data-reveal>
+          Trois scènes distinctes, pas un couloir continu. Chaque section a sa propre
+          composition 3D — la caméra <em>fond</em> d'un tableau à l'autre au lieu de traverser un espace.
+        </p>
+      </div>
+    </section>
+
+    <section data-chapter="2">
+      <div class="wrap">
+        <span class="chapter-tag">Chapitre 02</span>
+        <header class="section-head" data-reveal>
+          <div class="kicker" style="justify-content:flex-start"><span class="kicker-line"></span>Sensation</div>
+          <h2>Une succession de tableaux</h2>
+          <p class="section-lead">Le changement de chapitre est déclenché par la section visible à l'écran, pas par un calcul continu de position — plus simple à orchestrer, plus facile à étendre.</p>
+        </header>
+        <div class="cards-grid">
+          <article class="glass-card" data-reveal>
+            <div class="glass-card-num">01</div>
+            <h3>Modulaire</h3>
+            <p>Ajouter une section = ajouter un chapitre, sans recalculer toute une trajectoire de caméra.</p>
+          </article>
+          <article class="glass-card" data-reveal>
+            <div class="glass-card-num">02</div>
+            <h3>Narratif</h3>
+            <p>Chaque scène peut porter une métaphore différente : halo, sculpture unique, grille — au service du propos de la section.</p>
+          </article>
+          <article class="glass-card" data-reveal>
+            <div class="glass-card-num">03</div>
+            <h3>Robuste</h3>
+            <p>Basé sur IntersectionObserver plutôt que sur un scroll pixel-perfect — se comporte bien même si le contenu change de hauteur.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">Démo d'immersion — Chapitres 3D · <span id="footer-year"></span></footer>
+
+  <script type="module" src="chapitres.js"></script>
+</body>
+</html>

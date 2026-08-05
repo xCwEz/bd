@@ -1,0 +1,1559 @@
+/* ══════════════════════════════════════════════════
+   TOKENS — Margarita palette, Cobra structure
+══════════════════════════════════════════════════ */
+:root {
+  --bg: #f5ff00; /* $bg  — Y2K yellow  */
+  --y: #f5ff00; /* $y   — yellow      */
+  --o: #ff00cc; /* $o   — neon pink   */
+  --g: #00ff41; /* $g   — neon green  */
+  --b: #00ffff; /* $b   — cyan        */
+  --ink: #0d0020; /* deep purple-black  */
+  --elastic: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --expo: cubic-bezier(1, 0.885, 0.32, 1);
+}
+
+/* ══════════════════════════════════════════════════
+   RESET
+══════════════════════════════════════════════════ */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ══════════════════════════════════════════════════
+   BODY BASE
+══════════════════════════════════════════════════ */
+body {
+  scroll-behavior: smooth;
+  background: var(--bg);
+  cursor: none;
+  font-family: "Lexend Mega", sans-serif;
+  pointer-events: none;
+  transition-delay: 2s;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+body::-webkit-scrollbar {
+  width: 5px;
+  background: var(--o);
+}
+body.loaded::-webkit-scrollbar {
+  background: var(--y);
+}
+body::-webkit-scrollbar-thumb {
+  background: var(--o);
+}
+
+/* ── LOADED ─────────────────────────────────────── */
+body.loaded {
+  pointer-events: all;
+}
+
+body.loaded #social a:nth-of-type(1n) svg {
+  transform: translateX(0) !important;
+  transition-delay: 0s, 2.4s;
+}
+body.loaded #social a:last-of-type svg {
+  transition-delay: 0s, 2.6s;
+}
+
+body.loaded #loader {
+  transform: scaleY(0);
+  color: transparent;
+}
+body.loaded #loader .wrap {
+  opacity: 0;
+  animation-iteration-count: 4;
+}
+body.loaded #loader .wrap span {
+  animation-play-state: paused;
+}
+
+body.loaded #wrap {
+  transform: translateX(0%);
+  background: var(--bg);
+}
+body.loaded #wrap p.subhead {
+  transform: translateY(0);
+  opacity: 1;
+  transition-delay: 2s;
+}
+body.loaded #wrap .panel {
+  opacity: 1;
+  transition-delay: 1.75s;
+}
+body.loaded #wrap h1 {
+  transform: scaleX(1);
+  transition-delay: 1.75s;
+}
+body.loaded #wrap h1 span.word::before {
+  transform: translate(-50%, -50%);
+  background-position: 50% 0%;
+  transition-delay: 2s, 2s;
+}
+
+/* ── ACTIVE (iframe open) ───────────────────────── */
+body.active {
+  cursor: auto;
+  overflow: hidden;
+}
+
+body.active #wrap {
+  transform: translateX(-125vw);
+  transition-delay: 0s;
+}
+body.active #wrap .panel h2 span.word::before {
+  transform: translate(-50%, 100px);
+  transition: 0s ease-in-out;
+  transition-delay: 0s;
+}
+body.active #frame {
+  transform: translateX(0);
+  transition-delay: 0.25s;
+}
+body.active #frame::before,
+body.active #frame::after {
+  transition-delay: 0.75s;
+  transform: translateX(-175%) skewX(5deg);
+}
+body.active #frame::after {
+  transform: translateX(-150%) skewX(-15deg);
+}
+body.active #frame #close {
+  transform: rotate(180deg) scale(1);
+  transition-delay: 1.2s, 0s;
+}
+body.active #frame #close div {
+  transition-delay: 1.8s;
+  transform: scaleX(1);
+  transform-origin: left;
+}
+body.active #frame #close::before {
+  transition-delay: 2.1s;
+  transform: scaleY(1) rotate(-45deg);
+}
+body.active #frame #close::after {
+  transition-delay: 2.1s;
+  transform: scaleY(1) rotate(45deg);
+}
+body.active #frame #close strong.circle span.word {
+  animation-play-state: running;
+}
+body.active #frame #close strong.circle span.word span.char::before {
+  transform: translateY(0);
+}
+body.active #frame .frame-container #pen-holder {
+  clip-path: polygon(-10% -10%, 110% -10%, 110% 110%, -10% 110%);
+  visibility: visible;
+  opacity: 1;
+}
+
+/* cursor active state */
+body.active #cursor::before {
+  transform: scaleY(1) rotate(-45deg);
+  transition-delay: 0.6s;
+}
+body.active #cursor::after {
+  transform: scaleY(1) rotate(45deg);
+  transition-delay: 0.6s;
+}
+
+/* ══════════════════════════════════════════════════
+   SOCIAL
+══════════════════════════════════════════════════ */
+#social {
+  z-index: 150;
+  position: fixed;
+  right: 12px;
+  top: 12px;
+  width: 30px;
+  height: 72px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+#social svg {
+  width: 25px;
+  height: 25px;
+  position: relative;
+  transition: 0.2s ease-in-out, transform 0.6s var(--expo);
+  transform: translateY(-150px);
+}
+#social a:last-of-type svg {
+  transform: translateX(150px);
+}
+#social a:hover svg {
+  transform: scale(0.9) !important;
+}
+#social svg path {
+  fill: var(--ink);
+  transition: 0.2s ease-in-out;
+}
+#social a:hover svg path {
+  fill: var(--o);
+}
+
+/* ══════════════════════════════════════════════════
+   SCROLL PROGRESS / BACK-TO-TOP
+══════════════════════════════════════════════════ */
+#scroll-top {
+  z-index: 150;
+  position: fixed;
+  left: 12px;
+  bottom: 12px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out, transform 0.2s var(--expo);
+}
+body.loaded #scroll-top.is-visible {
+  opacity: 1;
+  pointer-events: all;
+}
+body.active #scroll-top {
+  opacity: 0;
+  pointer-events: none;
+}
+#scroll-top:hover {
+  transform: scale(1.08);
+}
+#scroll-top:active {
+  transform: scale(0.94);
+}
+#scroll-top svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+  overflow: visible;
+}
+#scroll-top circle {
+  fill: none;
+  stroke-width: 2;
+}
+#scroll-top .track {
+  stroke: var(--ink);
+  opacity: 0.15;
+}
+#scroll-top .fill {
+  stroke: var(--o);
+  stroke-linecap: round;
+  stroke-dasharray: 119.4;
+  stroke-dashoffset: calc(119.4 * (1 - var(--page-progress, 0)));
+}
+#scroll-top span {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 9px;
+  letter-spacing: 0.05em;
+  color: var(--ink);
+}
+
+/* ══════════════════════════════════════════════════
+   PRELOADER
+══════════════════════════════════════════════════ */
+#loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--bg);
+  position: fixed;
+  width: calc(100vw - 5px);
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  transition: transform 0.6s var(--expo);
+  transition-delay: 1.25s;
+  transform-origin: bottom;
+  background: var(--o);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+#loader::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 75%;
+  top: -75%;
+  background: var(--ink);
+  clip-path: polygon(0 15%, 100% 0, 100% 100%, 0% 100%);
+}
+#loader .wrap {
+  width: 10px;
+  height: 10px;
+  position: relative;
+  animation: spin 5s linear infinite;
+  transition: opacity 0.4s ease-in-out;
+  transition-delay: 0s;
+}
+#loader .wrap span {
+  color: var(--bg);
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  font-size: 11px;
+  font-family: "Bungee", cursive;
+  transform-origin: 50% 40px;
+  top: -34px;
+  animation: popping 0.25s ease-in-out infinite alternate;
+}
+@keyframes popping {
+  to {
+    top: -24px;
+  }
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Each letter radially placed */
+#loader .wrap span:nth-child(1) {
+  transform: rotate(36deg);
+  animation-delay: -0.0625s;
+}
+#loader .wrap span:nth-child(2) {
+  transform: rotate(72deg);
+  animation-delay: -0.125s;
+}
+#loader .wrap span:nth-child(3) {
+  transform: rotate(108deg);
+  animation-delay: -0.1875s;
+}
+#loader .wrap span:nth-child(4) {
+  transform: rotate(144deg);
+  animation-delay: -0.25s;
+}
+#loader .wrap span:nth-child(5) {
+  transform: rotate(180deg);
+  animation-delay: -0.3125s;
+}
+#loader .wrap span:nth-child(6) {
+  transform: rotate(216deg);
+  animation-delay: -0.375s;
+}
+#loader .wrap span:nth-child(7) {
+  transform: rotate(252deg);
+  animation-delay: -0.4375s;
+}
+#loader .wrap span:nth-child(8) {
+  transform: rotate(288deg);
+  animation-delay: -0.5s;
+}
+#loader .wrap span:nth-child(9) {
+  transform: rotate(324deg);
+  animation-delay: -0.5625s;
+}
+#loader .wrap span:nth-child(10) {
+  transform: rotate(360deg);
+  animation-delay: -0.625s;
+}
+
+/* ══════════════════════════════════════════════════
+   CURSOR
+══════════════════════════════════════════════════ */
+#cursor {
+  position: fixed;
+  z-index: 9999;
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  top: 0;
+  left: 0;
+  border: 2px solid var(--cursor-accent, var(--ink));
+  box-shadow: inset 0 0 0 0 var(--ink);
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform;
+  transition: opacity 0.3s ease-in-out, border-width 0.3s ease-in-out,
+    box-shadow 0.3s ease-in-out, border-color 0.4s ease-in-out;
+  opacity: 0;
+}
+body:hover #cursor {
+  opacity: 1;
+}
+
+#cursor::before,
+#cursor::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 2px;
+  background: var(--bg);
+  top: calc(50% - 1px);
+  left: 14px;
+  transition: 0.3s var(--elastic);
+  transition-delay: 0.3s;
+  transform-origin: right;
+  transform: scaleY(0) rotate(0deg);
+  z-index: 9;
+}
+#cursor.linkhover {
+  border-color: transparent;
+  border-width: 4px;
+  box-shadow: 0 0 0 2px var(--o);
+}
+#cursor.active {
+  box-shadow: inset 0 0 0 20px var(--ink);
+}
+#cursor.active::before,
+#cursor.active::after {
+  background: var(--bg);
+}
+#cursor.active::before {
+  transform: scaleY(1) rotate(-45deg);
+  transition-delay: 0.6s;
+}
+#cursor.active::after {
+  transform: scaleY(1) rotate(45deg);
+  transition-delay: 0.6s;
+}
+#cursor.active strong.circle {
+  box-shadow: inset 0 0 0 20px var(--ink);
+}
+#cursor.active strong.circle::before {
+  transform: scaleX(1);
+  transition-delay: 0.3s;
+}
+#cursor.active strong.circle span.word {
+  animation-play-state: running;
+}
+#cursor.active strong.circle span.word span.char::before {
+  transform: translateY(0px);
+  color: var(--bg);
+}
+
+/* ── strong.circle — rotating orbit text ───────── */
+strong.circle {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  line-height: 1;
+  margin: 0;
+  transition: 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+strong.circle::before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 2px;
+  background: var(--bg);
+  top: calc(50% - 1px);
+  left: 5px;
+  transition: 0.3s ease-in-out;
+  transform-origin: left;
+  transform: scaleX(0);
+  transition-delay: 0.6s;
+}
+strong.circle span.word {
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: 50%;
+  top: 50%;
+  animation: rotate 10s linear infinite;
+  animation-play-state: paused;
+}
+strong.circle span.word span.char {
+  font-size: 10px;
+  font-family: "Bungee", cursive;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: calc(50% - 5px);
+  top: calc(50% - 30px);
+  width: 10px;
+  height: 10px;
+  transform-origin: 50% 30px;
+  overflow: hidden;
+  color: transparent;
+}
+strong.circle span.word span.char::before {
+  content: attr(data-char);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--ink);
+  transform: translateY(100%);
+  transition: 0.3s ease-in-out;
+}
+/* 9 chars, 40deg apart */
+strong.circle span.word span.char:nth-child(1) {
+  transform: rotate(0deg);
+}
+strong.circle span.word span.char:nth-child(2) {
+  transform: rotate(40deg);
+}
+strong.circle span.word span.char:nth-child(3) {
+  transform: rotate(80deg);
+}
+strong.circle span.word span.char:nth-child(4) {
+  transform: rotate(120deg);
+}
+strong.circle span.word span.char:nth-child(5) {
+  transform: rotate(160deg);
+}
+strong.circle span.word span.char:nth-child(6) {
+  transform: rotate(200deg);
+}
+strong.circle span.word span.char:nth-child(7) {
+  transform: rotate(240deg);
+}
+strong.circle span.word span.char:nth-child(8) {
+  transform: rotate(280deg);
+}
+strong.circle span.word span.char:nth-child(9) {
+  transform: rotate(320deg);
+}
+
+/* close button's circle char color override */
+#close strong.circle span.word span.char::before {
+  color: var(--o);
+}
+#close:hover strong.circle span.word span.char::before {
+  color: var(--ink);
+}
+
+/* ══════════════════════════════════════════════════
+   IFRAME FRAME PANEL
+══════════════════════════════════════════════════ */
+#frame {
+  position: fixed;
+  z-index: 98;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: var(--bg);
+  display: grid;
+  place-items: center;
+  transition: 0.5s var(--expo);
+  transform: translateX(125%);
+  transition-delay: 0.5s;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+#frame::before,
+#frame::after {
+  content: "";
+  position: absolute;
+  width: 125%;
+  height: 100%;
+  top: 0;
+  left: -12.5%;
+  background: var(--o);
+  transition: transform 1s var(--expo);
+  transition-delay: 0.25s;
+  z-index: 999;
+  transform: translateX(0) skewX(5deg);
+}
+#frame::after {
+  z-index: 98;
+  background: linear-gradient(to right, var(--bg) 75%, var(--y) 100%);
+  transition: transform 1.25s var(--expo);
+}
+
+/* ── Close button ───────────────────────────────── */
+#close {
+  z-index: 999;
+  left: 45px;
+  top: 45px;
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  position: absolute;
+  cursor: pointer;
+  background: var(--bg);
+  box-shadow: 0 0 0 2px var(--ink), inset 0 0 0 0 var(--o), 0 0 0 20px var(--bg),
+    0 0 0 22px var(--o);
+  transform: rotate(180deg) scale(0);
+  transition: transform 0.3s ease-in-out, box-shadow 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#close:hover {
+  box-shadow: 0 0 0 2px var(--o), inset 0 0 0 20px var(--o),
+    0 0 0 20px var(--bg), 0 0 0 22px var(--o);
+}
+#close:hover div {
+  background: var(--bg);
+}
+#close:hover::before,
+#close:hover::after {
+  background: var(--bg);
+}
+#close div {
+  position: absolute;
+  top: calc(50% - 1px);
+  width: 20px;
+  left: 5px;
+  height: 2px;
+  background: var(--ink);
+  transition: transform 0.3s ease-in-out;
+  transition-delay: 0.6s;
+  transform-origin: right;
+  transform: scaleX(0);
+}
+#close::before,
+#close::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 2px;
+  background: var(--ink);
+  top: calc(50% - 1px);
+  left: 14px;
+  transition: transform 0.3s var(--elastic);
+  transition-delay: 0.3s;
+  transform-origin: right;
+  transform: scaleY(0) rotate(0deg);
+  z-index: 9;
+}
+
+/* ── Frame container ────────────────────────────── */
+.frame-wrap {
+  width: calc(100% - 10vw);
+  height: calc(100% - 10vw);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.frame-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 1200px;
+  max-height: 1200px;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 54px; /* room for the footer row */
+  box-sizing: border-box;
+}
+
+/* ── frame footer (Back to work / View on CodePen) ── */
+.frame-footer {
+  position: absolute;
+  left: 25px;
+  right: 25px;
+  bottom: 0;
+  z-index: 9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ── shared nav-link style (Back + CodePen link, magic-border mixin) ── */
+.frame-nav-link {
+  position: relative;
+  text-decoration: none;
+  color: var(--o);
+  font-weight: 900;
+  font-family: "Bungee", cursive;
+  font-size: 13px;
+  letter-spacing: -1px;
+  padding: 10px 15px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: color 0.2s ease-in-out, opacity 0.4s ease-in-out,
+    transform 0.5s var(--expo);
+  transition-delay: 0s;
+}
+body.active .frame-nav-link {
+  opacity: 1;
+  transform: translateY(0);
+}
+body.active #backlink {
+  transition-delay: 1.7s;
+}
+body.active #penlink {
+  transition-delay: 1.85s;
+}
+.frame-nav-link:hover {
+  color: var(--bg);
+}
+.frame-nav-link strong {
+  position: relative;
+  z-index: 9;
+}
+#penlink span {
+  display: inline-block;
+  animation: back-n-forth 0.5s ease-in-out infinite alternate;
+  animation-play-state: paused;
+}
+body.active #penlink span {
+  animation-play-state: running;
+}
+#backlink span {
+  display: inline-block;
+  animation: back-n-forth-rev 0.5s ease-in-out infinite alternate;
+  animation-play-state: paused;
+}
+body.active #backlink span {
+  animation-play-state: running;
+}
+@keyframes back-n-forth {
+  to {
+    transform: translateX(-2.5px);
+  }
+}
+@keyframes back-n-forth-rev {
+  to {
+    transform: translateX(2.5px);
+  }
+}
+
+/* magic-border via pseudo (translated from mixin($width:2px, $color:$g, $dur:0.2s, $dir:0)) */
+.frame-nav-link::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: linear-gradient(to bottom, var(--o) 50%, var(--y) 50%) 50% 100% /
+    100% 200% no-repeat;
+  left: 0;
+  top: 0;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.2s ease-in-out, background-position 0.2s ease-in-out;
+  transition-delay: calc(0.2s * 2.5), calc(0.2s * 3);
+}
+.frame-nav-link::before {
+  content: "";
+  position: absolute;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  top: -2px;
+  left: -2px;
+  background: linear-gradient(to right, var(--g) 0%, var(--g) 100%),
+    linear-gradient(to top, var(--g) 50%, transparent 50%),
+    linear-gradient(to top, var(--g) 50%, transparent 50%),
+    linear-gradient(to right, var(--g) 0%, var(--g) 100%),
+    linear-gradient(to left, var(--g) 0%, var(--g) 100%);
+  background-size: 100% 2px, 2px 200%, 2px 200%, 0% 2px, 0% 2px;
+  background-position: 50% 100%, 0% 0%, 100% 0%, 100% 0%, 0% 0%;
+  background-repeat: no-repeat;
+  transition: transform 0.2s ease-in-out, background-position 0.2s ease-in-out,
+    background-size 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  transform: scaleX(0) rotate(0deg);
+  transition-delay: calc(0.2s * 2), 0.2s, 0s, calc(0.2s * 3);
+  z-index: -1;
+}
+.frame-nav-link:hover::after {
+  transform: scaleY(1);
+  transform-origin: top;
+  background-position: 50% 0%;
+}
+.frame-nav-link:hover::before {
+  background-size: 200% 2px, 2px 400%, 2px 400%, 55% 2px, 55% 2px;
+  background-position: 50% 100%, 0% 100%, 100% 100%, 100% 0%, 0% 0%;
+  transform: scaleX(1) rotate(0deg);
+  transition-delay: 0s, 0.2s, calc(0.2s * 2);
+}
+
+/* ── secondary variant: Back to Work — same spot, much quieter ── */
+.frame-nav-link.secondary {
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+}
+body.active .frame-nav-link.secondary {
+  opacity: 0.55;
+}
+.frame-nav-link.secondary::before,
+.frame-nav-link.secondary::after {
+  content: none;
+}
+.frame-nav-link.secondary:hover {
+  color: var(--ink);
+  opacity: 1;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.frame-nav-link.secondary span {
+  animation: none !important;
+}
+
+/* ══════════════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════════════ */
+#site-footer {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  padding: 10vh 0 4vh;
+}
+#site-footer p.subhead {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+.footer-btns {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  margin: 26px 0 40px;
+}
+
+/* primary button — same magic-border mixin as .frame-nav-link, always on */
+.footer-btn {
+  position: relative;
+  text-decoration: none;
+  color: var(--o);
+  font-weight: 900;
+  font-family: "Bungee", cursive;
+  font-size: 14px;
+  letter-spacing: -1px;
+  padding: 14px 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  transition: color 0.2s ease-in-out, transform 0.2s var(--expo);
+}
+.footer-btn:hover {
+  transform: translateY(-2px);
+}
+.footer-btn:active {
+  transform: translateY(0);
+}
+.footer-btn:hover {
+  color: var(--bg);
+}
+.footer-btn strong {
+  position: relative;
+  z-index: 9;
+}
+.footer-btn span {
+  display: inline-block;
+  animation: back-n-forth 0.5s ease-in-out infinite alternate;
+  animation-play-state: paused;
+}
+.footer-btn:hover span {
+  animation-play-state: running;
+}
+.footer-btn::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: linear-gradient(to bottom, var(--o) 50%, var(--y) 50%) 50% 100% /
+    100% 200% no-repeat;
+  left: 0;
+  top: 0;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.2s ease-in-out, background-position 0.2s ease-in-out;
+  transition-delay: calc(0.2s * 2.5), calc(0.2s * 3);
+}
+.footer-btn::before {
+  content: "";
+  position: absolute;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  top: -2px;
+  left: -2px;
+  background: linear-gradient(to right, var(--g) 0%, var(--g) 100%),
+    linear-gradient(to top, var(--g) 50%, transparent 50%),
+    linear-gradient(to top, var(--g) 50%, transparent 50%),
+    linear-gradient(to right, var(--g) 0%, var(--g) 100%),
+    linear-gradient(to left, var(--g) 0%, var(--g) 100%);
+  background-size: 100% 2px, 2px 200%, 2px 200%, 0% 2px, 0% 2px;
+  background-position: 50% 100%, 0% 0%, 100% 0%, 100% 0%, 0% 0%;
+  background-repeat: no-repeat;
+  transition: transform 0.2s ease-in-out, background-position 0.2s ease-in-out,
+    background-size 0.2s ease-in-out;
+  transform: scaleX(0) rotate(0deg);
+  transition-delay: calc(0.2s * 2), 0.2s, 0s, calc(0.2s * 3);
+  z-index: -1;
+}
+.footer-btn:hover::after {
+  transform: scaleY(1);
+  transform-origin: top;
+  background-position: 50% 0%;
+}
+.footer-btn:hover::before {
+  background-size: 200% 2px, 2px 400%, 2px 400%, 55% 2px, 55% 2px;
+  background-position: 50% 100%, 0% 100%, 100% 100%, 100% 0%, 0% 0%;
+  transform: scaleX(1) rotate(0deg);
+  transition-delay: 0s, 0.2s, calc(0.2s * 2);
+}
+
+/* secondary button — quiet mono variant, echoes .frame-nav-link.secondary */
+.footer-btn.secondary {
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  opacity: 0.6;
+}
+.footer-btn.secondary::before,
+.footer-btn.secondary::after {
+  content: none;
+}
+.footer-btn.secondary:hover {
+  color: var(--ink);
+  opacity: 1;
+  transform: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.footer-btn.secondary span {
+  animation: none !important;
+}
+
+.footer-credit {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink);
+  opacity: 0.35;
+}
+
+@media (max-width: 640px) {
+  .footer-btns {
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
+/* ── pen embed wrapper (holds the embed + centers the nav arrows on it) ── */
+.pen-wrap {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  margin: 0 25px;
+}
+#pen-holder {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  border-radius: 5px;
+  visibility: hidden;
+  clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
+  transition: clip-path 0s linear, visibility 0s linear, opacity 1s ease-in-out,
+    transform 0.25s var(--expo);
+  transition-delay: 0.75s, 0.75s, 1.25s, 0s;
+  opacity: 0;
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.45);
+  overflow: auto;
+}
+/* ── slide transition between projects (nav arrows) ── */
+#pen-holder.slide-out-left {
+  transform: translateX(-30px);
+  opacity: 0;
+}
+#pen-holder.slide-out-right {
+  transform: translateX(30px);
+  opacity: 0;
+}
+#pen-holder.slide-in-right {
+  transform: translateX(30px);
+  opacity: 0;
+}
+#pen-holder.slide-in-left {
+  transform: translateX(-30px);
+  opacity: 0;
+}
+#pen-holder .cp_embed_wrapper,
+#pen-holder iframe.cp_embed_iframe {
+  width: 100% !important;
+  height: 100% !important;
+  border: none;
+}
+#pen-holder p.codepen {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+/* ── frame info card (index + title + description shown on click) ── */
+.frame-info {
+  position: relative;
+  flex: 0 0 auto;
+  padding: 4px 25px 18px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.4s ease-in-out, transform 0.4s var(--expo);
+  transition-delay: 0s;
+}
+body.active .frame-info {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 1.4s;
+}
+.frame-info .frame-index {
+  display: inline-block;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  color: var(--o);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+.frame-info h3 {
+  font-family: "Bungee", cursive;
+  color: var(--ink);
+  font-size: clamp(16px, 2.4vw, 24px);
+  line-height: 1.2;
+  margin: 0 0 10px;
+  max-width: 780px;
+}
+.frame-info p.frame-desc {
+  font-family: "IBM Plex Mono", monospace;
+  color: var(--ink);
+  font-size: 12px;
+  line-height: 1.65;
+  opacity: 0.65;
+  max-width: 620px;
+  letter-spacing: 0.01em;
+}
+
+/* ── prev / next slider controls (centered on the pen embed) ── */
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  z-index: 20;
+  width: 46px;
+  height: 46px;
+  border-radius: 100%;
+  transform: translateY(-50%);
+  background: var(--bg);
+  border: 2px solid var(--ink);
+  font-family: "Bungee", cursive;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--ink);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s ease-in-out, opacity 0.4s ease-in-out;
+  opacity: 0;
+  pointer-events: none;
+}
+body.active .nav-btn {
+  opacity: 1;
+  pointer-events: all;
+  transition-delay: 1.6s;
+}
+.nav-btn:hover {
+  background: var(--b);
+  color: var(--ink);
+  border-color: var(--b);
+  transform: translateY(-50%) scale(1.12);
+}
+.nav-btn:active {
+  transform: translateY(-50%) scale(0.95);
+}
+.nav-prev {
+  left: -14px;
+}
+.nav-next {
+  right: -14px;
+}
+
+@media (max-width: 760px) {
+  .frame-info {
+    padding: 4px 16px 14px;
+  }
+  .frame-info p.frame-desc {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    max-width: 90%;
+  }
+  .pen-wrap {
+    margin: 0 16px;
+  }
+  .nav-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 14px;
+  }
+  .nav-prev {
+    left: 4px;
+  }
+  .nav-next {
+    right: 4px;
+  }
+  .frame-footer {
+    left: 16px;
+    right: 16px;
+  }
+  .frame-nav-link {
+    font-size: 11px;
+    padding: 8px 10px;
+  }
+}
+
+/* ══════════════════════════════════════════════════
+   MAIN WRAP
+══════════════════════════════════════════════════ */
+#wrap {
+  display: block;
+  width: 1000px;
+  max-width: 85vw;
+  margin: 0 auto;
+  padding: 2.5vh 50px 25vh;
+  transition: 0.5s var(--expo);
+  transform: translateX(0%);
+  transition-delay: 0.75s;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* ── H1 ─────────────────────────────────────────── */
+h1 {
+  text-align: center;
+  font-family: "Bungee", cursive;
+  color: transparent;
+  font-size: clamp(60px, 10vw, 100px);
+  position: relative;
+  width: 100%;
+  line-height: 0.9;
+  padding: 10px 0;
+  overflow: hidden;
+  transition: transform 0.3s var(--expo);
+  transform: scaleX(0);
+  margin-bottom: 20px;
+  -webkit-text-stroke: 2px var(--ink);
+}
+h1::before,
+h1::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background: var(--ink);
+  z-index: 2;
+}
+h1::after {
+  transform-origin: left;
+  background: var(--o);
+  z-index: 3;
+  transform: scaleX(calc(1 - (var(--progress, 0) * 2)));
+}
+h1 span.word {
+  position: relative;
+  display: inline-block;
+  transform: translateY(calc((var(--progress, 0) * 1200px) - 200px));
+}
+h1 span.word::before {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, 150%);
+  content: attr(data-word);
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 2px var(--ink);
+  -webkit-background-clip: text;
+  background-image: linear-gradient(to bottom, var(--ink) 50%, var(--bg) 50%);
+  background-size: 100% 200%;
+  background-position: 50% 100%;
+  transition: 0.75s var(--elastic), background-position 0.5s var(--expo);
+  white-space: nowrap;
+}
+
+/* ── SUBHEAD ────────────────────────────────────── */
+p.subhead {
+  width: 100%;
+  text-align: center;
+  position: relative;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: clamp(10px, 1.1vw, 13px);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ink);
+  opacity: 0;
+  transform: translateY(50px);
+  transition: 0.6s ease-in-out;
+  padding: 8px 0;
+}
+p.subhead.final {
+  display: block;
+  margin: 0 auto;
+  width: 120px;
+}
+p.subhead.final::before,
+p.subhead.final::after {
+  content: "";
+  position: absolute;
+  width: 25vw;
+  max-width: 500px;
+  height: 1px;
+  border-bottom: 2px var(--ink) dashed;
+  top: calc(50% - 1.5px);
+  opacity: 0.25;
+  left: 120px;
+}
+p.subhead.final::after {
+  left: auto;
+  right: 120px;
+}
+
+/* ══════════════════════════════════════════════════
+   PANELS
+══════════════════════════════════════════════════ */
+.panel {
+  --progress: 0;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  margin-bottom: 25vh;
+  max-height: 75vh;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  padding: 20px;
+  box-sizing: border-box;
+  transition: 1s var(--expo);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  opacity: 0;
+}
+.panel:last-of-type {
+  margin-bottom: 0;
+}
+.panel:last-of-type .thumb::after {
+  display: none;
+}
+
+/* ── H2 HEADINGS ────────────────────────────────── */
+.panel h2 {
+  grid-area: 3 / 1 / 4 / 4;
+  font-family: "Bungee", cursive;
+  font-size: clamp(34px, 5vw, 64px);
+  position: relative;
+  z-index: 3;
+  color: transparent;
+  line-height: 1;
+  pointer-events: none;
+  align-self: center;
+  transform: translateY(calc(100px - (var(--progress) * 200px)));
+}
+.panel:nth-child(even) h2 {
+  grid-area: 3 / 3 / 4 / 6;
+  text-align: right;
+}
+@media (min-width: 1000px) {
+  .panel h2 {
+    grid-area: 3 / 1 / 4 / 5;
+    font-size: clamp(44px, 6vw, 82px);
+  }
+  .panel:nth-child(even) h2 {
+    grid-area: 3 / 2 / 4 / 6;
+  }
+}
+@media (max-width: 768px) {
+  .panel h2,
+  .panel:nth-child(even) h2 {
+    grid-area: 2 / 1 / 4 / 6;
+    text-align: left;
+    font-size: clamp(26px, 7vw, 48px);
+  }
+}
+
+/* ── Wave word spans — each gets different delay ── */
+/* $i = 1..6, delay = i * -0.25s
+   Encoded SVG: stroke matches --ink (#0D0020 → %230D0020) */
+.panel h2 span.word {
+  position: relative;
+  display: inline-block;
+  overflow: visible;
+  color: transparent;
+  padding: 20px 0;
+  margin: -20px 0;
+  animation: waving 3s linear infinite;
+}
+@keyframes waving {
+  to {
+    background-position: 200px 65px;
+  }
+}
+
+/* Per-word wave backgrounds with different animation-delays via inline style below,
+   but we provide the base rule here */
+.panel h2 span.word {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200%25' height='100%25'%3E%3Cdefs%3E%3Cstyle%3E.wave%7Banimation:wave 1s ease-in-out infinite alternate;animation-delay:-0.25s;stroke:%230D0020;stroke-width:2.5;stroke-linecap:square;fill:none%7D%40keyframes wave%7Bto%7Bd:path('M 0 40 Q 20 42.5 40 40 Q 60 37.5 80 40')%7D%7D%3C/style%3E%3C/defs%3E%3Cpattern id='w1' x='0' y='0' width='80' height='80' patternUnits='userSpaceOnUse'%3E%3Cpath class='wave' d='M 0 40 Q 20 37.5 40 40 Q 60 42.5 80 40'/%3E%3C/pattern%3E%3Crect width='100%25' height='100%25' fill='url(%23w1)'/%3E%3C/svg%3E");
+  background-position: 0px 65px;
+  background-size: 80px 80px;
+  background-repeat: repeat-x;
+}
+/* Word 2 */
+.panel h2 span.word:nth-of-type(2) {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200%25' height='100%25'%3E%3Cdefs%3E%3Cstyle%3E.wave%7Banimation:wave 1s ease-in-out infinite alternate;animation-delay:-0.5s;stroke:%230D0020;stroke-width:2.5;stroke-linecap:square;fill:none%7D%40keyframes wave%7Bto%7Bd:path('M 0 40 Q 20 42.5 40 40 Q 60 37.5 80 40')%7D%7D%3C/style%3E%3C/defs%3E%3Cpattern id='w2' x='0' y='0' width='80' height='80' patternUnits='userSpaceOnUse'%3E%3Cpath class='wave' d='M 0 40 Q 20 37.5 40 40 Q 60 42.5 80 40'/%3E%3C/pattern%3E%3Crect width='100%25' height='100%25' fill='url(%23w2)'/%3E%3C/svg%3E");
+}
+/* Word 3 */
+.panel h2 span.word:nth-of-type(3) {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200%25' height='100%25'%3E%3Cdefs%3E%3Cstyle%3E.wave%7Banimation:wave 1s ease-in-out infinite alternate;animation-delay:-0.75s;stroke:%230D0020;stroke-width:2.5;stroke-linecap:square;fill:none%7D%40keyframes wave%7Bto%7Bd:path('M 0 40 Q 20 42.5 40 40 Q 60 37.5 80 40')%7D%7D%3C/style%3E%3C/defs%3E%3Cpattern id='w3' x='0' y='0' width='80' height='80' patternUnits='userSpaceOnUse'%3E%3Cpath class='wave' d='M 0 40 Q 20 37.5 40 40 Q 60 42.5 80 40'/%3E%3C/pattern%3E%3Crect width='100%25' height='100%25' fill='url(%23w3)'/%3E%3C/svg%3E");
+}
+
+/* Color-reveal ::before driven by --progress */
+.panel h2 span.word::before {
+  content: attr(data-word);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(
+    to bottom,
+    transparent 25%,
+    var(--o) 25%,
+    var(--o) 75%,
+    transparent 75%
+  );
+  background-size: 100% 250%;
+  background-repeat: no-repeat;
+  background-position: 50% calc((var(--progress) * 200px) - 150px);
+  -webkit-text-stroke: 2px var(--o);
+  transition: transform 0.3s var(--elastic);
+  transition-delay: 1.25s;
+  white-space: nowrap;
+}
+.panel h2 span.word:nth-of-type(3n)::before {
+  background-position: 50% calc((var(--progress) * -200px) + 25px);
+}
+
+/* ── THUMB ──────────────────────────────────────── */
+/* accent cycles through the full palette, one color per panel in the sequence */
+.panel:nth-child(4n + 1) .thumb {
+  --accent: var(--o);
+}
+.panel:nth-child(4n + 2) .thumb {
+  --accent: var(--b);
+}
+.panel:nth-child(4n + 3) .thumb {
+  --accent: var(--g);
+}
+.panel:nth-child(4n) .thumb {
+  --accent: var(--y);
+}
+.thumb {
+  grid-area: 2 / 3 / 5 / 6;
+  position: relative;
+  box-shadow: 0 0 0 2px var(--ink);
+  transition: box-shadow 0.3s ease-in-out;
+  border-radius: 5px;
+}
+.panel:nth-child(even) .thumb {
+  grid-area: 2 / 1 / 5 / 4;
+}
+@media (max-width: 768px) {
+  .thumb,
+  .panel:nth-child(even) .thumb {
+    grid-area: 3 / 1 / 6 / 6;
+  }
+}
+.thumb * {
+  border-radius: 5px;
+}
+
+.thumb p {
+  position: absolute;
+  width: 100%;
+  top: -30px;
+  margin: 0;
+  color: var(--ink);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  left: 0;
+  text-align: center;
+}
+.panel:nth-child(even) .thumb p {
+  top: -50px;
+}
+
+/* dot-grid shadow offset */
+.thumb::before {
+  content: "";
+  position: absolute;
+  border-radius: 5px;
+  width: 100%;
+  height: 100%;
+  left: 5%;
+  top: 5%;
+  box-shadow: 0 0 0 2px var(--y), 0 0 0 0 var(--bg), 0 0 0 0 var(--o);
+  transition: transform 0.2s var(--expo), box-shadow 0.2s var(--expo);
+  transition-delay: 0.2s, 0s;
+  background: radial-gradient(
+        circle at center,
+        var(--ink) 1px,
+        rgba(255, 255, 255, 0.005) 1px,
+        rgba(255, 255, 255, 0.005) 20px
+      )
+      0px 0px / 20px 20px,
+    radial-gradient(
+        circle at center,
+        var(--ink) 1px,
+        rgba(255, 255, 255, 0.005) 1px,
+        rgba(255, 255, 255, 0.005) 20px
+      )
+      10px 10px / 20px 20px;
+  pointer-events: none;
+}
+.panel:nth-child(even) .thumb::before {
+  left: -5%;
+  top: -5%;
+}
+.thumb:hover::before {
+  transform: translate(-5%, -5%);
+  box-shadow: 0 0 0 2px var(--y), 0 0 0 6px var(--bg), 0 0 0 8px var(--o);
+  transition-delay: 0s, 0.2s;
+}
+.panel:nth-child(even) .thumb:hover::before {
+  transform: translate(5%, 5%);
+}
+
+/* dashed connector line */
+.thumb::after {
+  content: "";
+  position: absolute;
+  width: 50%;
+  height: calc(100% + 25vh);
+  left: 0;
+  top: 100%;
+  border-style: dashed;
+  border-width: 2px 2px 2px 2px;
+  border-color: transparent var(--ink) var(--ink) transparent;
+  border-radius: 0 0 10px 0;
+  opacity: 0.2;
+  pointer-events: none;
+}
+.panel:nth-child(even) .thumb::after {
+  transform: scaleX(-1);
+  left: 50%;
+}
+
+/* ── INNER (preview card, click target) ─────────── */
+.inner {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 2;
+  cursor: pointer;
+  border-radius: 5px;
+}
+/* lighten overlay */
+.inner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--o);
+  mix-blend-mode: lighten;
+  opacity: 0;
+  z-index: 2;
+  transition: opacity 0.3s ease-in-out;
+}
+/* bg fallback */
+.inner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--bg);
+  opacity: 1;
+  z-index: -2;
+}
+.inner:hover::before {
+  opacity: 0.25;
+}
+
+.inner img {
+  padding: 2vmin;
+  box-sizing: border-box;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  z-index: 1;
+  filter: saturate(0.9) contrast(1.05);
+  mix-blend-mode: normal;
+  will-change: transform;
+}
+.inner img.invert {
+  filter: invert(1) saturate(0.9) contrast(1.05);
+}
+.inner img.light {
+  filter: saturate(0.9) contrast(1.05) brightness(1.05);
+}
+.inner img.lighter {
+  filter: saturate(0.9) contrast(1.05) brightness(1.1);
+}
+
+/* ══════════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+  #wrap {
+    padding: 2.5vh 16px 18vh;
+    max-width: 96vw;
+  }
+  .panel {
+    max-height: 80vh;
+    margin-bottom: 16vh;
+    padding: 12px;
+  }
+  h1 {
+    font-size: clamp(40px, 13vw, 68px);
+  }
+  .panel h2 {
+    font-size: clamp(24px, 8vw, 44px) !important;
+  }
+}
