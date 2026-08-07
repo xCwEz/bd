@@ -47,7 +47,7 @@ Directeur Artistique, Designer UI/UX et Concepteur d'expériences numériques im
 
 Liste des projets ou chantiers actifs sur lesquels je veux que Claude m'aide :
 
-- Site portfolio personnel (création, structuration, publication)
+- Site portfolio personnel (création, structuration, publication) : expérience 3D immersive sur le thème d'un univers spatial (planètes, météorites), navigable en scroll/clic. Référence de niveau technique et d'animation : igloo.inc (Three.js, post-processing avancé, GSAP CustomEase, particules, matériaux physiques). L'option précédente (showroom voiture 3D) est abandonnée au profit de ce thème.
 
 ---
 

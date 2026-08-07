@@ -9,6 +9,12 @@
 
 ## 2026-08-05
 
+### Direction du portfolio final tranchée : univers spatial, niveau technique igloo.inc
+- Après exploration de deux pistes (showroom voiture 3D, puis clone à l'identique d'igloo.inc), Mickael tranche : le portfolio final sera un univers spatial (planètes, météorites) navigable en 3D, exploré en scroll/clic
+- Référence de niveau technique et d'animation : igloo.inc, analysé par reverse engineering de leur bundle JS (site non capturable visuellement, mais stack identifiée avec certitude) : Svelte + Vite, Three.js avec GLTFLoader/DRACOLoader/KTX2Loader, three-mesh-bvh, post-processing pmndrs (DoF, God Rays, Bloom sélectif, SMAA), GSAP avec CustomEase + Flip, Tweakpane pour le tuning en dev, particules multi-systèmes, matériaux physiques (clearcoat/transmission/iridescence)
+- L'option showroom voiture (roues en vue éclatée, phares séquencés, HUD holographique) est abandonnée comme direction du portfolio final
+- Décision consciente : viser le même niveau de savoir-faire technique qu'igloo.inc, pas un clone visuel de leur scène (risque de crédibilité si un client reconnaît le site d'un fonds crypto existant)
+
 ### Ajout de références design dans context/import/
 - Nouveau dossier `context/import/design/` avec 2 CodePen de référence pour le style visuel du portfolio
   - "GSAP 3D" (Front-End Developer & Designer Portfolio Showcase) : ScrollTrigger, recoloring dynamique au scroll, curseur élastique physique, chargement lazy des embeds
