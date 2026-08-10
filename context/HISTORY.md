@@ -7,6 +7,12 @@
 
 ---
 
+## 2026-08-10
+
+### Complétion du contexte : outils du quotidien et note techno portfolio
+- Section "Outils que j'utilise au quotidien" renseignée : Figma (design/UI), Spline (3D), Three.js / React Three Fiber, GSAP (dont ScrollTrigger), VS Code / Cursor (dev front & motion)
+- Section "Notes importantes" ouverte avec un point techno : le portfolio vise le niveau de finition d'igloo.inc (Three.js custom) ; Spline reste bon pour prototyper mais pas pour les finitions, la version finale devra être en Three.js / React Three Fiber
+
 ## 2026-08-05
 
 ### Direction du portfolio final tranchée : univers spatial, niveau technique igloo.inc
