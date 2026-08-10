@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mickael Leyssenne — Directeur Artistique & Expériences immersives</title>
+    <meta
+      name="description"
+      content="Portfolio immersif — direction artistique, UI/UX et expériences 3D temps réel."
+    />
+    <link rel="stylesheet" href="/src/styles/main.css" />
+  </head>
+  <body>
+    <!-- Le canvas WebGPU/WebGL est monte ici par l'Experience -->
+    <canvas class="webgl"></canvas>
+
+    <!-- Ecran de chargement (masque tant que les assets ne sont pas prets) -->
+    <div class="loader" data-loader>
+      <div class="loader__bar"><span data-loader-bar></span></div>
+    </div>
+
+    <!-- Contenu HTML scrollable pose au-dessus de la scene 3D.
+         Chaque section = un point d'ancrage pour le ScrollController. -->
+    <main class="content">
+      <section class="section" data-section="intro" data-index="0"></section>
+      <section class="section" data-section="planet-1" data-index="1"></section>
+      <section class="section" data-section="planet-2" data-index="2"></section>
+      <section class="section" data-section="contact" data-index="3"></section>
+    </main>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
