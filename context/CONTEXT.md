@@ -73,4 +73,6 @@ Structuration de l'offre freelance et création du site portfolio, de A à Z (cr
 
 > Cette section se remplira au fil du temps avec les éléments de contexte qui émergent naturellement dans mes sessions avec Claude.
 
-[VIDE INITIALEMENT - SE REMPLIRA AU FIL DU TEMPS]
+### Techno du portfolio : Spline vs niveau igloo.inc
+
+Le portfolio vise le niveau technique et de finition d'igloo.inc, qui repose sur du Three.js custom pointu (shaders, post-processing, chargement de modèles optimisés, matériaux physiques). Spline est très bon pour prototyper vite et tester des idées, mais il plafonne pour ce niveau de finition. À garder en tête : Spline pour le prototypage et l'itération rapide, mais la version finale immersive devra être construite en Three.js / React Three Fiber pour atteindre la qualité visée.
