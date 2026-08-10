@@ -55,7 +55,9 @@ Liste des projets ou chantiers actifs sur lesquels je veux que Claude m'aide :
 
 ### Outils que j'utilise au quotidien
 
-À préciser au fil des sessions (probablement Figma, Blender, outils front-end/3D — à confirmer avec Mickael).
+- **Design & UI :** Figma
+- **3D :** Spline
+- **Dev front & motion :** Three.js / React Three Fiber, GSAP (dont ScrollTrigger), VS Code / Cursor
 
 ### Style de communication préféré
 
