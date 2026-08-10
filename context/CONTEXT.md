@@ -48,6 +48,7 @@ Directeur Artistique, Designer UI/UX et Concepteur d'expériences numériques im
 Liste des projets ou chantiers actifs sur lesquels je veux que Claude m'aide :
 
 - Site portfolio personnel (création, structuration, publication) : expérience 3D immersive sur le thème d'un univers spatial (planètes, météorites), navigable en scroll/clic. Référence de niveau technique et d'animation : igloo.inc (Three.js, post-processing avancé, GSAP CustomEase, particules, matériaux physiques). L'option précédente (showroom voiture 3D) est abandonnée au profit de ce thème.
+- Site vitrine pour **Bourganeuf Automobiles** (garage automobile, Bourganeuf, Creuse) : premier client freelance décroché. Deadline : 2 semaines (à partir du 10/08/2026). Porte de garage 3D procédurale, scroll storytelling, page Contact, section Collection (catalogue de véhicules à vendre, photos réelles du client, reste du site 100% procédural). Base technique : projet Next.js + React Three Fiber + GSAP ScrollTrigger déjà entamé, repris et poursuivi. Contenu réel du client (photos, stock, coordonnées) pas encore reçu, le site avance avec des placeholders clairement identifiés.
 
 ---
 

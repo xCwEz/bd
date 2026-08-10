@@ -126,7 +126,7 @@ export default function Plan() {
             fontWeight="700"
             letterSpacing="4"
           >
-            BGF
+            BA
           </text>
         </g>
 

@@ -646,6 +646,209 @@ p {
   transition-delay: 160ms;
 }
 
+/* ── Collection ───────────────────────────────────────────────────────── */
+
+.collection {
+  position: relative;
+  z-index: 2;
+  padding-block: clamp(6rem, 16vh, 12rem) clamp(5rem, 14vh, 10rem);
+  background: linear-gradient(to bottom, var(--noir), var(--noir-profond));
+  border-top: 1px solid var(--acier-800);
+}
+
+.collection__entete {
+  max-width: 44rem;
+  margin-bottom: clamp(3.5rem, 10vh, 6rem);
+}
+
+.collection__entete .label {
+  display: block;
+  margin-bottom: 1.25rem;
+}
+
+.collection__chapeau {
+  margin-top: 1.5rem;
+  color: var(--texte-doux);
+  max-width: 34rem;
+}
+
+.collection__liste {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2.5rem, 5vw, 3.5rem);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+@media (min-width: 48rem) {
+  .collection__liste {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 62rem) {
+  .collection__liste {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.vehicule {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--acier-700);
+  background: linear-gradient(
+    150deg,
+    rgba(29, 33, 40, 0.28),
+    rgba(8, 9, 11, 0.34) 62%
+  );
+}
+
+.vehicule__visuel {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-bottom: 1px solid var(--acier-700);
+}
+
+/* Repli tant qu'aucune vraie photo n'est fournie : le nom du véhicule en
+   fond très estompé, et une mention explicite pour qu'on ne confonde jamais
+   ce repli avec une photo manquante par erreur. */
+.vehicule__attente {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  text-align: center;
+  padding: 1rem;
+  background: repeating-linear-gradient(
+      -45deg,
+      var(--acier-800) 0px,
+      var(--acier-800) 14px,
+      var(--acier-900) 14px,
+      var(--acier-900) 28px
+    ),
+    linear-gradient(150deg, #1d2128, #08090b 68%);
+}
+
+.vehicule__attente-nom {
+  font-family: var(--font-titre);
+  font-weight: 700;
+  font-size: clamp(1.1rem, 2.6vw, 1.6rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: rgba(245, 245, 245, 0.18);
+  text-transform: uppercase;
+}
+
+.vehicule__attente-label {
+  font-family: var(--font-texte);
+  font-size: 0.64rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--texte-faible);
+}
+
+.vehicule__corps {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 1.75rem;
+  gap: 0.9rem;
+}
+
+.vehicule__entete {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.vehicule__titre {
+  font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+}
+
+.vehicule__prix {
+  flex: none;
+  font-family: var(--font-titre);
+  font-weight: 700;
+  font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+  color: var(--rouge);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.vehicule__specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.9rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--texte-faible);
+}
+
+.vehicule__specs li + li {
+  position: relative;
+  padding-left: 1rem;
+}
+
+.vehicule__specs li + li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--acier-400);
+  transform: translateY(-50%);
+}
+
+.vehicule__description {
+  color: var(--texte-doux);
+  font-size: 0.9rem;
+  flex: 1;
+}
+
+.vehicule__cta {
+  align-self: flex-start;
+  margin-top: 0.25rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-titre);
+  font-weight: 700;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--blanc);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rouge);
+  padding-bottom: 0.2rem;
+  transition: color var(--duree-courte) var(--courbe);
+}
+
+.vehicule__cta:hover {
+  color: var(--rouge);
+}
+
+.vehicule__cta span {
+  display: inline-block;
+  transition: transform var(--duree-courte) var(--courbe);
+}
+
+.vehicule__cta:hover span {
+  transform: translateX(3px);
+}
+
 /* ── Contact ──────────────────────────────────────────────────────────── */
 
 .contact {
