@@ -7,6 +7,18 @@
 
 ---
 
+## 2026-08-10
+
+### Premier client décroché : Bourganeuf Automobiles
+- Nouveau client freelance : Bourganeuf Automobiles, garage automobile à Bourganeuf (Creuse). Deadline : 2 semaines
+- Décision : reprendre le projet de site déjà entamé (Next.js + React Three Fiber + GSAP ScrollTrigger, porte de garage procédurale, scroll storytelling, contact fonctionnel) comme base, déplacé de context/import vers un dossier de projet actif à la racine
+- Nouvelle section prévue : "Collection", catalogue de véhicules à vendre avec vraies photos fournies par le client — seule exception à la règle 100% procédurale du reste du site, qui elle est maintenue
+- Contenu réel du client (photos, stock, coordonnées) pas encore reçu : le site avance avec des placeholders clairement identifiés, à remplacer dès réception
+
+### Complétion du contexte : outils du quotidien et note techno portfolio
+- Section "Outils que j'utilise au quotidien" renseignée : Figma (design/UI), Spline (3D), Three.js / React Three Fiber, GSAP (dont ScrollTrigger), VS Code / Cursor (dev front & motion)
+- Section "Notes importantes" ouverte avec un point techno : le portfolio vise le niveau de finition d'igloo.inc (Three.js custom) ; Spline reste bon pour prototyper mais pas pour les finitions, la version finale devra être en Three.js / React Three Fiber
+
 ## 2026-08-05
 
 ### Direction du portfolio final tranchée : univers spatial, niveau technique igloo.inc

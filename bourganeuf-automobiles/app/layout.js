@@ -17,24 +17,25 @@ const manrope = Manrope({
 });
 
 export const metadata = {
-  metadataBase: new URL("https://bgf-garage.fr"),
-  title: "BGF — Garage d'exception à Lyon",
+  metadataBase: new URL("https://bourganeuf-automobiles.fr"),
+  title: "Bourganeuf Automobiles — Garage & concession à Bourganeuf, Creuse",
   description:
-    "BGF, atelier automobile haut de gamme à Lyon. Entretien, réparation, diagnostic, carrosserie et préparation esthétique, exécutés avec la précision d'un atelier d'exception.",
+    "Bourganeuf Automobiles, garage et concession à Bourganeuf (Creuse). Entretien, réparation, diagnostic, carrosserie, préparation esthétique, et un stock de véhicules d'occasion révisés dans notre propre atelier.",
   keywords: [
-    "garage Lyon",
+    "garage Bourganeuf",
+    "garage Creuse",
     "entretien automobile",
-    "carrosserie Lyon",
+    "carrosserie Creuse",
     "diagnostic automobile",
-    "préparation esthétique",
+    "véhicules d'occasion Creuse",
   ],
   openGraph: {
     type: "website",
     locale: "fr_FR",
-    title: "BGF — Garage d'exception à Lyon",
+    title: "Bourganeuf Automobiles — Garage & concession à Bourganeuf, Creuse",
     description:
-      "Entretien, réparation, diagnostic, carrosserie et préparation esthétique. Un atelier d'exception à Lyon.",
-    siteName: "BGF",
+      "Entretien, réparation, diagnostic, carrosserie, préparation esthétique, et un stock de véhicules d'occasion révisés dans notre propre atelier.",
+    siteName: "Bourganeuf Automobiles",
   },
 };
 
@@ -49,10 +50,10 @@ export const viewport = {
    figure dans lib/data.js. Elles suivent donc les mêmes valeurs fictives. */
 const donneesStructurees = {
   "@context": "https://schema.org",
-  "@type": "AutoRepair",
+  "@type": ["AutoRepair", "AutoDealer"],
   name: contact.raisonSociale,
   description:
-    "Atelier automobile haut de gamme à Lyon : entretien, réparation, diagnostic, carrosserie et préparation esthétique.",
+    "Garage et concession à Bourganeuf (Creuse) : entretien, réparation, diagnostic, carrosserie, préparation esthétique, et véhicules d'occasion.",
   telephone: contact.telephoneLien,
   email: contact.email,
   address: {

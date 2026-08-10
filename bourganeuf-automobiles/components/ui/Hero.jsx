@@ -54,7 +54,7 @@ export default function Hero() {
       id="top"
       ref={section}
       className={`hero${anime ? "" : " hero--fige"}`}
-      aria-label="Entrée du garage BGF"
+      aria-label="Entrée du garage Bourganeuf Automobiles"
     >
       <div className="hero__cadre">
         {environnement.pret && !environnement.webgl ? <ReplieStatique /> : null}
@@ -73,14 +73,14 @@ export default function Hero() {
         <div className="hero__voile" ref={voile}>
           <div>
             <h1 className="hero__titre">
-              BG<span className="accent">F</span>
+              B<span className="accent">A</span>
               <span className="lien-invisible">
                 {" "}
-                — garage d&rsquo;exception à Lyon
+                — Bourganeuf Automobiles, garage à Bourganeuf, Creuse
               </span>
             </h1>
             <p className="hero__baseline">
-              Garage d&rsquo;exception <span>—</span> Lyon
+              Bourganeuf Automobiles <span>—</span> Creuse
             </p>
           </div>
 
