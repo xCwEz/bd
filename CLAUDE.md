@@ -80,8 +80,9 @@ Une fois que je confirme, Claude met à jour le fichier en question et ajoute un
 │   │   └── morning.md           # /morning pour démarrer la journée
 │   └── skills/
 │       └── recherche-actualites/ # Skill veille personnalisée
-└── module-installs/
-    └── jarvis-install/          # Module d'installation initial
+├── module-installs/
+│   └── jarvis-install/          # Module d'installation initial
+└── bourganeuf-automobiles/      # Projet client actif (voir son propre CLAUDE.md)
 ```
 
 | Dossier | Utilité |
@@ -90,6 +91,7 @@ Une fois que je confirme, Claude met à jour le fichier en question et ajoute un
 | `context/import/` | Documents externes (PDFs, exports, notes) à analyser |
 | `.claude/commands/` | Commandes personnalisées de mon Jarvis |
 | `.claude/skills/` | Skills (super-pouvoirs) de mon Jarvis |
+| `bourganeuf-automobiles/` | Site vitrine du premier client freelance (Next.js + React Three Fiber). Documentation technique dans son propre `CLAUDE.md`, pas ici |
 | `module-installs/` | Modules d'installation (initial et futurs) |
 
 ---
