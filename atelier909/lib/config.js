@@ -14,6 +14,17 @@ export const SEUIL_VERIFICATION_ID = 500;
 /** Durée de blocage d'une variante à l'ajout au panier, en heures (règle n°3). */
 export const DUREE_RESERVATION_HEURES = 12;
 
+/**
+ * Délai maximal accordé à l'opérateur pour traiter une vérification
+ * d'identité, en heures. Passé ce délai sans validation ni refus, la
+ * réservation est libérée et la photo supprimée : sans cette limite, une
+ * commande oubliée retiendrait la pièce indéfiniment et conserverait la
+ * pièce d'identité sans terme, contrairement à l'engagement de
+ * conservation limitée. Valeur de configuration, à ajuster selon la
+ * réactivité réelle de l'opérateur.
+ */
+export const DELAI_TRAITEMENT_VERIFICATION_HEURES = 48;
+
 /** Frais de remise, en euros (règle métier n°4). */
 export const FRAIS_REMISE = {
   point_neutre: 0,

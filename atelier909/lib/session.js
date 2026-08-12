@@ -42,6 +42,14 @@ export function verifierInitData(initData, botToken) {
   }
 }
 
+/**
+ * Étiquette de domaine incluse dans la signature — voir le commentaire
+ * équivalent dans lib/auth.js. Les deux cookies partagent le même secret :
+ * seule cette distinction empêche un jeton utilisateur de valider comme
+ * jeton administrateur.
+ */
+const DOMAINE = "atelier909/utilisateur-v1";
+
 function secretCookie() {
   const valeur = process.env.ADMIN_SESSION_SECRET;
   if (!valeur) throw new Error("ADMIN_SESSION_SECRET manquant (voir .env.example).");
@@ -49,7 +57,7 @@ function secretCookie() {
 }
 
 function signer(payload) {
-  return createHmac("sha256", secretCookie()).update(payload).digest("hex");
+  return createHmac("sha256", secretCookie()).update(`${DOMAINE}:${payload}`).digest("hex");
 }
 
 /** `profil` : { username, prenom } — facultatif, absent en mode démo. */
@@ -66,7 +74,9 @@ export function creerJetonUtilisateur(telegramUserId, profil = {}) {
 
 function jetonValide(jeton) {
   if (!jeton) return null;
-  const [chargeEncodee, signature] = jeton.split(".");
+  const parties = jeton.split(".");
+  if (parties.length !== 2) return null;
+  const [chargeEncodee, signature] = parties;
   if (!chargeEncodee || !signature) return null;
 
   const attendu = signer(chargeEncodee);
@@ -76,7 +86,8 @@ function jetonValide(jeton) {
 
   try {
     const charge = JSON.parse(Buffer.from(chargeEncodee, "base64url").toString("utf-8"));
-    if (Date.now() > charge.exp) return null;
+    if (!Number.isFinite(charge.exp) || Date.now() > charge.exp) return null;
+    if (typeof charge.id !== "string" || !charge.id) return null;
     return { id: charge.id, username: charge.u, prenom: charge.n };
   } catch {
     return null;

@@ -1,7 +1,13 @@
 import { readFile, writeFile } from "fs/promises";
 import path from "path";
 import { listerProduits, enregistrerProduits } from "@/lib/produits";
-import { DUREE_RESERVATION_HEURES, FRAIS_REMISE, SEUIL_VERIFICATION_ID, genererCodeRemise } from "@/lib/config";
+import {
+  DUREE_RESERVATION_HEURES,
+  DELAI_TRAITEMENT_VERIFICATION_HEURES,
+  FRAIS_REMISE,
+  SEUIL_VERIFICATION_ID,
+  genererCodeRemise,
+} from "@/lib/config";
 import { chiffrerEtEnregistrer, supprimerPhoto } from "@/lib/identite";
 
 const CHEMIN_DONNEES = path.join(process.cwd(), "data", "commandes.json");
@@ -345,9 +351,29 @@ export const marquerCommandeRemise = serialise(async function marquerCommandeRem
 async function purgerReservationsExpireesSansVerrou() {
   const commandes = await listerCommandesBrut();
   const maintenant = Date.now();
-  const aExpirer = commandes.filter(
-    (c) => c.statut === "panier" && c.reservationExpire && new Date(c.reservationExpire).getTime() < maintenant
-  );
+  const aExpirer = commandes.filter((commande) => {
+    // Panier ordinaire : la réservation de 12h fait foi (règle n°3).
+    if (commande.statut === "panier") {
+      return (
+        commande.reservationExpire && new Date(commande.reservationExpire).getTime() < maintenant
+      );
+    }
+    // Créneau retenu mais vérification jamais traitée : la réservation de
+    // 12h ne court plus, c'est le délai de traitement qui borne l'attente.
+    // Sans cette branche, une commande oubliée par l'opérateur retient la
+    // pièce indéfiniment et conserve la pièce d'identité sans terme.
+    if (commande.statut === "attente_verification") {
+      const envoyeeLe = commande.verification?.envoyeeLe;
+      return (
+        commande.verification?.statut === "en_attente" &&
+        envoyeeLe &&
+        new Date(envoyeeLe).getTime() +
+          DELAI_TRAITEMENT_VERIFICATION_HEURES * 60 * 60 * 1000 <
+          maintenant
+      );
+    }
+    return false;
+  });
   if (aExpirer.length === 0) return [];
 
   const produits = await listerProduits();
@@ -360,13 +386,14 @@ async function purgerReservationsExpireesSansVerrou() {
     commande.statut = "expiree";
     commande.lignesExpirees = commande.lignes;
     commande.lignes = [];
-    // Cas réel, pas un filet de sécurité théorique : l'envoi de la pièce
-    // d'identité n'interrompt pas la réservation (règle n°6, non bloquant),
-    // donc un panier peut expirer alors qu'une vérification est encore
-    // "en_attente" — photo jamais suivie d'un rendez-vous verrouillé.
+    // Deux chemins mènent ici avec une photo encore en attente : un panier
+    // expiré alors que l'envoi n'avait pas encore été traité (l'envoi
+    // n'interrompt pas la réservation, règle n°6), et une commande dont
+    // l'opérateur n'a jamais traité la vérification. Dans les deux cas la
+    // photo n'a plus aucun usage : elle part avec la réservation.
     if (commande.verification?.statut === "en_attente") {
       await supprimerPhoto(commande.verification.fichier);
-      commande.verification.statut = "refusee";
+      commande.verification.statut = "expiree";
       commande.verification.fichier = null;
       commande.verification.iv = null;
       commande.verification.authTag = null;

@@ -5,6 +5,7 @@ export default async function PageConnexion({ searchParams }) {
   if (await estAdminConnecte()) redirect("/admin");
   const params = await searchParams;
   const echec = params?.echec === "1";
+  const bloque = params?.echec === "trop";
 
   return (
     <div style={{ padding: "60px 24px", maxWidth: 360, margin: "0 auto" }}>
@@ -29,6 +30,11 @@ export default async function PageConnexion({ searchParams }) {
         </button>
         {echec && (
           <p style={{ color: "var(--accent-alerte)", fontSize: 13 }}>Mot de passe incorrect.</p>
+        )}
+        {bloque && (
+          <p style={{ color: "var(--accent-alerte)", fontSize: 13 }}>
+            Trop de tentatives. Réessayez dans une quinzaine de minutes.
+          </p>
         )}
       </form>
     </div>

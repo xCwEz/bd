@@ -20,7 +20,14 @@ npm run start
 Copier `.env.example` en `.env.local` avant de lancer le back-office ou le
 panier (`ADMIN_PASSWORD`, `ADMIN_SESSION_SECRET`, `IDENTITE_CHIFFREMENT_CLE`
 obligatoires ; `TELEGRAM_BOT_TOKEN` et `TELEGRAM_OPERATOR_CHAT_ID`
-optionnels, voir « Sessions et notifications »).
+optionnels en développement, **requis en production**, voir « Sessions et
+notifications »).
+
+**Tester le parcours acheteur en local** : utiliser `npm run dev`. La
+session de démonstration (sans Telegram) n'est délivrée qu'en
+développement ; `npm run start` force le mode production, où l'absence de
+`TELEGRAM_BOT_TOKEN` fait répondre `503` à `/api/session` plutôt que de
+distribuer des sessions anonymes.
 
 ## Structure
 
@@ -134,7 +141,14 @@ cron externe que l'opérateur n'a pas encore :
   ne conserve que `valideeLe` comme trace d'audit, jamais l'image ;
 - **réservation expirée avec vérification en attente** (photo envoyée mais
   jamais suivie d'un rendez-vous verrouillé) → suppression au même moment
-  que la restauration du stock.
+  que la restauration du stock ;
+- **vérification jamais traitée par l'opérateur** → au-delà de
+  `DELAI_TRAITEMENT_VERIFICATION_HEURES` (48h par défaut,
+  `lib/config.js`), la réservation est libérée et la photo supprimée. Sans
+  cette borne, une commande oubliée retenait la pièce indéfiniment et
+  conservait la pièce d'identité sans terme — la réservation de 12h ne
+  court plus une fois le créneau retenu. Ajuster ce délai selon la
+  réactivité réelle de l'opérateur.
 
 Aucune copie de sauvegarde ne survit à ces suppressions : le fichier chiffré
 est la seule copie, et `unlink()` est la seule voie de sortie.
@@ -143,10 +157,17 @@ est la seule copie, et `unlink()` est la seule voie de sortie.
 
 `lib/session.js` vérifie la signature `initData` (HMAC, algorithme officiel
 Telegram) dès que `TELEGRAM_BOT_TOKEN` est configuré — point non négociable
-du README de passation. Sans ce token (développement local, hors webview
-Telegram), une session de démonstration est créée automatiquement pour que
-le parcours reste testable ; ce repli est désactivé dès que le token est
-présent.
+du README de passation. Sans ce token, une session de démonstration est
+créée pour que le parcours reste testable en local ; ce repli est désactivé
+dès que le token est présent, **et refusé en production** (`503`), où il
+donnerait sinon une session valide à n'importe quel visiteur anonyme,
+capable de bloquer du stock sans identité derrière.
+
+Les deux cookies (client et back-office) sont signés avec le même secret
+mais **avec des étiquettes de domaine distinctes**. Sans cette séparation,
+un jeton client recopié dans le cookie admin valide comme jeton admin —
+faille d'élévation de privilège identifiée et corrigée lors de l'audit du
+projet.
 
 `lib/telegram.js` envoie des notifications via l'API Bot (`sendMessage`),
 jamais la photo elle-même dans un fil Telegram persistant : rendez-vous
