@@ -14,12 +14,19 @@ export async function POST(requete) {
   try {
     const commande = await confirmerRendezVous(telegramUserId, creneau);
     const { total } = calculerTotaux(commande);
-
     const lignes = commande.lignes.map((l) => `• ${l.marque} ${l.nom} (${l.taille})`).join("\n");
-    await envoyerMessageTelegram(
-      chatIdOperateur(),
-      `<b>Rendez-vous confirmé — ${commande.id}</b>\n${lignes}\n\nCréneau : ${creneau}\nTotal espèces : ${FORMATEUR_PRIX.format(total)}\nCode de remise : ${commande.codeRemise}`
-    );
+
+    if (commande.statut === "attente_verification") {
+      await envoyerMessageTelegram(
+        chatIdOperateur(),
+        `<b>Créneau retenu, en attente de vérification</b>\nCommande ${commande.id}\n${lignes}\n\nCréneau : ${creneau}\nÀ valider dans /admin/verifications avant confirmation.`
+      );
+    } else {
+      await envoyerMessageTelegram(
+        chatIdOperateur(),
+        `<b>Rendez-vous confirmé — ${commande.id}</b>\n${lignes}\n\nCréneau : ${creneau}\nTotal espèces : ${FORMATEUR_PRIX.format(total)}\nCode de remise : ${commande.codeRemise}`
+      );
+    }
 
     return NextResponse.json({ commande });
   } catch (erreur) {

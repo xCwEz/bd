@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { estAdminConnecte } from "@/lib/auth";
 import { listerProduits } from "@/lib/produits";
+import { verificationsEnAttente } from "@/lib/commandes";
 import { FORMATEUR_PRIX, prixAffiche } from "@/lib/formatage";
 
 export const dynamic = "force-dynamic";
@@ -9,6 +10,7 @@ export const dynamic = "force-dynamic";
 export default async function PageAdmin() {
   if (!(await estAdminConnecte())) redirect("/admin/connexion");
   const produits = await listerProduits();
+  const enAttente = await verificationsEnAttente();
 
   return (
     <div className="admin">
@@ -27,6 +29,9 @@ export default async function PageAdmin() {
         </Link>
         <Link href="/admin/commandes" className="admin-lien-bouton">
           Commandes
+        </Link>
+        <Link href="/admin/verifications" className="admin-lien-bouton" style={enAttente.length > 0 ? { borderColor: "var(--accent-alerte)", color: "var(--accent-alerte)" } : undefined}>
+          Vérifications{enAttente.length > 0 ? ` (${enAttente.length})` : ""}
         </Link>
       </div>
 

@@ -9,6 +9,7 @@ import { assurerSession } from "@/lib/panier-client";
 
 export default function RendezVousClient() {
   const router = useRouter();
+  const [commande, setCommande] = useState(null);
   const [totaux, setTotaux] = useState(null);
   const [creneauChoisi, setCreneauChoisi] = useState(null);
   const [envoi, setEnvoi] = useState(false);
@@ -21,10 +22,15 @@ export default function RendezVousClient() {
       const reponse = await fetch("/api/panier");
       const donnees = await reponse.json();
       const total = donnees.totaux?.total ?? 0;
-      if (!donnees.commande || donnees.commande.lignes.length === 0 || !donnees.commande.modeRemise || total >= SEUIL_VERIFICATION_ID) {
+      const identiteRequise = total >= SEUIL_VERIFICATION_ID;
+      const verificationEnvoyee =
+        donnees.commande?.verification?.statut === "en_attente" || donnees.commande?.verification?.statut === "validee";
+
+      if (!donnees.commande || donnees.commande.lignes.length === 0 || !donnees.commande.modeRemise || (identiteRequise && !verificationEnvoyee)) {
         router.replace("/panier");
         return;
       }
+      setCommande(donnees.commande);
       setTotaux(donnees.totaux);
     })();
   }, [router]);
@@ -50,6 +56,7 @@ export default function RendezVousClient() {
   if (!totaux) return null;
 
   const coupures = repartirEnCoupures(totaux.total);
+  const verificationEnAttente = commande?.verification?.statut === "en_attente";
 
   return (
     <div className="ecran-rdv">
@@ -94,6 +101,13 @@ export default function RendezVousClient() {
           ))}
         </div>
       </div>
+
+      {verificationEnAttente && (
+        <p className="recap-mention" style={{ textAlign: "center", marginTop: 18 }}>
+          Votre pièce d'identité est en cours de vérification. Le créneau sera retenu, la confirmation et le code de
+          remise arriveront après validation.
+        </p>
+      )}
 
       {erreur && <p className="barre-action-produit-erreur" style={{ position: "static", marginTop: 16 }}>{erreur}</p>}
 

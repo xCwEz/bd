@@ -2,6 +2,7 @@ import { readFile, writeFile } from "fs/promises";
 import path from "path";
 import { listerProduits, enregistrerProduits } from "@/lib/produits";
 import { DUREE_RESERVATION_HEURES, FRAIS_REMISE, SEUIL_VERIFICATION_ID, genererCodeRemise } from "@/lib/config";
+import { chiffrerEtEnregistrer, supprimerPhoto } from "@/lib/identite";
 
 const CHEMIN_DONNEES = path.join(process.cwd(), "data", "commandes.json");
 
@@ -48,27 +49,7 @@ async function enregistrerCommandesBrut(commandes) {
  * JSON, la purge est donc paresseuse (vérifiée à la prochaine requête).
  */
 export const purgerReservationsExpirees = serialise(async function purgerReservationsExpirees() {
-  const commandes = await listerCommandesBrut();
-  const maintenant = Date.now();
-  const aExpirer = commandes.filter(
-    (c) => c.statut === "panier" && c.reservationExpire && new Date(c.reservationExpire).getTime() < maintenant
-  );
-  if (aExpirer.length === 0) return [];
-
-  const produits = await listerProduits();
-  for (const commande of aExpirer) {
-    for (const ligne of commande.lignes) {
-      const produit = produits.find((p) => p.ref === ligne.ref);
-      const variante = produit?.variantes.find((v) => v.taille === ligne.taille);
-      if (variante) variante.stock += 1;
-    }
-    commande.statut = "expiree";
-    commande.lignesExpirees = commande.lignes;
-    commande.lignes = [];
-  }
-  await enregistrerProduits(produits);
-  await enregistrerCommandesBrut(commandes);
-  return aExpirer;
+  return purgerReservationsExpireesSansVerrou();
 });
 
 export async function listerCommandes() {
@@ -82,13 +63,18 @@ export async function trouverPanierActif(telegramUserId) {
   return commandes.find((c) => c.telegramUserId === telegramUserId && c.statut === "panier") ?? null;
 }
 
+export async function trouverCommande(id) {
+  const commandes = await listerCommandesBrut();
+  return commandes.find((c) => c.id === id) ?? null;
+}
+
 export function calculerTotaux(commande) {
   const sousTotal = commande.lignes.reduce((somme, l) => somme + l.prixUnitaire, 0);
   const frais = commande.modeRemise ? FRAIS_REMISE[commande.modeRemise] ?? 0 : 0;
   return { sousTotal, frais, total: sousTotal + frais };
 }
 
-export const ajouterAuPanier = serialise(async function ajouterAuPanier(telegramUserId, ref, taille) {
+export const ajouterAuPanier = serialise(async function ajouterAuPanier(telegramUserId, ref, taille, acheteur = {}) {
   await purgerReservationsExpireesSansVerrou();
 
   const produits = await listerProduits();
@@ -108,12 +94,14 @@ export const ajouterAuPanier = serialise(async function ajouterAuPanier(telegram
     commande = {
       id: `cmd_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
       telegramUserId,
+      acheteur: { username: acheteur.username ?? null, prenom: acheteur.prenom ?? null },
       statut: "panier",
       lignes: [],
       modeRemise: null,
       creneau: null,
       codeRemise: null,
       reservationExpire: null,
+      verification: null,
       dateCreation: new Date().toISOString(),
       dateConfirmation: null,
       dateRemise: null,
@@ -166,6 +154,41 @@ export const definirModeRemise = serialise(async function definirModeRemise(tele
   return commande;
 });
 
+/**
+ * Envoi de la pièce d'identité (règle n°5-6) : non bloquant, la commande
+ * reste au statut « panier » et l'acheteur peut continuer immédiatement
+ * vers le rendez-vous. Seule la confirmation finale attend la validation.
+ */
+export const envoyerVerificationIdentite = serialise(async function envoyerVerificationIdentite(
+  telegramUserId,
+  octets,
+  mimeType
+) {
+  await purgerReservationsExpireesSansVerrou();
+  const commandes = await listerCommandesBrut();
+  const commande = commandes.find((c) => c.telegramUserId === telegramUserId && c.statut === "panier");
+  if (!commande || commande.lignes.length === 0) throw new ErreurMetier("Panier vide.");
+
+  const { total } = calculerTotaux(commande);
+  if (total < SEUIL_VERIFICATION_ID) {
+    throw new ErreurMetier("Aucune vérification d'identité requise pour ce montant.");
+  }
+
+  const meta = await chiffrerEtEnregistrer(commande.id, octets, mimeType);
+  commande.verification = {
+    statut: "en_attente",
+    envoyeeLe: new Date().toISOString(),
+    fichier: meta.fichier,
+    iv: meta.iv,
+    authTag: meta.authTag,
+    mimeType: meta.mimeType,
+    valideeLe: null,
+    refuseeLe: null,
+  };
+  await enregistrerCommandesBrut(commandes);
+  return commande;
+});
+
 export const confirmerRendezVous = serialise(async function confirmerRendezVous(telegramUserId, creneau) {
   await purgerReservationsExpireesSansVerrou();
   const commandes = await listerCommandesBrut();
@@ -175,19 +198,87 @@ export const confirmerRendezVous = serialise(async function confirmerRendezVous(
   if (!creneau) throw new ErreurMetier("Choisissez un créneau.");
 
   const { total } = calculerTotaux(commande);
-  if (total >= SEUIL_VERIFICATION_ID) {
-    throw new ErreurMetier(
-      "La vérification d'identité au-delà de 500 € n'est pas encore disponible. Cette commande ne peut pas être confirmée pour l'instant."
-    );
+  const verificationRequise = total >= SEUIL_VERIFICATION_ID;
+  const dejaValidee = commande.verification?.statut === "validee";
+
+  if (verificationRequise && !commande.verification) {
+    throw new ErreurMetier("Envoyez votre pièce d'identité avant de convenir de la remise.");
+  }
+
+  commande.creneau = creneau;
+
+  if (verificationRequise && !dejaValidee) {
+    // Règle n°6 : bloquante à la confirmation — le créneau est retenu mais
+    // la commande n'est confirmée (code de remise généré) qu'après la
+    // validation manuelle de l'opérateur, voir validerVerification().
+    commande.statut = "attente_verification";
+    await enregistrerCommandesBrut(commandes);
+    return commande;
   }
 
   commande.statut = "confirmee";
-  commande.creneau = creneau;
   commande.codeRemise = genererCodeRemise();
   commande.dateConfirmation = new Date().toISOString();
   await enregistrerCommandesBrut(commandes);
   return commande;
 });
+
+/** Validation manuelle par l'opérateur (règle n°6, n°8). */
+export const validerVerification = serialise(async function validerVerification(commandeId) {
+  const commandes = await listerCommandesBrut();
+  const commande = commandes.find((c) => c.id === commandeId);
+  if (!commande?.verification) throw new ErreurMetier("Vérification introuvable.");
+  if (commande.verification.statut !== "en_attente") throw new ErreurMetier("Cette vérification a déjà été traitée.");
+
+  commande.verification.statut = "validee";
+  commande.verification.valideeLe = new Date().toISOString();
+
+  if (commande.statut === "attente_verification") {
+    commande.statut = "confirmee";
+    commande.codeRemise = genererCodeRemise();
+    commande.dateConfirmation = new Date().toISOString();
+  }
+
+  await enregistrerCommandesBrut(commandes);
+  return commande;
+});
+
+/** Refus par l'opérateur (règle n°7) : panier libéré, variante remise en ligne. */
+export const refuserVerification = serialise(async function refuserVerification(commandeId) {
+  const commandes = await listerCommandesBrut();
+  const commande = commandes.find((c) => c.id === commandeId);
+  if (!commande?.verification) throw new ErreurMetier("Vérification introuvable.");
+  if (commande.verification.statut !== "en_attente") throw new ErreurMetier("Cette vérification a déjà été traitée.");
+
+  const produits = await listerProduits();
+  for (const ligne of commande.lignes) {
+    const produit = produits.find((p) => p.ref === ligne.ref);
+    const variante = produit?.variantes.find((v) => v.taille === ligne.taille);
+    if (variante) variante.stock += 1;
+  }
+  await enregistrerProduits(produits);
+
+  await supprimerPhoto(commande.verification.fichier);
+  commande.verification.statut = "refusee";
+  commande.verification.refuseeLe = new Date().toISOString();
+  commande.verification.fichier = null;
+  commande.verification.iv = null;
+  commande.verification.authTag = null;
+
+  commande.statut = "refusee";
+  commande.lignesExpirees = commande.lignes;
+  commande.lignes = [];
+
+  await enregistrerCommandesBrut(commandes);
+  return commande;
+});
+
+export async function verificationsEnAttente() {
+  const commandes = await listerCommandesBrut();
+  return commandes
+    .filter((c) => c.verification?.statut === "en_attente")
+    .sort((a, b) => new Date(a.verification.envoyeeLe) - new Date(b.verification.envoyeeLe));
+}
 
 export async function commandesUtilisateur(telegramUserId) {
   await purgerReservationsExpirees();
@@ -195,6 +286,21 @@ export async function commandesUtilisateur(telegramUserId) {
   return commandes
     .filter((c) => c.telegramUserId === telegramUserId && ["confirmee", "remise"].includes(c.statut))
     .sort((a, b) => new Date(b.dateConfirmation) - new Date(a.dateConfirmation));
+}
+
+export async function commandeEnCoursUtilisateur(telegramUserId) {
+  await purgerReservationsExpirees();
+  const commandes = await listerCommandesBrut();
+  return (
+    commandes
+      .filter((c) => c.telegramUserId === telegramUserId && ["attente_verification", "confirmee"].includes(c.statut))
+      .sort((a, b) => new Date(b.dateCreation) - new Date(a.dateCreation))[0] ?? null
+  );
+}
+
+export async function aEteVerifieAuMoinsUneFois(telegramUserId) {
+  const commandes = await listerCommandesBrut();
+  return commandes.some((c) => c.telegramUserId === telegramUserId && c.verification?.statut === "validee");
 }
 
 export async function commandesConfirmees() {
@@ -218,6 +324,16 @@ export const marquerCommandeRemise = serialise(async function marquerCommandeRem
   if (!commande) throw new ErreurMetier("Commande introuvable.");
   commande.statut = "remise";
   commande.dateRemise = new Date().toISOString();
+
+  // « Suppression automatique dès la remise effectuée » : ne garder que
+  // valideeLe comme trace, jamais l'image (voir README, Confidentialité).
+  if (commande.verification?.fichier) {
+    await supprimerPhoto(commande.verification.fichier);
+    commande.verification.fichier = null;
+    commande.verification.iv = null;
+    commande.verification.authTag = null;
+  }
+
   await enregistrerCommandesBrut(commandes);
   return commande;
 });
@@ -244,6 +360,17 @@ async function purgerReservationsExpireesSansVerrou() {
     commande.statut = "expiree";
     commande.lignesExpirees = commande.lignes;
     commande.lignes = [];
+    // Cas réel, pas un filet de sécurité théorique : l'envoi de la pièce
+    // d'identité n'interrompt pas la réservation (règle n°6, non bloquant),
+    // donc un panier peut expirer alors qu'une vérification est encore
+    // "en_attente" — photo jamais suivie d'un rendez-vous verrouillé.
+    if (commande.verification?.statut === "en_attente") {
+      await supprimerPhoto(commande.verification.fichier);
+      commande.verification.statut = "refusee";
+      commande.verification.fichier = null;
+      commande.verification.iv = null;
+      commande.verification.authTag = null;
+    }
   }
   await enregistrerProduits(produits);
   await enregistrerCommandesBrut(commandes);

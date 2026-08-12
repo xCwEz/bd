@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import MediaPlaceholder from "./MediaPlaceholder";
 import EcranAttente from "./EcranAttente";
+import FeuilleVerificationIdentite from "./FeuilleVerificationIdentite";
 import { FORMATEUR_PRIX } from "@/lib/formatage";
 import { MODES_REMISE } from "@/lib/config";
 import { assurerSession } from "@/lib/panier-client";
@@ -23,6 +24,7 @@ export default function PanierClient() {
   const [etat, setEtat] = useState({ chargement: true, commande: null, totaux: null, seuil: 500 });
   const [restant, setRestant] = useState(0);
   const [enCours, setEnCours] = useState(false);
+  const [feuilleOuverte, setFeuilleOuverte] = useState(false);
 
   const charger = useCallback(async () => {
     await assurerSession();
@@ -90,6 +92,8 @@ export default function PanierClient() {
   }
 
   const identiteRequise = totaux.total >= seuil;
+  const verification = commande.verification;
+  const verificationEnvoyee = verification?.statut === "en_attente" || verification?.statut === "validee";
 
   return (
     <div className="ecran-panier">
@@ -154,28 +158,63 @@ export default function PanierClient() {
         <p className="recap-mention">Montant exact recommandé. Pas de monnaie rendue au-delà de 20 €.</p>
       </div>
 
-      {identiteRequise && (
+      {identiteRequise && !verification && (
         <div className="encart-identite">
           <span className="encart-identite-prefixe mono">ID</span>
           <p className="encart-identite-texte">
-            Pièce d'identité demandée au-delà de {FORMATEUR_PRIX.format(seuil)}. Cette étape n'est pas encore
-            disponible dans la boutique — la commande ne peut pas être confirmée pour l'instant.
+            Pièce d'identité demandée au-delà de {FORMATEUR_PRIX.format(seuil)}. Étape à faire avant la confirmation
+            du rendez-vous.
           </p>
         </div>
       )}
 
-      <button
-        type="button"
-        className="bouton-panier-principal chrome-bouton"
-        disabled={identiteRequise || !commande.modeRemise || enCours}
-        onClick={() => router.push("/panier/rendez-vous")}
-      >
-        {identiteRequise ? "Vérification d'identité indisponible" : "Convenir de la remise"}
-      </button>
-      {!identiteRequise && !commande.modeRemise && (
+      {identiteRequise && verification?.statut === "en_attente" && (
+        <div className="encart-identite-banniere">
+          <span className="point-etat" />
+          Contrôle envoyé. Le rendez-vous sera confirmé après vérification.
+        </div>
+      )}
+
+      {identiteRequise && verification?.statut === "validee" && (
+        <div className="encart-identite-banniere">
+          <span className="point-etat" />
+          Identité vérifiée.
+        </div>
+      )}
+
+      {identiteRequise && !verificationEnvoyee ? (
+        <button
+          type="button"
+          className="bouton-panier-principal chrome-bouton"
+          disabled={enCours}
+          onClick={() => setFeuilleOuverte(true)}
+        >
+          Vérifier mon identité
+        </button>
+      ) : (
+        <button
+          type="button"
+          className="bouton-panier-principal chrome-bouton"
+          disabled={!commande.modeRemise || enCours}
+          onClick={() => router.push("/panier/rendez-vous")}
+        >
+          Convenir de la remise
+        </button>
+      )}
+      {(!identiteRequise || verificationEnvoyee) && !commande.modeRemise && (
         <p className="recap-mention" style={{ textAlign: "center" }}>
           Choisissez un mode de remise pour continuer.
         </p>
+      )}
+
+      {feuilleOuverte && (
+        <FeuilleVerificationIdentite
+          onFermer={() => setFeuilleOuverte(false)}
+          onEnvoye={(nouvelleCommande) => {
+            setEtat((e) => ({ ...e, commande: nouvelleCommande }));
+            setFeuilleOuverte(false);
+          }}
+        />
       )}
     </div>
   );

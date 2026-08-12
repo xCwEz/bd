@@ -11,3 +11,6 @@ yarn-error.log*
 !.env.example
 /.vercel
 next-env.d.ts
+
+# Photos de pièce d'identité chiffrées — jamais dans le dépôt, jamais dans public/.
+/stockage/identites/

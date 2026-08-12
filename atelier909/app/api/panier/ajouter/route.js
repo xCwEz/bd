@@ -11,7 +11,10 @@ export async function POST(requete) {
   if (!ref || !taille) return NextResponse.json({ message: "Référence et taille requises." }, { status: 400 });
 
   try {
-    const commande = await ajouterAuPanier(telegramUserId, ref, taille);
+    const commande = await ajouterAuPanier(telegramUserId, ref, taille, {
+      username: utilisateur.username,
+      prenom: utilisateur.prenom,
+    });
     return NextResponse.json({ commande, totaux: calculerTotaux(commande) });
   } catch (erreur) {
     if (erreur instanceof ErreurMetier) return NextResponse.json({ message: erreur.message }, { status: 409 });

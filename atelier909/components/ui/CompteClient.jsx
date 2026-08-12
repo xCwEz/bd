@@ -11,7 +11,8 @@ const ETAPES = ["RÉSERVÉ", "VÉRIFIÉ", "RDV FIXÉ", "REMIS"];
 
 function indexEtape(statut) {
   if (statut === "remise") return 3;
-  if (statut === "confirmee") return 2; // RÉSERVÉ + VÉRIFIÉ (non requis) passés, RDV FIXÉ courant
+  if (statut === "confirmee") return 2; // RÉSERVÉ + VÉRIFIÉ passés (validée, ou non requise sous le seuil)
+  if (statut === "attente_verification") return 1; // RÉSERVÉ passé, VÉRIFIÉ en cours
   return 0;
 }
 
@@ -54,6 +55,12 @@ export default function CompteClient() {
         <div>
           <div className="compte-handle-ligne">
             <span className="compte-handle">{profil.handle}</span>
+            {profil.verifie && (
+              <span className="badge-verifie">
+                <span className="point-etat" style={{ width: 5, height: 5 }} />
+                VÉRIFIÉ
+              </span>
+            )}
           </div>
           {profil.membreDepuis && (
             <p className="compte-membre-depuis mono">MEMBRE DEPUIS {formaterMois(profil.membreDepuis)}</p>
@@ -104,7 +111,11 @@ export default function CompteClient() {
           <div className="suivi-details">
             <span>Créneau : {commandeEnCours.creneau}</span>
             {mode && <span>Remise : {mode.titre}</span>}
-            <span className="code-remise mono">CODE {commandeEnCours.codeRemise}</span>
+            {commandeEnCours.codeRemise ? (
+              <span className="code-remise mono">CODE {commandeEnCours.codeRemise}</span>
+            ) : (
+              <span>Code de remise communiqué après validation de l'identité.</span>
+            )}
           </div>
         </div>
       )}

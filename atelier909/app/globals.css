@@ -1618,6 +1618,206 @@ input {
   font-size: 13px;
 }
 
+/* ============ Feuille de vérification d'identité ============ */
+
+.voile-feuille {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  background: rgba(6, 7, 8, 0.72);
+  backdrop-filter: blur(3px);
+  animation: fade 0.25s var(--ease-etat);
+}
+
+.feuille {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-width: 480px;
+  margin: 0 auto;
+  z-index: 71;
+  max-height: 96%;
+  overflow-y: auto;
+  background: var(--bg-frame);
+  border-top-left-radius: 22px;
+  border-top-right-radius: 22px;
+  border: 1px solid var(--bordure-appuyee);
+  border-bottom: none;
+  padding: 10px 20px calc(24px + env(safe-area-inset-bottom));
+  animation: remonter-feuille 0.42s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes remonter-feuille {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.feuille-poignee {
+  width: 38px;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--bordure-claire);
+  margin: 6px auto 16px;
+}
+
+.feuille-entete {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.feuille-titre {
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.feuille-fermer {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  border: 1px solid var(--bordure-appuyee);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--texte-secondaire);
+}
+
+.feuille-texte {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--texte-tertiaire);
+  margin-top: 12px;
+}
+
+.documents-titre {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--texte-discret);
+  margin-top: 22px;
+  margin-bottom: 10px;
+}
+
+.documents-puces {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cadre-prise-vue {
+  position: relative;
+  height: 186px;
+  border-radius: 12px;
+  background: var(--bg-carte-alt);
+  margin-top: 20px;
+  overflow: hidden;
+}
+
+.cadre-prise-vue-gabarit {
+  position: absolute;
+  inset: 14px 14px 36px;
+  border: 1px dashed var(--bordure-claire);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.maquette-carte {
+  width: 56px;
+  height: 70px;
+  border: 1px solid var(--bordure-claire);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.maquette-carte-ligne {
+  width: 34px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--bordure-claire);
+}
+
+.cadre-prise-vue-legende {
+  position: absolute;
+  bottom: 12px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+  color: var(--texte-discret);
+}
+
+.cadre-prise-vue input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.cadre-prise-vue.avec-apercu img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.regles-verification {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.regle-verification {
+  display: flex;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--texte-secondaire);
+  line-height: 1.5;
+}
+
+.regle-verification-numero {
+  flex-shrink: 0;
+  font-size: 10px;
+  color: var(--texte-discret);
+}
+
+.bouton-verification {
+  width: 100%;
+  border-radius: 12px;
+  padding: 15px;
+  font-size: 14.5px;
+  font-weight: 700;
+  margin-top: 22px;
+}
+
+.bouton-verification:disabled {
+  opacity: 0.55;
+}
+
+.mention-verification {
+  text-align: center;
+  font-size: 11px;
+  color: var(--texte-discret);
+  margin-top: 10px;
+}
+
 /* ============ Back-office : utilitaire, sans recherche d'esthétique ============ */
 
 .admin {
@@ -1708,6 +1908,40 @@ input {
 .admin-bouton-danger {
   border-color: var(--accent-alerte);
   color: var(--accent-alerte);
+}
+
+.admin-bouton-positif {
+  border-color: var(--accent-positif);
+  color: var(--accent-positif);
+}
+
+.admin-carte-verification {
+  border: 1px solid var(--bordure);
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 16px;
+  display: flex;
+  gap: 20px;
+}
+
+.admin-verification-photo {
+  width: 220px;
+  height: 280px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  object-fit: cover;
+  background: #14171a;
+  border: 1px solid var(--bordure);
+}
+
+.admin-verification-corps {
+  flex: 1;
+}
+
+.admin-verification-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
 }
 
 @media (prefers-reduced-motion: reduce) {
