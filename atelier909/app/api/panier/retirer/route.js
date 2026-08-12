@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { utilisateurCourant } from "@/lib/session";
+import { utilisateurDeLaRequete } from "@/lib/session";
 import { retirerDuPanier, calculerTotaux, ErreurMetier } from "@/lib/commandes";
 
 export async function POST(requete) {
-  const utilisateur = await utilisateurCourant();
+  const utilisateur = await utilisateurDeLaRequete(requete);
   const telegramUserId = utilisateur?.id;
   if (!telegramUserId) return NextResponse.json({ message: "Session absente." }, { status: 401 });
 

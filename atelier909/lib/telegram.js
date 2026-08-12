@@ -3,6 +3,19 @@
  * `TELEGRAM_BOT_TOKEN` n'est pas configuré, la fonction ne fait rien plutôt
  * que d'échouer — utile en développement, où aucun bot réel n'existe encore.
  */
+/**
+ * Échappe les caractères que le mode HTML de Telegram interprète. Sans ça,
+ * un nom de pièce contenant « & » ou « < » (« Veste M&S », « Cagoule
+ * <ACG> ») fait rejeter tout le message par l'API : l'opérateur ne reçoit
+ * simplement jamais la notification de vente, sans erreur visible.
+ */
+export function echapperHtml(valeur) {
+  return String(valeur ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
 export async function envoyerMessageTelegram(chatId, texte) {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   if (!token || !chatId) return { envoye: false, raison: "TELEGRAM_BOT_TOKEN ou chatId manquant" };

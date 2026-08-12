@@ -8,7 +8,7 @@ import EcranAttente from "./EcranAttente";
 import FeuilleVerificationIdentite from "./FeuilleVerificationIdentite";
 import { FORMATEUR_PRIX } from "@/lib/formatage";
 import { MODES_REMISE } from "@/lib/config";
-import { assurerSession } from "@/lib/panier-client";
+import { assurerSession, appelApi } from "@/lib/panier-client";
 
 function formaterDureeRestante(ms) {
   if (ms <= 0) return "00:00:00";
@@ -28,7 +28,7 @@ export default function PanierClient() {
 
   const charger = useCallback(async () => {
     await assurerSession();
-    const reponse = await fetch("/api/panier");
+    const reponse = await appelApi("/api/panier");
     const donnees = await reponse.json();
     setEtat({
       chargement: false,
@@ -56,7 +56,7 @@ export default function PanierClient() {
 
   async function retirer(index) {
     setEnCours(true);
-    const reponse = await fetch("/api/panier/retirer", {
+    const reponse = await appelApi("/api/panier/retirer", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ index }),
@@ -68,7 +68,7 @@ export default function PanierClient() {
 
   async function choisirMode(mode) {
     setEnCours(true);
-    const reponse = await fetch("/api/panier/mode-remise", {
+    const reponse = await appelApi("/api/panier/mode-remise", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ mode }),

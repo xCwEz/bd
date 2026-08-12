@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
-import { utilisateurCourant } from "@/lib/session";
+import { utilisateurDeLaRequete } from "@/lib/session";
 import { confirmerRendezVous, calculerTotaux, ErreurMetier } from "@/lib/commandes";
-import { envoyerMessageTelegram, chatIdOperateur } from "@/lib/telegram";
+import { envoyerMessageTelegram, chatIdOperateur, echapperHtml } from "@/lib/telegram";
 import { FORMATEUR_PRIX } from "@/lib/formatage";
 
 export async function POST(requete) {
-  const utilisateur = await utilisateurCourant();
+  const utilisateur = await utilisateurDeLaRequete(requete);
   const telegramUserId = utilisateur?.id;
   if (!telegramUserId) return NextResponse.json({ message: "Session absente." }, { status: 401 });
 
@@ -14,17 +14,20 @@ export async function POST(requete) {
   try {
     const commande = await confirmerRendezVous(telegramUserId, creneau);
     const { total } = calculerTotaux(commande);
-    const lignes = commande.lignes.map((l) => `• ${l.marque} ${l.nom} (${l.taille})`).join("\n");
+    const lignes = commande.lignes
+      .map((l) => `• ${echapperHtml(l.marque)} ${echapperHtml(l.nom)} (${echapperHtml(l.taille)})`)
+      .join("\n");
+    const creneauSur = echapperHtml(creneau);
 
     if (commande.statut === "attente_verification") {
       await envoyerMessageTelegram(
         chatIdOperateur(),
-        `<b>Créneau retenu, en attente de vérification</b>\nCommande ${commande.id}\n${lignes}\n\nCréneau : ${creneau}\nÀ valider dans /admin/verifications avant confirmation.`
+        `<b>Créneau retenu, en attente de vérification</b>\nCommande ${commande.id}\n${lignes}\n\nCréneau : ${creneauSur}\nÀ valider dans /admin/verifications avant confirmation.`
       );
     } else {
       await envoyerMessageTelegram(
         chatIdOperateur(),
-        `<b>Rendez-vous confirmé — ${commande.id}</b>\n${lignes}\n\nCréneau : ${creneau}\nTotal espèces : ${FORMATEUR_PRIX.format(total)}\nCode de remise : ${commande.codeRemise}`
+        `<b>Rendez-vous confirmé — ${commande.id}</b>\n${lignes}\n\nCréneau : ${creneauSur}\nTotal espèces : ${FORMATEUR_PRIX.format(total)}\nCode de remise : ${commande.codeRemise}`
       );
     }
 

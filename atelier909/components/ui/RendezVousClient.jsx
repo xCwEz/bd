@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { FORMATEUR_PRIX } from "@/lib/formatage";
 import { HANDLE_OPERATEUR, ZONE_APPROXIMATIVE, SEUIL_VERIFICATION_ID, genererCreneaux, repartirEnCoupures } from "@/lib/config";
-import { assurerSession } from "@/lib/panier-client";
+import { assurerSession, appelApi } from "@/lib/panier-client";
 
 export default function RendezVousClient() {
   const router = useRouter();
@@ -19,7 +19,7 @@ export default function RendezVousClient() {
   useEffect(() => {
     (async () => {
       await assurerSession();
-      const reponse = await fetch("/api/panier");
+      const reponse = await appelApi("/api/panier");
       const donnees = await reponse.json();
       const total = donnees.totaux?.total ?? 0;
       const identiteRequise = total >= SEUIL_VERIFICATION_ID;
@@ -39,7 +39,7 @@ export default function RendezVousClient() {
     if (!creneauChoisi) return;
     setEnvoi(true);
     setErreur(null);
-    const reponse = await fetch("/api/panier/rendez-vous", {
+    const reponse = await appelApi("/api/panier/rendez-vous", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ creneau: creneauChoisi }),

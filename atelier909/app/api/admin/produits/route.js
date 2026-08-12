@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { estAdminConnecte } from "@/lib/auth";
 import { listerProduits, enregistrerProduits } from "@/lib/produits";
+import { validerProduit } from "@/lib/validation";
 
 export async function GET() {
   if (!(await estAdminConnecte())) return NextResponse.json({ message: "Non autorisé" }, { status: 401 });
@@ -10,11 +11,13 @@ export async function GET() {
 export async function POST(requete) {
   if (!(await estAdminConnecte())) return NextResponse.json({ message: "Non autorisé" }, { status: 401 });
 
-  const { produit, refOriginale } = await requete.json();
+  const { produit: brut, refOriginale } = await requete.json();
 
-  if (!produit?.ref || !produit?.marque || !produit?.nom) {
-    return NextResponse.json({ message: "Référence, marque et nom sont obligatoires." }, { status: 400 });
+  const controle = validerProduit(brut);
+  if (!controle.valide) {
+    return NextResponse.json({ message: controle.message }, { status: 400 });
   }
+  const produit = controle.produit;
 
   const produits = await listerProduits();
 

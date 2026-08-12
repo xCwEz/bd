@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import SelecteurTaille from "./SelecteurTaille";
 import { FORMATEUR_PRIX } from "@/lib/formatage";
-import { assurerSession } from "@/lib/panier-client";
+import { assurerSession, appelApi } from "@/lib/panier-client";
 
 export default function FicheProduitAchat({ produit }) {
   const router = useRouter();
@@ -21,7 +21,7 @@ export default function FicheProduitAchat({ produit }) {
     setErreur(null);
     try {
       await assurerSession();
-      const reponse = await fetch("/api/panier/ajouter", {
+      const reponse = await appelApi("/api/panier/ajouter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ref: produit.ref, taille: tailleChoisie }),

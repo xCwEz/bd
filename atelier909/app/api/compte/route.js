@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { utilisateurCourant } from "@/lib/session";
+import { utilisateurDeLaRequete } from "@/lib/session";
 import { commandesUtilisateur, commandeEnCoursUtilisateur, membreDepuis, aEteVerifieAuMoinsUneFois } from "@/lib/commandes";
 
-export async function GET() {
-  const utilisateur = await utilisateurCourant();
+export async function GET(requete) {
+  const utilisateur = await utilisateurDeLaRequete(requete);
   if (!utilisateur) return NextResponse.json({ profil: null });
 
   const [commandeEnCours, commandes, verifie] = await Promise.all([

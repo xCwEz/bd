@@ -5,7 +5,7 @@ import MediaPlaceholder from "./MediaPlaceholder";
 import EcranAttente from "./EcranAttente";
 import { FORMATEUR_PRIX } from "@/lib/formatage";
 import { libelleModeRemise } from "@/lib/config";
-import { assurerSession } from "@/lib/panier-client";
+import { assurerSession, appelApi } from "@/lib/panier-client";
 
 const ETAPES = ["RÉSERVÉ", "VÉRIFIÉ", "RDV FIXÉ", "REMIS"];
 
@@ -33,7 +33,7 @@ export default function CompteClient() {
   useEffect(() => {
     (async () => {
       await assurerSession();
-      const reponse = await fetch("/api/compte");
+      const reponse = await appelApi("/api/compte");
       setDonnees(await reponse.json());
     })();
   }, []);

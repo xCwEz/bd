@@ -94,10 +94,45 @@ function jetonValide(jeton) {
   }
 }
 
-/** Utilisateur courant côté serveur ({ id, username, prenom }), ou null si pas de session. */
+/** Utilisateur courant d'après le cookie ({ id, username, prenom }), ou null. */
 export async function utilisateurCourant() {
   const magasin = await cookies();
   return jetonValide(magasin.get(COOKIE_UTILISATEUR)?.value);
+}
+
+export const ENTETE_INIT_DATA = "x-telegram-init-data";
+
+/**
+ * Identifie l'appelant d'une requête d'API. L'`initData` transmis en
+ * en-tête fait foi ; le cookie ne sert que de repli.
+ *
+ * Pourquoi ne pas se reposer sur le cookie : sur Telegram Web, la Mini App
+ * est chargée dans une iframe, donc dans un contexte tiers. Un cookie
+ * `SameSite=Lax` n'y est pas transmis, et les navigateurs bloquent
+ * désormais les cookies tiers par défaut — la session serait simplement
+ * absente pour ces utilisateurs. Authentifier chaque appel avec l'initData
+ * signé règle le problème et supprime au passage toute prise CSRF : une
+ * page tierce ne peut pas fabriquer cet en-tête.
+ */
+export async function utilisateurDeLaRequete(requete) {
+  const initData = requete?.headers?.get(ENTETE_INIT_DATA);
+  const botToken = process.env.TELEGRAM_BOT_TOKEN;
+
+  if (botToken && initData) {
+    const utilisateur = verifierInitData(initData, botToken);
+    if (utilisateur) {
+      return {
+        id: `tg:${utilisateur.id}`,
+        username: utilisateur.username ?? null,
+        prenom: utilisateur.first_name ?? null,
+      };
+    }
+    // En-tête présent mais invalide : on refuse plutôt que de retomber
+    // silencieusement sur le cookie.
+    return null;
+  }
+
+  return utilisateurCourant();
 }
 
 export { DUREE_COOKIE_MS };

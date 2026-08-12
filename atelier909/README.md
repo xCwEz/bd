@@ -169,12 +169,44 @@ un jeton client recopié dans le cookie admin valide comme jeton admin —
 faille d'élévation de privilège identifiée et corrigée lors de l'audit du
 projet.
 
+**Les appels d'API acheteur ne dépendent pas du cookie** : chaque requête
+porte l'`initData` signé dans l'en-tête `X-Telegram-Init-Data`, vérifié
+côté serveur (`utilisateurDeLaRequete`). C'est ce qui rend l'app
+utilisable sur Telegram Web, où la Mini App tourne dans une iframe : le
+cookie y est un cookie tiers, non transmis avec `SameSite=Lax` et bloqué
+par défaut par les navigateurs récents. Effet de bord bienvenu : aucune
+prise CSRF, une page tierce ne pouvant pas forger cet en-tête. Le cookie
+subsiste en repli pour le mode démonstration local. Le back-office, lui,
+s'ouvre dans un navigateur normal et reste sur cookie.
+
 `lib/telegram.js` envoie des notifications via l'API Bot (`sendMessage`),
 jamais la photo elle-même dans un fil Telegram persistant : rendez-vous
 confirmé et nouvelle vérification à traiter (à l'opérateur,
 `TELEGRAM_OPERATOR_CHAT_ID`), identité validée/refusée (à l'acheteur, via
 son `chat_id` Telegram). Sans token configuré, l'envoi est un no-op
 silencieux plutôt qu'une erreur.
+
+## Robustesse et durcissement
+
+- **Validation des pièces** (`lib/validation.js`) : le back-office ne peut
+  pas enregistrer un produit malformé. Le fichier qu'il écrit alimente
+  toute la vitrine, et une seule sauvegarde bancale (`variantes` absent,
+  prix en texte) suffirait à casser le catalogue pour tous les visiteurs.
+  Les chemins de médias sont contraints à `/produits/…` : pas d'URL
+  externe, qui ferait fuiter la consultation du catalogue vers un tiers.
+- **Notifications Telegram** : tout ce qui vient des données est échappé
+  avant d'être inséré dans un message `parse_mode: HTML`. Un nom de pièce
+  contenant `&` ou `<` faisait rejeter le message entier par l'API, et
+  l'opérateur perdait la notification de vente sans le savoir.
+- **Tentatives de connexion** limitées (`lib/limitation.js`), en mémoire :
+  suffisant pour un processus unique, à remplacer par un stockage partagé
+  si l'app tourne un jour sur plusieurs instances.
+- **Taille des corps de requête** bornée avant lecture, pour ne pas
+  bufferiser un envoi volumineux avant de le refuser.
+- **En-têtes de sécurité** dans `next.config.mjs` : CSP, `nosniff`,
+  `Referrer-Policy`, HSTS. Volontairement **pas** de `X-Frame-Options` ni
+  de `frame-ancestors` fermé — Telegram Web doit pouvoir embarquer la Mini
+  App dans une iframe.
 
 ## Back-office (`/admin`)
 

@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { appelApi } from "@/lib/panier-client";
 
-const DOCUMENTS = ["Carte d'identité", "Passeport", "Permis de conduire", "Titre de séjour"];
+const DOCUMENTS =["Carte d'identité", "Passeport", "Permis de conduire", "Titre de séjour"];
 
 const REGLES = [
   "Photo prise directement dans l'app, jamais importée depuis la galerie.",
@@ -31,7 +32,7 @@ export default function FeuilleVerificationIdentite({ onFermer, onEnvoye }) {
     const donnees = new FormData();
     donnees.append("photo", fichier);
     try {
-      const reponse = await fetch("/api/panier/verification", { method: "POST", body: donnees });
+      const reponse = await appelApi("/api/panier/verification", { method: "POST", body: donnees });
       const corps = await reponse.json();
       if (!reponse.ok) {
         setErreur(corps.message || "Échec de l'envoi.");

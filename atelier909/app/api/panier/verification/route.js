@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { utilisateurCourant } from "@/lib/session";
+import { utilisateurDeLaRequete } from "@/lib/session";
 import { envoyerVerificationIdentite, ErreurMetier } from "@/lib/commandes";
 import { envoyerMessageTelegram, chatIdOperateur } from "@/lib/telegram";
 
@@ -7,8 +7,16 @@ const TYPES_ACCEPTES = ["image/jpeg", "image/png", "image/webp", "image/heic", "
 const TAILLE_MAX_OCTETS = 12 * 1024 * 1024;
 
 export async function POST(requete) {
-  const utilisateur = await utilisateurCourant();
+  const utilisateur = await utilisateurDeLaRequete(requete);
   if (!utilisateur) return NextResponse.json({ message: "Session absente." }, { status: 401 });
+
+  // Contrôlé AVANT `formData()`, qui bufferise tout le corps en mémoire :
+  // sans ce garde-fou, un envoi volumineux est absorbé puis seulement
+  // ensuite refusé.
+  const annonce = Number(requete.headers.get("content-length"));
+  if (Number.isFinite(annonce) && annonce > TAILLE_MAX_OCTETS) {
+    return NextResponse.json({ message: "Photo trop volumineuse." }, { status: 413 });
+  }
 
   const donnees = await requete.formData();
   const photo = donnees.get("photo");

@@ -9,9 +9,17 @@ import { estAdminConnecte } from "@/lib/auth";
 // prévue.
 const REFERENCE_VALIDE = /^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$/;
 const EXTENSIONS_AUTORISEES = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif", ".mp4", ".webm", ".mov"]);
+// Large : une vidéo de présentation d'une quarantaine de secondes tient
+// dessous, mais le corps n'est plus illimité.
+const TAILLE_MAX_OCTETS = 200 * 1024 * 1024;
 
 export async function POST(requete) {
   if (!(await estAdminConnecte())) return NextResponse.json({ message: "Non autorisé" }, { status: 401 });
+
+  const annonce = Number(requete.headers.get("content-length"));
+  if (Number.isFinite(annonce) && annonce > TAILLE_MAX_OCTETS) {
+    return NextResponse.json({ message: "Fichier trop volumineux." }, { status: 413 });
+  }
 
   const donnees = await requete.formData();
   const ref = donnees.get("ref");

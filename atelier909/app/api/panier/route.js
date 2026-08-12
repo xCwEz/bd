@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import { utilisateurCourant } from "@/lib/session";
+import { utilisateurDeLaRequete } from "@/lib/session";
 import { trouverPanierActif, calculerTotaux } from "@/lib/commandes";
 import { SEUIL_VERIFICATION_ID } from "@/lib/config";
 
-export async function GET() {
-  const utilisateur = await utilisateurCourant();
+export async function GET(requete) {
+  const utilisateur = await utilisateurDeLaRequete(requete);
   const telegramUserId = utilisateur?.id;
   if (!telegramUserId) return NextResponse.json({ commande: null });
 
