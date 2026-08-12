@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+(function(){
+  var u = new URL('support.js', location.href);
+  var q = new URLSearchParams(location.search);
+  if (q.get('t')) u.searchParams.set('t', q.get('t'));
+  var el = document.createElement('script');
+  el.src = u.toString();
+  document.head.appendChild(el);
+})();
+</script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; background:#0A0B0C; font-family:'Archivo',sans-serif; }
+  a { color:#C9D0D6; text-decoration:none; }
+  a:hover { color:#fff; }
+</style>
+<script>
+(function(){
+  var q = new URLSearchParams(location.search), t = q.get('t');
+  var n = 0;
+  var iv = setInterval(function(){
+    document.querySelectorAll('[data-bg]').forEach(function(el){
+      var abs = new URL(el.getAttribute('data-bg'), location.href);
+      if (t) abs.searchParams.set('t', t);
+      var v = 'url("' + abs.toString() + '")';
+      if (el.style.backgroundImage !== v) el.style.backgroundImage = v;
+    });
+    if (++n > 40) clearInterval(iv);
+  }, 150);
+})();
+</script>
+</helmet>
+
+<div style="min-height:100vh; box-sizing:border-box; padding:64px 56px 96px; color:#E8EBEE; background:radial-gradient(1200px 700px at 20% -10%, #1B1E22 0%, #0A0B0C 60%);">
+
+  <div style="display:flex; flex-direction:column; gap:9px; max-width:760px;">
+    <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.22em; color:#6E757C;">APERÇU — 8 ÉCRANS</div>
+    <div style="font-size:30px; font-weight:700; letter-spacing:-.02em; color:#F2F4F6;">ATELIER 909 · Mini App Telegram</div>
+    <div style="font-size:14px; line-height:1.6; color:#8E959D; text-wrap:pretty;">Application finie, avec l'étape de vérification d'identité au-delà de 500 €. Les blocs sombres sont les emplacements photo et vidéo que vous remplacerez.</div>
+  </div>
+
+  <div style="margin-top:44px; display:flex; flex-wrap:wrap; gap:34px 28px;">
+
+    <div style="display:flex; flex-direction:column; gap:12px;">
+      <div data-bg="screens/02-ecran.png" style="width:300px; height:648px; border-radius:32px; background-size:1146px 670px; background-position:0 0; background-repeat:no-repeat; box-shadow:0 40px 80px -30px rgba(0,0,0,.9);"></div>
+      <div style="display:flex; align-items:baseline; gap:9px;">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:#6E757C;">01</div>
+        <div style="font-size:13.5px; color:#C9D0D6;">Catalogue</div>
+      </div>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:12px;">
+      <div data-bg="screens/03-ecran.png" style="width:300px; height:648px; border-radius:32px; background-size:1146px 670px; background-position:0 0; background-repeat:no-repeat; box-shadow:0 40px 80px -30px rgba(0,0,0,.9);"></div>
+      <div style="display:flex; align-items:baseline; gap:9px;">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:#6E757C;">02</div>
+        <div style="font-size:13.5px; color:#C9D0D6;">Fiche produit</div>
+      </div>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:12px;">
+      <div data-bg="screens/04-ecran.png" style="width:300px; height:648px; border-radius:32px; background-size:1146px 670px; background-position:0 0; background-repeat:no-repeat; box-shadow:0 40px 80px -30px rgba(0,0,0,.9);"></div>
+      <div style="display:flex; align-items:baseline; gap:9px;">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:#6E757C;">03</div>
+        <div style="font-size:13.5px; color:#C9D0D6;">Panier &amp; mode de remise</div>
+      </div>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:12px;">
+      <div data-bg="screens/05-ecran.png" style="width:300px; height:648px; border-radius:32px; background-size:1146px 670px; background-position:0 0; background-repeat:no-repeat; box-shadow:0 40px 80px -30px rgba(0,0,0,.9);"></div>
+      <div style="display:flex; align-items:baseline; gap:9px;">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:#6E757C;">04</div>
+        <div style="font-size:13.5px; color:#C9D0D6;">Vérification d'identité</div>
+      </div>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:12px;">
+      <div data-bg="screens/06-ecran.png" style="width:300px; height:648px; border-radius:32px; background-size:1146px 670px; background-position:0 0; background-repeat:no-repeat; box-shadow:0 40px 80px -30px rgba(0,0,0,.9);"></div>
+      <div style="display:flex; align-items:baseline; gap:9px;">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:#6E757C;">05</div>
+        <div style="font-size:13.5px; color:#C9D0D6;">Contrôle envoyé</div>
+      </div>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:12px;">
+      <div data-bg="screens/07-ecran.png" style="width:300px; height:648px; border-radius:32px; background-size:1146px 670px; background-position:0 0; background-repeat:no-repeat; box-shadow:0 40px 80px -30px rgba(0,0,0,.9);"></div>
+      <div style="display:flex; align-items:baseline; gap:9px;">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:#6E757C;">06</div>
+        <div style="font-size:13.5px; color:#C9D0D6;">Rendez-vous &amp; espèces</div>
+      </div>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:12px;">
+      <div data-bg="screens/08-ecran.png" style="width:300px; height:648px; border-radius:32px; background-size:1146px 670px; background-position:0 0; background-repeat:no-repeat; box-shadow:0 40px 80px -30px rgba(0,0,0,.9);"></div>
+      <div style="display:flex; align-items:baseline; gap:9px;">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:#6E757C;">07</div>
+        <div style="font-size:13.5px; color:#C9D0D6;">Compte &amp; suivi</div>
+      </div>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:12px;">
+      <div data-bg="screens/09-ecran.png" style="width:300px; height:648px; border-radius:32px; background-size:1146px 670px; background-position:0 0; background-repeat:no-repeat; box-shadow:0 40px 80px -30px rgba(0,0,0,.9);"></div>
+      <div style="display:flex; align-items:baseline; gap:9px;">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:#6E757C;">08</div>
+        <div style="font-size:13.5px; color:#C9D0D6;">Recherche &amp; filtres</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

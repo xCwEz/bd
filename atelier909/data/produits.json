@@ -1,0 +1,70 @@
+[
+  {
+    "ref": "SI-94-ICE",
+    "marque": "Stone Island",
+    "annee": 1994,
+    "nom": "Ice Jacket thermosensible",
+    "description": "Veste Ice Jacket à teinture thermosensible : la couleur change avec la chaleur de la main et la température ambiante. Pièce d'archive rarement proposée dans cet état.",
+    "conditionScore": 9,
+    "conditionCommentaire": "Réaction thermosensible intacte, doublure d'origine, un accroc discret au poignet gauche.",
+    "statut": "en_ligne",
+    "badge": "video",
+    "variantes": [
+      { "taille": "S", "prix": 1490, "stock": 1 },
+      { "taille": "M", "prix": 1620, "stock": 2 },
+      { "taille": "L", "prix": 1380, "stock": 3 },
+      { "taille": "XL", "prix": null, "stock": 0 }
+    ],
+    "medias": [
+      { "type": "video", "ordre": 1, "cle": null, "duree": 38 },
+      { "type": "photo", "ordre": 2, "cle": null },
+      { "type": "photo", "ordre": 3, "cle": null }
+    ]
+  },
+  {
+    "ref": "NK-99-CAG",
+    "marque": "Nike ACG",
+    "annee": 1999,
+    "nom": "Cagoule Gore-Tex",
+    "description": "Cagoule Gore-Tex ACG, taille unique. Coupe-vent complet, visière rigide, un seul exemplaire en stock.",
+    "conditionScore": 8,
+    "conditionCommentaire": "Membrane Gore-Tex fonctionnelle, cordon de serrage d'origine, léger jaunissement de la visière.",
+    "statut": "en_ligne",
+    "badge": "1_piece",
+    "variantes": [{ "taille": "Unique", "prix": 890, "stock": 1 }],
+    "medias": [{ "type": "photo", "ordre": 1, "cle": null }]
+  },
+  {
+    "ref": "AR-04-SV",
+    "marque": "Arc'teryx",
+    "annee": 2004,
+    "nom": "Alpha SV Bird Head",
+    "description": "Alpha SV première génération, étiquette « Bird Head ». Gore-Tex trois couches, coutures thermosoudées, coupe archive plus près du corps que les rééditions récentes.",
+    "conditionScore": 9,
+    "conditionCommentaire": "Zips YKK d'origine fonctionnels, membrane sans délamination, capuche ajustable intacte.",
+    "statut": "en_ligne",
+    "badge": null,
+    "variantes": [
+      { "taille": "S", "prix": 2100, "stock": 1 },
+      { "taille": "M", "prix": 2100, "stock": 1 },
+      { "taille": "L", "prix": null, "stock": 0 }
+    ],
+    "medias": [
+      { "type": "photo", "ordre": 1, "cle": null },
+      { "type": "photo", "ordre": 2, "cle": null }
+    ]
+  },
+  {
+    "ref": "SI-02-SHW",
+    "marque": "Stone Island",
+    "annee": 2002,
+    "nom": "Shadow Project gilet",
+    "description": "Gilet Shadow Project, poches à rabat, col montant. Une seule pièce en stock, taille M.",
+    "conditionScore": 7,
+    "conditionCommentaire": "Zip principal légèrement dur en fin de course, tissu sans décoloration notable.",
+    "statut": "en_ligne",
+    "badge": "1_piece",
+    "variantes": [{ "taille": "M", "prix": 740, "stock": 1 }],
+    "medias": [{ "type": "photo", "ordre": 1, "cle": null }]
+  }
+]
