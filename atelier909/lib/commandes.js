@@ -1,5 +1,5 @@
-import { readFile, writeFile } from "fs/promises";
 import path from "path";
+import { lireJson, ecrireJsonAtomique } from "@/lib/stockage-json";
 import { listerProduits, enregistrerProduits } from "@/lib/produits";
 import {
   DUREE_RESERVATION_HEURES,
@@ -40,12 +40,11 @@ function serialise(tache) {
 }
 
 async function listerCommandesBrut() {
-  const brut = await readFile(CHEMIN_DONNEES, "utf-8");
-  return JSON.parse(brut);
+  return lireJson(CHEMIN_DONNEES);
 }
 
 async function enregistrerCommandesBrut(commandes) {
-  await writeFile(CHEMIN_DONNEES, JSON.stringify(commandes, null, 2) + "\n", "utf-8");
+  await ecrireJsonAtomique(CHEMIN_DONNEES, commandes);
 }
 
 /**

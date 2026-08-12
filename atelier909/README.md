@@ -198,9 +198,21 @@ silencieux plutôt qu'une erreur.
   avant d'être inséré dans un message `parse_mode: HTML`. Un nom de pièce
   contenant `&` ou `<` faisait rejeter le message entier par l'API, et
   l'opérateur perdait la notification de vente sans le savoir.
-- **Tentatives de connexion** limitées (`lib/limitation.js`), en mémoire :
-  suffisant pour un processus unique, à remplacer par un stockage partagé
-  si l'app tourne un jour sur plusieurs instances.
+- **Tentatives de connexion** limitées (`lib/limitation.js`) par deux
+  compteurs : un par appelant, et surtout un **global**. L'identifiant
+  d'appelant vient de `X-Forwarded-For`, que l'attaquant fabrique : sans le
+  plafond global, il change d'adresse à chaque essai et le garde-fou ne
+  sert à rien (vérifié — 40 tentatives depuis 40 adresses passaient).
+  *Compromis assumé* : 20 échecs suffisent à verrouiller aussi l'opérateur
+  pendant 15 minutes. C'est un déni de service possible, préféré au risque
+  de laisser deviner le mot de passe ; un redémarrage de l'application
+  remet les compteurs à zéro.
+- **Écritures atomiques** (`lib/stockage-json.js`) : fichier temporaire
+  puis `rename()`, plus une copie `.bak` de la version précédente. Une
+  interruption en cours d'écriture (arrêt du conteneur, dépassement
+  mémoire, redéploiement) laissait sinon un JSON tronqué — et comme
+  catalogue et commandes sont lus par toutes les pages, la boutique et le
+  back-office tombaient ensemble, sans copie de secours.
 - **Taille des corps de requête** bornée avant lecture, pour ne pas
   bufferiser un envoi volumineux avant de le refuser.
 - **En-têtes de sécurité** dans `next.config.mjs` : CSP, `nosniff`,

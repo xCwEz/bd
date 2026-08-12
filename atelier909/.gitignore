@@ -14,3 +14,7 @@ next-env.d.ts
 
 # Photos de pièce d'identité chiffrées — jamais dans le dépôt, jamais dans public/.
 /stockage/identites/
+
+# Sauvegardes et fichiers temporaires des données JSON
+data/*.bak
+data/*.tmp

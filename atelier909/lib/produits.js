@@ -1,11 +1,10 @@
-import { readFile, writeFile } from "fs/promises";
 import path from "path";
+import { lireJson, ecrireJsonAtomique } from "@/lib/stockage-json";
 
 const CHEMIN_DONNEES = path.join(process.cwd(), "data", "produits.json");
 
 export async function listerProduits() {
-  const brut = await readFile(CHEMIN_DONNEES, "utf-8");
-  return JSON.parse(brut);
+  return lireJson(CHEMIN_DONNEES);
 }
 
 export async function listerProduitsEnLigne() {
@@ -19,5 +18,5 @@ export async function trouverProduit(ref) {
 }
 
 export async function enregistrerProduits(produits) {
-  await writeFile(CHEMIN_DONNEES, JSON.stringify(produits, null, 2) + "\n", "utf-8");
+  await ecrireJsonAtomique(CHEMIN_DONNEES, produits);
 }
