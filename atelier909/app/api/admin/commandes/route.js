@@ -1,0 +1,20 @@
+import { NextResponse } from "next/server";
+import { estAdminConnecte } from "@/lib/auth";
+import { commandesConfirmees, marquerCommandeRemise, ErreurMetier } from "@/lib/commandes";
+
+export async function GET() {
+  if (!(await estAdminConnecte())) return NextResponse.json({ message: "Non autorisé" }, { status: 401 });
+  return NextResponse.json(await commandesConfirmees());
+}
+
+export async function POST(requete) {
+  if (!(await estAdminConnecte())) return NextResponse.json({ message: "Non autorisé" }, { status: 401 });
+  const { id } = await requete.json();
+  try {
+    const commande = await marquerCommandeRemise(id);
+    return NextResponse.json({ commande });
+  } catch (erreur) {
+    if (erreur instanceof ErreurMetier) return NextResponse.json({ message: erreur.message }, { status: 404 });
+    throw erreur;
+  }
+}

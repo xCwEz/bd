@@ -10,15 +10,44 @@
     "statut": "en_ligne",
     "badge": "video",
     "variantes": [
-      { "taille": "S", "prix": 1490, "stock": 1 },
-      { "taille": "M", "prix": 1620, "stock": 2 },
-      { "taille": "L", "prix": 1380, "stock": 3 },
-      { "taille": "XL", "prix": null, "stock": 0 }
+      {
+        "taille": "S",
+        "prix": 1490,
+        "stock": 1
+      },
+      {
+        "taille": "M",
+        "prix": 1620,
+        "stock": 2
+      },
+      {
+        "taille": "L",
+        "prix": 1380,
+        "stock": 3
+      },
+      {
+        "taille": "XL",
+        "prix": null,
+        "stock": 0
+      }
     ],
     "medias": [
-      { "type": "video", "ordre": 1, "cle": null, "duree": 38 },
-      { "type": "photo", "ordre": 2, "cle": null },
-      { "type": "photo", "ordre": 3, "cle": null }
+      {
+        "type": "video",
+        "ordre": 1,
+        "cle": null,
+        "duree": 38
+      },
+      {
+        "type": "photo",
+        "ordre": 2,
+        "cle": null
+      },
+      {
+        "type": "photo",
+        "ordre": 3,
+        "cle": null
+      }
     ]
   },
   {
@@ -31,8 +60,20 @@
     "conditionCommentaire": "Membrane Gore-Tex fonctionnelle, cordon de serrage d'origine, léger jaunissement de la visière.",
     "statut": "en_ligne",
     "badge": "1_piece",
-    "variantes": [{ "taille": "Unique", "prix": 890, "stock": 1 }],
-    "medias": [{ "type": "photo", "ordre": 1, "cle": null }]
+    "variantes": [
+      {
+        "taille": "Unique",
+        "prix": 890,
+        "stock": 1
+      }
+    ],
+    "medias": [
+      {
+        "type": "photo",
+        "ordre": 1,
+        "cle": null
+      }
+    ]
   },
   {
     "ref": "AR-04-SV",
@@ -45,13 +86,33 @@
     "statut": "en_ligne",
     "badge": null,
     "variantes": [
-      { "taille": "S", "prix": 2100, "stock": 1 },
-      { "taille": "M", "prix": 2100, "stock": 1 },
-      { "taille": "L", "prix": null, "stock": 0 }
+      {
+        "taille": "S",
+        "prix": 2100,
+        "stock": 1
+      },
+      {
+        "taille": "M",
+        "prix": 2100,
+        "stock": 1
+      },
+      {
+        "taille": "L",
+        "prix": null,
+        "stock": 0
+      }
     ],
     "medias": [
-      { "type": "photo", "ordre": 1, "cle": null },
-      { "type": "photo", "ordre": 2, "cle": null }
+      {
+        "type": "photo",
+        "ordre": 1,
+        "cle": null
+      },
+      {
+        "type": "photo",
+        "ordre": 2,
+        "cle": null
+      }
     ]
   },
   {
@@ -64,7 +125,44 @@
     "conditionCommentaire": "Zip principal légèrement dur en fin de course, tissu sans décoloration notable.",
     "statut": "en_ligne",
     "badge": "1_piece",
-    "variantes": [{ "taille": "M", "prix": 740, "stock": 1 }],
-    "medias": [{ "type": "photo", "ordre": 1, "cle": null }]
+    "variantes": [
+      {
+        "taille": "M",
+        "prix": 740,
+        "stock": 1
+      }
+    ],
+    "medias": [
+      {
+        "type": "photo",
+        "ordre": 1,
+        "cle": null
+      }
+    ]
+  },
+  {
+    "ref": "SI-15-CAP",
+    "marque": "Stone Island",
+    "annee": 2015,
+    "nom": "Casquette badge",
+    "description": "Casquette six panneaux avec badge amovible, taille unique.",
+    "conditionScore": 8,
+    "conditionCommentaire": "Badge complet avec certificat, velcro de réglage en bon état.",
+    "statut": "en_ligne",
+    "badge": "1_piece",
+    "variantes": [
+      {
+        "taille": "Unique",
+        "prix": 180,
+        "stock": 2
+      }
+    ],
+    "medias": [
+      {
+        "type": "photo",
+        "ordre": 1,
+        "cle": null
+      }
+    ]
   }
 ]

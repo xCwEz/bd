@@ -1,0 +1,92 @@
+import { createHmac, timingSafeEqual } from "crypto";
+import { cookies } from "next/headers";
+
+export const COOKIE_UTILISATEUR = "atelier909_session";
+const DUREE_COOKIE_MS = 30 * 24 * 60 * 60 * 1000; // 30 jours
+const DUREE_MAX_INIT_DATA_MS = 24 * 60 * 60 * 1000; // 24h, anti-rejeu
+
+/**
+ * Vérifie la signature d'un `initData` de Telegram Mini App côté serveur.
+ * Algorithme officiel : voir
+ * https://core.telegram.org/bots/webapps#validating-data-received-via-the-mini-app
+ * « Sans cette vérification, n'importe qui peut se faire passer pour un
+ * autre utilisateur. Point non négociable. » (README de passation)
+ */
+export function verifierInitData(initData, botToken) {
+  if (!initData || !botToken) return null;
+
+  const params = new URLSearchParams(initData);
+  const hashRecu = params.get("hash");
+  if (!hashRecu) return null;
+  params.delete("hash");
+
+  const dataCheckString = Array.from(params.entries())
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([cle, valeur]) => `${cle}=${valeur}`)
+    .join("\n");
+
+  const secret = createHmac("sha256", "WebAppData").update(botToken).digest();
+  const hashCalcule = createHmac("sha256", secret).update(dataCheckString).digest("hex");
+
+  const a = Buffer.from(hashCalcule);
+  const b = Buffer.from(hashRecu);
+  if (a.length !== b.length || !timingSafeEqual(a, b)) return null;
+
+  const authDate = Number(params.get("auth_date")) * 1000;
+  if (!authDate || Date.now() - authDate > DUREE_MAX_INIT_DATA_MS) return null;
+
+  try {
+    return JSON.parse(params.get("user"));
+  } catch {
+    return null;
+  }
+}
+
+function secretCookie() {
+  const valeur = process.env.ADMIN_SESSION_SECRET;
+  if (!valeur) throw new Error("ADMIN_SESSION_SECRET manquant (voir .env.example).");
+  return valeur;
+}
+
+function signer(payload) {
+  return createHmac("sha256", secretCookie()).update(payload).digest("hex");
+}
+
+/** `profil` : { username, prenom } — facultatif, absent en mode démo. */
+export function creerJetonUtilisateur(telegramUserId, profil = {}) {
+  const charge = {
+    id: telegramUserId,
+    u: profil.username ?? null,
+    n: profil.prenom ?? null,
+    exp: Date.now() + DUREE_COOKIE_MS,
+  };
+  const chargeEncodee = Buffer.from(JSON.stringify(charge)).toString("base64url");
+  return `${chargeEncodee}.${signer(chargeEncodee)}`;
+}
+
+function jetonValide(jeton) {
+  if (!jeton) return null;
+  const [chargeEncodee, signature] = jeton.split(".");
+  if (!chargeEncodee || !signature) return null;
+
+  const attendu = signer(chargeEncodee);
+  const a = Buffer.from(signature);
+  const b = Buffer.from(attendu);
+  if (a.length !== b.length || !timingSafeEqual(a, b)) return null;
+
+  try {
+    const charge = JSON.parse(Buffer.from(chargeEncodee, "base64url").toString("utf-8"));
+    if (Date.now() > charge.exp) return null;
+    return { id: charge.id, username: charge.u, prenom: charge.n };
+  } catch {
+    return null;
+  }
+}
+
+/** Utilisateur courant côté serveur ({ id, username, prenom }), ou null si pas de session. */
+export async function utilisateurCourant() {
+  const magasin = await cookies();
+  return jetonValide(magasin.get(COOKIE_UTILISATEUR)?.value);
+}
+
+export { DUREE_COOKIE_MS };

@@ -21,9 +21,14 @@ export default async function PageAdmin() {
         </form>
       </div>
 
-      <Link href="/admin/produit/nouveau" className="admin-lien-bouton" style={{ marginBottom: 20, display: "inline-block" }}>
-        + Ajouter une pièce
-      </Link>
+      <div style={{ display: "flex", gap: 10, marginBottom: 20 }}>
+        <Link href="/admin/produit/nouveau" className="admin-lien-bouton">
+          + Ajouter une pièce
+        </Link>
+        <Link href="/admin/commandes" className="admin-lien-bouton">
+          Commandes
+        </Link>
+      </div>
 
       <table className="admin-table">
         <thead>

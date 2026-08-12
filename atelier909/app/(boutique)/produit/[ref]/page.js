@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import EnTeteMedia from "@/components/ui/EnTeteMedia";
 import BandeVignettes from "@/components/ui/BandeVignettes";
 import BlocCondition from "@/components/ui/BlocCondition";
-import SelecteurTaille from "@/components/ui/SelecteurTaille";
+import FicheProduitAchat from "@/components/ui/FicheProduitAchat";
 import Garanties from "@/components/ui/Garanties";
 import { trouverProduit } from "@/lib/produits";
 
@@ -25,7 +25,7 @@ export default async function PageProduit({ params }) {
         <p className="fiche-description">{produit.description}</p>
       </div>
       <BlocCondition score={produit.conditionScore} commentaire={produit.conditionCommentaire} />
-      <SelecteurTaille variantes={produit.variantes} />
+      <FicheProduitAchat produit={produit} />
       <Garanties />
     </>
   );

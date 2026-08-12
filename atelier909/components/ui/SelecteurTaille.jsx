@@ -1,12 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import { FORMATEUR_PRIX } from "@/lib/formatage";
 
-export default function SelecteurTaille({ variantes }) {
-  const premiereDisponible = variantes.find((v) => v.stock > 0)?.taille ?? variantes[0]?.taille;
-  const [tailleChoisie, setTailleChoisie] = useState(premiereDisponible);
-
+export default function SelecteurTaille({ variantes, tailleChoisie, onChanger }) {
   return (
     <div className="selecteur-taille">
       {variantes.map((variante) => {
@@ -18,7 +14,7 @@ export default function SelecteurTaille({ variantes }) {
             type="button"
             disabled={epuisee}
             className={`case-taille ${selectionnee ? "selectionnee chrome-selection" : ""} ${epuisee ? "epuisee" : ""}`}
-            onClick={() => setTailleChoisie(variante.taille)}
+            onClick={() => onChanger(variante.taille)}
           >
             <div className="case-taille-ligne">
               <span className="case-taille-nom">{variante.taille}</span>

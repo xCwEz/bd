@@ -1,4 +1,6 @@
 :root {
+  --hauteur-tabbar: 58px;
+
   /* Fonds */
   --bg-app: #0a0b0c;
   --bg-frame: #0c0e10;
@@ -782,6 +784,66 @@ input {
   color: var(--texte-desactive);
 }
 
+.barre-action-produit {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: calc(var(--hauteur-tabbar) + env(safe-area-inset-bottom));
+  max-width: 480px;
+  margin: 0 auto;
+  z-index: 45;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 22px 16px 14px;
+  background: linear-gradient(180deg, transparent, var(--bg-frame) 55%);
+}
+
+.barre-action-produit-taille {
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+  color: var(--texte-discret);
+}
+
+.barre-action-produit-prix {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--texte-primaire);
+  margin-top: 2px;
+}
+
+.barre-action-produit-bouton {
+  flex-shrink: 0;
+  min-width: 190px;
+  border-radius: 12px;
+  padding: 15px 18px;
+  font-size: 14.5px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.barre-action-produit-bouton:disabled {
+  opacity: 0.6;
+}
+
+.barre-action-produit-erreur {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: calc(var(--hauteur-tabbar) + env(safe-area-inset-bottom) + 78px);
+  max-width: 448px;
+  margin: 0 auto;
+  z-index: 45;
+  background: #1a1410;
+  border: 1px solid var(--accent-alerte);
+  color: var(--accent-alerte);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 12.5px;
+  animation: rise 0.3s var(--ease-etat);
+}
+
 .garanties {
   margin: 20px 16px 24px;
   border: 1px solid var(--bordure);
@@ -978,6 +1040,582 @@ input {
   color: var(--texte-secondaire);
   text-decoration: underline;
   text-underline-offset: 3px;
+}
+
+/* ============ Panier ============ */
+
+.ecran-panier {
+  padding: 16px 16px 100px;
+}
+
+.panier-titre {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.panier-compte-rebours {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--texte-discret);
+}
+
+.panier-compte-rebours-temps {
+  color: var(--accent-alerte);
+  animation: blink 1.6s step-end infinite;
+}
+
+.ligne-article {
+  display: flex;
+  gap: 12px;
+  border: 1px solid var(--bordure);
+  background: var(--bg-carte);
+  border-radius: 12px;
+  padding: 12px;
+  margin-top: 14px;
+  animation: slide 0.45s var(--ease-etat) backwards;
+}
+
+.ligne-article-vignette {
+  position: relative;
+  width: 70px;
+  height: 88px;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.ligne-article-corps {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+}
+
+.ligne-article-marque {
+  font-size: 9px;
+  color: var(--texte-discret);
+}
+
+.ligne-article-nom {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--texte-primaire);
+}
+
+.ligne-article-taille {
+  font-size: 12px;
+  color: var(--texte-tertiaire);
+}
+
+.ligne-article-prix {
+  font-size: 14px;
+  margin-top: 2px;
+}
+
+.ligne-article-retirer {
+  align-self: flex-start;
+  font-size: 11px;
+  color: var(--texte-discret);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.groupe-remise {
+  margin-top: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.option-remise {
+  border: 1px solid var(--bordure);
+  background: var(--bg-carte);
+  border-radius: 12px;
+  padding: 12px 14px;
+  text-align: left;
+}
+
+.option-remise.selectionnee {
+  border-color: var(--texte-secondaire);
+  background-image: linear-gradient(135deg, #22262b, #16181b);
+}
+
+.option-remise-ligne {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.option-remise-titre {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--texte-tertiaire);
+}
+
+.option-remise.selectionnee .option-remise-titre {
+  color: var(--texte-primaire);
+}
+
+.option-remise-frais {
+  font-size: 12px;
+  color: var(--texte-discret);
+}
+
+.option-remise-description {
+  font-size: 11.5px;
+  color: var(--texte-discret);
+  margin-top: 4px;
+}
+
+.recapitulatif {
+  margin-top: 26px;
+  padding-top: 16px;
+  border-top: 1px solid var(--separateur);
+}
+
+.recap-ligne {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--texte-tertiaire);
+  margin-bottom: 8px;
+}
+
+.recap-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--separateur);
+}
+
+.recap-total-label {
+  font-size: 13px;
+  color: var(--texte-secondaire);
+}
+
+.recap-total-valeur {
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.recap-mention {
+  margin-top: 6px;
+  font-size: 11px;
+  color: var(--texte-discret);
+}
+
+.encart-identite {
+  margin-top: 18px;
+  border: 1px solid var(--bordure-appuyee);
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: flex;
+  gap: 10px;
+}
+
+.encart-identite-prefixe {
+  font-size: 10px;
+  color: var(--accent-alerte);
+  flex-shrink: 0;
+}
+
+.encart-identite-texte {
+  font-size: 12px;
+  color: var(--texte-secondaire);
+  line-height: 1.5;
+}
+
+.encart-identite-bannière,
+.encart-identite-banniere {
+  margin-top: 18px;
+  border: 1px solid var(--bordure-appuyee);
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--texte-secondaire);
+}
+
+.bouton-panier-principal {
+  width: 100%;
+  border-radius: 12px;
+  padding: 15px;
+  font-size: 14.5px;
+  font-weight: 700;
+  margin-top: 22px;
+}
+
+.bouton-panier-principal:disabled {
+  opacity: 0.55;
+}
+
+/* ============ Rendez-vous et espèces ============ */
+
+.ecran-rdv {
+  padding: 16px 16px 100px;
+}
+
+.rdv-retour {
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--texte-discret);
+}
+
+.rdv-titre {
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+.carte-zone {
+  position: relative;
+  height: 168px;
+  border-radius: 14px;
+  overflow: hidden;
+  margin-top: 18px;
+  background-image: linear-gradient(#1c2024 1px, transparent 1px), linear-gradient(90deg, #1c2024 1px, transparent 1px);
+  background-size: 26px 26px;
+  background-color: var(--bg-carte-alt);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carte-zone-cercle {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  border: 1px solid rgba(242, 244, 246, 0.35);
+  animation: pulse 2.2s ease-in-out infinite;
+}
+
+.carte-zone-point {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: #f2f4f6;
+}
+
+.carte-zone-legende {
+  position: absolute;
+  bottom: 10px;
+  left: 12px;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--texte-secondaire);
+}
+
+.creneaux {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.creneau {
+  border: 1px solid var(--bordure);
+  background: var(--bg-carte);
+  border-radius: 10px;
+  padding: 12px 6px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--texte-secondaire);
+}
+
+.creneau.actif {
+  border: none;
+}
+
+.contact-operateur {
+  margin-top: 22px;
+  border: 1px solid var(--bordure);
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.contact-operateur-handle {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.contact-operateur-mention {
+  font-size: 10px;
+  color: var(--accent-positif);
+  letter-spacing: 0.08em;
+  margin-left: 8px;
+}
+
+.contact-operateur-texte {
+  font-size: 12px;
+  color: var(--texte-discret);
+  margin-top: 6px;
+}
+
+.especes-bloc {
+  margin-top: 26px;
+  text-align: center;
+}
+
+.especes-titre {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--texte-discret);
+}
+
+.especes-total {
+  font-size: 30px;
+  font-weight: 700;
+  margin-top: 6px;
+}
+
+.puces-coupures {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.puce-coupure {
+  border: 1px solid var(--bordure);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.bouton-verrouiller {
+  width: 100%;
+  border-radius: 12px;
+  padding: 15px;
+  font-size: 14.5px;
+  font-weight: 700;
+  margin-top: 30px;
+}
+
+.mention-effacement {
+  text-align: center;
+  font-size: 11px;
+  color: var(--texte-discret);
+  margin-top: 10px;
+}
+
+/* ============ Compte et suivi ============ */
+
+.ecran-compte {
+  padding: 20px 16px 100px;
+}
+
+.compte-entete {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.compte-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.compte-handle-ligne {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.compte-handle {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.badge-verifie {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid var(--bordure-appuyee);
+  border-radius: 999px;
+  padding: 3px 8px;
+  font-size: 9px;
+  color: var(--accent-positif);
+}
+
+.compte-membre-depuis {
+  font-size: 11.5px;
+  color: var(--texte-discret);
+  margin-top: 3px;
+}
+
+.compte-compteurs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 22px;
+}
+
+.compte-compteur {
+  text-align: center;
+  border: 1px solid var(--bordure);
+  border-radius: 12px;
+  padding: 14px 8px;
+}
+
+.compte-compteur-valeur {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.compte-compteur-label {
+  font-size: 10.5px;
+  color: var(--texte-discret);
+  margin-top: 4px;
+}
+
+.commande-en-cours {
+  margin-top: 26px;
+  border: 1px solid var(--bordure);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.commande-numero {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--texte-discret);
+}
+
+.commande-intitule {
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.commande-montant {
+  font-size: 13px;
+  color: var(--texte-tertiaire);
+  margin-top: 2px;
+}
+
+.suivi-etapes {
+  display: flex;
+  align-items: center;
+  margin-top: 18px;
+}
+
+.suivi-etape {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  gap: 6px;
+}
+
+.suivi-point {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: var(--bordure-claire);
+}
+
+.suivi-point.passee {
+  background: var(--texte-primaire);
+}
+
+.suivi-point.courante {
+  background: var(--accent-positif);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+
+.suivi-trait {
+  flex: 1;
+  height: 1px;
+  background: var(--bordure-claire);
+  margin: 0 -2px;
+  align-self: flex-start;
+  margin-top: 4.5px;
+}
+
+.suivi-trait.passe {
+  background: var(--texte-primaire);
+}
+
+.suivi-label {
+  font-size: 8.5px;
+  letter-spacing: 0.05em;
+  color: var(--texte-discret);
+  text-align: center;
+}
+
+.suivi-details {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--separateur);
+  font-size: 12px;
+  color: var(--texte-tertiaire);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.code-remise {
+  display: inline-block;
+  margin-top: 8px;
+  background: #f2f4f6;
+  color: #0a0b0c;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.historique-titre {
+  font-size: 13px;
+  color: var(--texte-discret);
+  margin-top: 30px;
+  margin-bottom: 4px;
+}
+
+.ligne-historique {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--bordure);
+}
+
+.ligne-historique-vignette {
+  position: relative;
+  width: 36px;
+  height: 44px;
+  border-radius: 6px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.ligne-historique-corps {
+  flex: 1;
+}
+
+.ligne-historique-nom {
+  font-size: 13px;
+  color: var(--texte-primaire);
+}
+
+.ligne-historique-details {
+  font-size: 9.5px;
+  color: var(--texte-discret);
+  margin-top: 2px;
+}
+
+.ligne-historique-prix {
+  font-size: 13px;
 }
 
 /* ============ Back-office : utilitaire, sans recherche d'esthétique ============ */

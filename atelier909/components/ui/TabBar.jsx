@@ -94,6 +94,8 @@ export default function TabBar() {
         bottom: 0,
         maxWidth: 480,
         margin: "0 auto",
+        height: "var(--hauteur-tabbar)",
+        boxSizing: "border-box",
         display: "flex",
         borderTop: "1px solid var(--separateur)",
         background: "rgba(12,14,16,.92)",
