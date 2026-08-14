@@ -7,6 +7,13 @@
 
 ---
 
+## 2026-08-14
+
+### Deux nouveaux projets perso ajoutés au suivi : jarvis-main et Youtube-automation-main
+- Deux dossiers déposés dans `context/import/` : `jarvis-main` (script Python d'automatisation de bureau déclenché par double-clap : Spotify, Chrome, Cursor, voix ElevenLabs — stade prototype, Windows uniquement) et `Youtube-automation-main` (app Next.js d'automatisation de Shorts YouTube, niche "History's almosts" — 1 épisode produit sur 10 prévus, publié en unlisted sur YouTube, brouillon sur TikTok, style pas encore verrouillé)
+- Ce sont des projets parallèles, sans lien avec l'activité DA/UI-UX/portfolio. Ajoutés à la section "Mes projets en cours" de CONTEXT.md pour que Claude en garde le suivi
+- Le portfolio personnel (univers spatial) reste volontairement mis de côté pour le moment
+
 ## 2026-08-10
 
 ### Premier client décroché : Bourganeuf Automobiles
