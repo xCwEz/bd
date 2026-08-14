@@ -1,0 +1,132 @@
+{
+  "id": "ep-005",
+  "prompt": "The telegram that almost started WW3",
+  "title": "The telegram that almost started WW3",
+  "status": "published",
+  "createdAt": "2026-08-07T17:30:33.229Z",
+  "updatedAt": "2026-08-08T18:15:19.005Z",
+  "videoUrl": "/api/media/ep-005/final.mp4",
+  "posterUrl": "/api/media/ep-005/poster.png",
+  "caption": "The telegram that almost started WW3 — a near-miss that almost changed everything. #Shorts",
+  "hashtags": [
+    "#Shorts",
+    "#History",
+    "#DidYouKnow"
+  ],
+  "tiktokPublishId": null,
+  "youtubeVideoId": "1i9YyLi2fW4",
+  "privacy": {
+    "tiktok": "draft",
+    "youtube": "unlisted"
+  },
+  "error": null,
+  "isDemo": false,
+  "produce": {
+    "step": "done",
+    "message": "Ready — narrated Short assembled.",
+    "imageRequestId": "506aa011-1c8e-433d-bd58-3886d962432e",
+    "videoRequestId": "9a7787fa-7e84-41d2-b0c0-24701d4b0d5f",
+    "imageUrl": "https://cdn-magnific.freepik.com/mystic_v1_generate_506aa011-1c8e-433d-bd58-3886d962432e.png?token=exp=1786128138~hmac=7733c14bc3828d93d36deb0345b888c1a47d5e590b39e07b32af953eed79fa40&size=stable",
+    "voiceRequestId": null,
+    "sceneIndex": 4,
+    "scenes": [
+      {
+        "index": 0,
+        "beatId": "hook",
+        "label": "Hook",
+        "narration": "What if one wrong move almost rewrote the world? This is the story of The telegram that almost started WW3.",
+        "visualPrompt": "Opening cinematic storybook frame for The telegram that almost started WW3, tense atmosphere, dramatic rim light, empty stage before the crisis, vertical 9:16 illustration",
+        "status": "done",
+        "imageRequestId": "914773584625664079",
+        "videoRequestId": "914773653064786010",
+        "imageUrl": "https://s15-kling-fdl.klingai.com/bs2/upload-ylab-stunt-sgp/muse/914769894154698818/IMAGE/20260808/06f8f98632520ea8f7cc86bf84db0e66-454c95ee-7fdd-4442-948b-20e6e3b1498a.png?cacheKey=ChtzZWN1cml0eS5rbGluZy5tZXRhX2VuY3J5cHQSsAHJtiGkB2OXck_IdrL8uTmVBPY_MA_AUDbHW63kj9f-DpVqYwHQRjOIsP69XS_RfhXjABzCeibafO5EZ0IBAt1ZeqUiGZ4pKvEV3NqeeK1Vsb-nLyds6fHX40xU_eOB0JZWBEfiODhyPBAd0wtanq9D1vaKu_AE5Xtcyl0bQkaQpn34sWEYeU4u3AyccLbzocIdvf7Qevql42Vhy_sBWJ3LRbQbv0OVhU0wXzWYXZW1kxoSS2Y9drB8Z4ednHxTIh7XZcnaIiDnjsrwyb1zZ7zuYLA79F778lc86zwL7IZ9wJDG5RD-xCgFMAE&x-kcdn-pid=112781&Expires=1788719549&Signature=fDeG1raqB7yB95OS4xmZgtuYpyQj6s1T5ZR8kMrZug2s0~ZevqJthoad2PRL6p8zr6zOIWrklkHCukAM~FpwKc9ECNEd-qgGH8t9rxaPuePZ6taJOwaZudymNsawkRaDV30gLjv3hq1jwqgwVPonbBUb3YvZhmgYlw44l~XGStqdHdCtatUJ1YaZHGLAyNkJfkNKtes1gWjNcjZv5p-08XiobEHlw883OE327xOtSyRH06qt1aW9NhWkE-iQH03w97XKG4xrYu9Tphwv3g6THFtn3IKxt513idbnAwQKwzR-Cdmtyj-JzUriibg0S9k5HtMSYY2hDSpEGrkMN8aFkA__&Key-Pair-Id=K1FG4T7LWJK0FU",
+        "videoUrl": "https://v15-kling-fdl.klingai.com/bs2/upload-ylab-stunt-sgp/muse/914769894154698818/VIDEO/20260808/e95bda690224587c528237f20e7fd0e9-757cee5b-7cf7-4e64-8ebd-06190502c44c.mp4?cacheKey=ChtzZWN1cml0eS5rbGluZy5tZXRhX2VuY3J5cHQSsAFDcbOYFs29Ycc90u57Lbf5b0eZOTWzAdoxcN0YfONTQ1mQKIUwbnk-NhARR8z4dBpP7nf9HWekQdfGOKrIZtWuCd9l781Uq_G7u1vkAAuol_o33zIEpU-9RwcCs1qlC5Mfj9DuQIDiEaESPHbD9LPQpq6nDVNQIS_4iqy69Rs4mG3eaC4PcmWynphIeWwkeuHjxGVJUEy9_QHJEojwGMcNl8SQ8MzTHW6JKh5w9zIMbRoSEWFMYg6sFzvDzdpgVuS6Rze6IiCHxnPpNMt2re-b7zO1zTjueO9M4qBQUKoG-oQivEF80igFMAE&x-kcdn-pid=112781&Expires=1788719611&Signature=CdJYhbpfoDd6ok3MWRaXN4uSv5oP~aJuB2TpAwj3rgHEBv5Q3iZyHZTHCB0LTQ5NLongS9YvtdUjGD8W8aZwfpBAAAr7bQXomKQqLl~QlJ9dU-gUFWQybzOHaPKYWjkeuzJFL9jXSRZs7J1di~NbEmq7kM994NdK1s0JiC8rjUrARjP9qI9dCbA15N8~t0avQtYsEZzTEPq~2CywG1fR0Zn9rC2fqBBnOU4b4XSkMjsl9xsjdP6w~ibYXAzzZQi0ns4bbLIlUYQ-V8MCTKLs6FPpMSORj9U7Z4GcBoJYcCNM6kQnaLv7HjudJK5fw4GEzd55S41XHIuW~BJlb42ovA__&Key-Pair-Id=K1FG4T7LWJK0FU"
+      },
+      {
+        "index": 1,
+        "beatId": "setup",
+        "label": "Setup",
+        "narration": "The world looked stable. People went about their day. Nobody realized how close history was to snapping — until the moment behind The telegram that almost started WW3 started to unfold.",
+        "visualPrompt": "Everyday period scene just before crisis for The telegram that almost started WW3, calm surface, subtle unease, documentary storybook illustration, 9:16",
+        "status": "done",
+        "imageRequestId": "914773902658768905",
+        "videoRequestId": "914773976080060438",
+        "imageUrl": "https://s15-kling-fdl.klingai.com/bs2/upload-ylab-stunt-sgp/muse/914769894154698818/IMAGE/20260808/7a1e1ce6179a0de8c17eaf965ff4fa4e-296b6693-d653-41f0-b4a3-704291ba197e.png?cacheKey=ChtzZWN1cml0eS5rbGluZy5tZXRhX2VuY3J5cHQSsAFEufo_RvIa3z5EeNkqvqA-vTL6gSK6iqxqHwxZKZpHnD4S-tOP4SBJGkB57-KZC4ic4aaXghNbEuLW32fJrfbC3zrtDknL1QmvokQ9pGMrlbWr6Z_TpZWK7XnFh_k5wyrwL2-upezpvV102GlT8iTN_-q36lZypXsuaQ1Ax7HdUkZlL8MJHKzac_SzH45FAmbaTVdtIWGxoqbUMgdJfeG7yotIOf1otu__-V7TUib6LRoSiK-SiyTQu2yvu8rTuMxr8vOaIiC0bT4pR3CHkcpj7aEESJe9hn_rhoRdObEcFRrARfyGCCgFMAE&x-kcdn-pid=112781&Expires=1788719626&Signature=emdTf6p-NNok9hPWCbVGfr1d-fjubYb7FR7rLZZzxQlik7WXR8AaZfOygGMSKRwcPx0ZhaFPOzeEQbbQ3~rnO4n7nZNgD-g4nC0kFQkCmnmSGg8L~CtZGAbd3A2I2p31CXz4hv4QLU7lizGNok~96xt4el2n0BhRZ~uwmhsQSVDssTxx7xtZZMUALwQyFxiK38xLPDSUiW4Hlo-KU95NEzpSzOymwKawYCp3GiWf5KqV1FW9qHDK2AbRDezlFoQYYdAgvzqssTTkcgKk50pcTVOVBkXRNi09idAGg-JoTvZscxmAdZvBsJJ~vmTdo8TyjdTzIC4l8ZqjIy9tZo4dSg__&Key-Pair-Id=K1FG4T7LWJK0FU",
+        "videoUrl": "https://v15-kling-fdl.klingai.com/bs2/upload-ylab-stunt-sgp/muse/914769894154698818/VIDEO/20260808/e9059de116ce5530673093127b4f3f20-87d30df3-6bf0-4723-b223-7d822e201aa0.mp4?cacheKey=ChtzZWN1cml0eS5rbGluZy5tZXRhX2VuY3J5cHQSsAHvSE6nC5ohISSNiqQNZcpmGkXMn8loY6ocUSz7X5oBgCH5yLKZvGhMMRBvWaVxyfPo0m2HzGSxvdwO23aaYOpsu4kC4zH_QmSLNP0CKKv_pAteVm3pEXMXk5aOkI9Cm5cDfEbja0NcKIvAyYeoOo5JKwgs6TrH6OUsRS21-lkJAus7TEYVw4UM6ziEpqdqmnlCsQoKhKpxNYLCQeW4kK27Dem4xgWj_R3qLU5YlZrGcxoSj4dfrTYhUzYe6jlYP2ZR__D3IiDUk9DMxLtHDOTDKc0IAwQxfY3BN0fr72e9GDIejEzA-SgFMAE&x-kcdn-pid=112781&Expires=1788719689&Signature=aXI7UqPEa-X8M5thdlJDLWvZAVSTt7D-DBAJawnQU8F--VPKTGbg6dzPEgvfINQKdx-ebBVfUIwmv2dhL359OZnD17Hr4sZ0PrAkFQyfgpVNKuzPT9z0CRinOK6tNMVCD3hh36Qqw8tlwJ4jEoRmRrtkF7k3L2q7~GHnqAkEBAhrBpuiZaKgTLEdyZG0mF4gRqzVHwmdcHyoYA4FpNeAMoMdIaSQvKiFscoemCGKw-Ism~FLohC8BSueiVr2zOVr8ajFJExw-m9L0lr5Q7QlRw4JHMgv6yaSuGxRXELA6PWm10KGiH151ohlAKqlaD9WaKRxtDfbe0CF1Y4Hyq8Rmw__&Key-Pair-Id=K1FG4T7LWJK0FU"
+      },
+      {
+        "index": 2,
+        "beatId": "almost",
+        "label": "The almost",
+        "narration": "Then came the near-miss. One decision. One delay. One telegram, order, or accident away from disaster. For a few breathless hours, The telegram that almost started WW3 hung in the balance.",
+        "visualPrompt": "Peak tension visual for The telegram that almost started WW3, clocks, wires, maps, or war rooms, extreme near-miss energy, cinematic non-photoreal illustration, 9:16",
+        "status": "done",
+        "imageRequestId": "914774240379928593",
+        "videoRequestId": "914774313730572344",
+        "imageUrl": "https://s15-kling-fdl.klingai.com/bs2/upload-ylab-stunt-sgp/muse/914769894154698818/IMAGE/20260808/531ce78fdac55750bec18fb2b2fd885a-10d58512-a3c5-4c1d-b52a-9297f364b644.png?cacheKey=ChtzZWN1cml0eS5rbGluZy5tZXRhX2VuY3J5cHQSsAFNCTtt4L9eP_rE403hokKSLgPdLigsFl4LUL4VbHlomtHCxLZZCMCPLISI4ItN9vMbpP03KTqsdV-NsnN2vR0fWREk0VtxMppY3j2fV6EqFmYQWz0-6cz6FfaZiIWC6f-qWnjDnkj52sDLybtVvHK0OnxsQppspheBf_XX40_8hv7uzi61IqytvefJb3W2qMEAnSmIEDg9P37Nf17RBPcH6N8s7kBz_HoRIdrYXPtv4xoSI394zzPJZ_uhWSjkByU4CYy1IiDZXxpMM50Yo5zN1f5EBlJpTUugX5Okxh1KyTTdPgKHPSgFMAE&x-kcdn-pid=112781&Expires=1788719706&Signature=t8lT62BUb~7s1cAh5EhfxN6ClbTQFZmASSJhDoMfQ3~tZb~emeq5lbor7~eTcD-ehqTnQVnJC0s-UbHxjwBN3Hz6otw05k~mvF38p9kf~XvjbzF4CFtKoqN9inKByjhglePqs13CcTBHpd9ZcyAlhinfaryuB~YSITbUFfZG5iJMt1v4MvPtTEvDc9qrEZbjpDCO3ZKxS-UkQpCezwgNaxoaXZx-z98rqm9SNh0zTey~mymKuSs1V7FoZhm74~1RzjTNJ2jqnKIt9CcfqqPPRl18oln5upjV4geb6dhJrWG1~rYkyOulASoqifkeeoLnV-MF8cbV8F5WOpR9gCMXRQ__&Key-Pair-Id=K1FG4T7LWJK0FU",
+        "videoUrl": "https://v15-kling-fdl.klingai.com/bs2/upload-ylab-stunt-sgp/muse/914769894154698818/VIDEO/20260808/dcc1d8b3314d995abb813d3748347a8a-2d0fb3a6-583b-4d58-88d1-01074089c08b.mp4?cacheKey=ChtzZWN1cml0eS5rbGluZy5tZXRhX2VuY3J5cHQSsAGGE8xoaHhIOZnnrydKGu5yw_oOXW0Il1H_qzsBNTVNwo8ye4dIh8s8XdzhNu3fnaN0kArSNgxJ6lwtk1bJC5nfuO23X4IkRvKC7UevPGUBfH1HSYD0H-XOfW1mLvMTldSSh7_SvBK-JoM90qS65o67UXT1ERA6BoEXoFHaAu7nUsO1ZHWtriQ695FZCHy3MRHPMpk2zvZyph0Da0uo8h30uXc6zENNdgJtvAzGCxslFxoSYF8ADrg3uvuiuzhTSVrQUvw0IiCKcMomfbCnIvdmaUkpRJ_WyDybLV3jkbyY0wRYHzm9QygFMAE&x-kcdn-pid=112781&Expires=1788719774&Signature=Y2qpzd7JPyirKNPDDeVvoxoOEu1SfRTU3WXrVIZ6sp9Qowg6E6PkQHZxnCBDK~2~q1rw8NqjAcZ2E3FkZwOpO~3kwFjYUOZBbOvlnK05sXu41NWj0FN0HEpt7hsp6OZyX5JwNqiMC4nj0mBDoGRUYqlOiSCBmEpS0uqDyrlKyDNb9I3ckwmd5J8WlkLPvDF8mcnTBXh2FLLXYbThReHnWZYAmV0SNVti2nSY5Q6ORxjKO4xei3thyPEEgXDS7Wf52Yw-LUaTu2mhefrYIfbLa9gB571Vs3nPaEKq-dnceBKkcT~C1SFbFhE5WpekGr4Tdp5u8kATDigOW5I1VgCLzQ__&Key-Pair-Id=K1FG4T7LWJK0FU"
+      },
+      {
+        "index": 3,
+        "beatId": "twist",
+        "label": "Twist",
+        "narration": "And then — somehow — it didn't happen. A cooler head. A missed signal. A stroke of luck we still barely understand. The catastrophe that almost was… wasn't.",
+        "visualPrompt": "Aftermath breath for The telegram that almost started WW3, tension releasing, soft light after storm, symbolic near-miss resolution, storybook illustration, 9:16",
+        "status": "done",
+        "imageRequestId": "914774592643407930",
+        "videoRequestId": "914774666076622848",
+        "imageUrl": "https://s15-kling-fdl.klingai.com/bs2/upload-ylab-stunt-sgp/muse/914769894154698818/IMAGE/20260808/bbfd8742c934eeac4a4c5ff29885c0d1-ffea16ba-994b-497f-bfef-00c105892a9e.png?cacheKey=ChtzZWN1cml0eS5rbGluZy5tZXRhX2VuY3J5cHQSsAEQJGTTBnnFGZFShjMbogs7Wo7IP9SZgLiBBXICMf6cTlF7I3Ua2ddgGt1FLAdt-AEBWggdhqtHETtmRgnYnccIVKN-SzWV9K4-71jnMFHtPcPJNmkBohjiv5-kEDvEPds0UROhaTSf4k29-P8XdC5hKNUBgaVXyv9TPXZ9MRy6URxSiyvgpGQbz9xGcsRuM1qS3mIGoihNR_-Q5V-GW3iNqGM0JTrS4GFPlcHa_y1zSRoSNzwANz7xQHQ1n3QnpfpV26ryIiANxcnEYwjhWWY9uMQMTnXY41VxBTVAGGZXP8_QmcKYXigFMAE&x-kcdn-pid=112781&Expires=1788719791&Signature=rrNcti7JZjMUl-bhrLU76t8foUQ1zZzoQ49kNeyrG-RFi5WF5bHl~NizDTXfTM54Q6sVWd4ocf-RQkwa4tdr50nwTI6-C2OaxY6Adoq4bNrfs7B7k3xGUSQkje6-inqkug7bbnyw876q6Wsqg0vpoA5nJObj~x3~ZHe-hENbZuqs-94TQtpNP72mKUHf3uJJVRK-9pZLkrBNSLlWjLFiSnG7GLjjWkLfdB2rCQkuZxuMiKTW7V461mBBn51t9QEG6B~S2TdoaaRyRCoQqxE9ulgMuOXj5uuE4CCTcAC0cjqHMniCSIRkZ02x6iJ7T3U7UQsk37TgIMlMN8JxrLTpmg__&Key-Pair-Id=K1FG4T7LWJK0FU",
+        "videoUrl": "https://v15-kling-fdl.klingai.com/bs2/upload-ylab-stunt-sgp/muse/914769894154698818/VIDEO/20260808/83aa4a02253580e067e7c514d0c999a7-dd946246-b589-4271-9a9c-c654a22b06bf.mp4?cacheKey=ChtzZWN1cml0eS5rbGluZy5tZXRhX2VuY3J5cHQSsAELhTHyE56-TzCSAFyY49yT68Bnv-GSg3jD2KhXQZicRFl_WFtoJaMsQODejDN2hL0hvNqMa7eKzVqI_uG-kXexXlO5yQw3-I8E0_kaEYm7Un1hQkpnuaOtBqo4YMM0MPy4HS9B3h5NbfJLcej60P_O-IiW4VM-A_4b7JVcY1mwg0VpX-lLPx8iuW7zb3RNPolFt8ZgzX7iCX4fKW2ikg_QmfUCPXHoLEuoflZ9bJy7DxoS0dDQ6WvEt8pqXaoyQyeDsp12IiDDkYgbZVU2b1sg5-vHFZOvPA_cAn4fVMAnBtfcnCviDSgFMAE&x-kcdn-pid=112781&Expires=1788719854&Signature=KWcroLATOjuQ77mfdb-OTtclcV1XrG-EDoExXVgJWuVjf5xVyXvOkEP5Kiou8DeXOO4JVugJvIppvDmeByeNaQ3FIaPJ8kM3fTeQWPpz4qREY2WOvTZBNWUAicGM-TSoo-lJaEsXzplQ6R34Ln4YLDKY81VhZaB2quU63H39O8rhlMbSEIfKvMFK6bSXL~knIpS6vpGQZZuNwQStZMKP2HAVg8dX8wf5eGDvNC2Wubh~zAFHsJlEahxk13dpW6NxfjBpVQ52GKhXl7MBpnviEI1lE6Jcx~xDk8tFfx42DQWIg9bCkmKHh50qZjjz-cgAnGSiF1HcCezWyR3y8nbpcw__&Key-Pair-Id=K1FG4T7LWJK0FU"
+      },
+      {
+        "index": 4,
+        "beatId": "button",
+        "label": "Button",
+        "narration": "History remembers the wars that started. It forgets the ones that almost did. Follow for more history's almosts — the nights the world nearly changed forever.",
+        "visualPrompt": "Closing emblematic frame for The telegram that almost started WW3, quiet horizon after crisis, reflective documentary illustration, no text, 9:16",
+        "status": "done",
+        "imageRequestId": "914774930331009053",
+        "videoRequestId": "914775003646787620",
+        "imageUrl": "https://s15-kling-fdl.klingai.com/bs2/upload-ylab-stunt-sgp/muse/914769894154698818/IMAGE/20260808/fa0f61e7315abe6c640a562280f074f8-de6534c7-f187-41af-a803-9e7ffcece195.png?cacheKey=ChtzZWN1cml0eS5rbGluZy5tZXRhX2VuY3J5cHQSsAE7EjoA2-CbaK39FOcZq6YwrwpK9hJFQf3yUFvgmoOEjAxJfHS45npS5AF19O4u8s8jVqGWoAtTifq-fmHwAMPrQ390e36pHJAcdxS-J7j4OEg3Y-VndWU3RHB3Rq92N_ZwGBRMI4QUskUNHWk0U_5WpYpx0bsqlj4yuXJjbyMpphaBpI1DJSygStwHj23zkTmlC_W1NQWbxauykGKEEaTnKwx1jzZhJWzf0JzKtkhwNRoSHs_XK2axmPlM1WFnjCEe17mbIiAQ3OOJQBPk7pztgyQbnjMXalUhpYnCxqJKbZKA-M7WlCgFMAE&x-kcdn-pid=112781&Expires=1788719871&Signature=b3Rxh5W8IXBera08IiVcUV0d5O60ifXLD49cY9P2te1Tzeog0UYUbL5W5tkpriqvqaIAhpCEPhoGh6Rgk4GiMQZxdS33hP0i4ZZ69piFzMdU5xpzvz0htT5VKjv9DOSzPT88yLWzO4XKHUUaenWQunUOnYfcYbD15qBni1lgwsBMRcLg00KYI71-GX9S8irimoq~t1YOOUrr66s2Pv~go2rfuB11jmyPdXAd970gtvhg5lKCbfm~1s35vfFnQ5TkQF-bUFIewDxCWhnTOEOvDbI3IxJ28UCNbMyfcjrt-mZ-QqJjXOF7C1QfbfvAs2Vj7ouwLVZNUflzmgUm4jQc1Q__&Key-Pair-Id=K1FG4T7LWJK0FU",
+        "videoUrl": "https://v15-kling-fdl.klingai.com/bs2/upload-ylab-stunt-sgp/muse/914769894154698818/VIDEO/20260808/19aadb1efeccd19bcdbd8040f8f8897f-f6b6f2f1-eeab-4234-b0fb-cb146baf3176.mp4?cacheKey=ChtzZWN1cml0eS5rbGluZy5tZXRhX2VuY3J5cHQSsAHLjFiI5pI6VswdZH88_TrDkPdK6n3fSa79v4XdRUTz4RV1qjPKLVJVi8qd73yAEwN79YIGz7a-IQdsqjalFVDXK5uD2tnC5BfDNixh1BpN0ClDWvQehGxqL9S0PGm_BpB1miTSD0nMmAIz3RODdNfG04jk1eShqZOF8c-MzwI8FRbiQA_j2_raHHQGMDJrhv9e8Ao-Ds-24AYx-L9rUGrvh0FfPt9hzsA8XI3PgKc4eRoSOFvh80_9xnI_XufDmu_AA0PdIiDemkXgbkQFGy5B1cNNJnqNEKcNMAfyMalGLSHgI5qD7ygFMAE&x-kcdn-pid=112781&Expires=1788719929&Signature=jHpzFNCHYX2TMOV31Ug8Fj89tCT8dCsa9tsAltuFIceAb9k8V1D5Fc-n0EEe2spmQlR0LFLgsmQxgTWr7HmE4TRm-fzMN7PDobAimutZEfVSKCYH4R8P~Mr0HErvOMHPiDmEAYNcjt-q9k18jkZGYg9~7zQps1LV1eDUC5dVre~S0px8ygu4AM7VoGmBk2wqgUxdojCDfEdXQUPZTMVTyYrgSuTeicJffHabrAPOgKSDtZ1YvXcmTI8x0-0y8yqgf~zKRkDZqn6wwMCv3Qt5Aj2Fd1N4aC8jZj-~YEnt2Rf3Y6MkxI8S9J-ThSvkh7A5wNAYtCYSTOWxidsekGNBUw__&Key-Pair-Id=K1FG4T7LWJK0FU"
+      }
+    ]
+  },
+  "audioUrl": "/api/media/ep-005/voice.mp3",
+  "script": {
+    "title": "The telegram that almost started WW3",
+    "fullText": "What if one wrong move almost rewrote the world? This is the story of The telegram that almost started WW3. The world looked stable. People went about their day. Nobody realized how close history was to snapping — until the moment behind The telegram that almost started WW3 started to unfold. Then came the near-miss. One decision. One delay. One telegram, order, or accident away from disaster. For a few breathless hours, The telegram that almost started WW3 hung in the balance. And then — somehow — it didn't happen. A cooler head. A missed signal. A stroke of luck we still barely understand. The catastrophe that almost was… wasn't. History remembers the wars that started. It forgets the ones that almost did. Follow for more history's almosts — the nights the world nearly changed forever.",
+    "beats": [
+      {
+        "id": "hook",
+        "label": "Hook",
+        "narration": "What if one wrong move almost rewrote the world? This is the story of The telegram that almost started WW3.",
+        "visualPrompt": "Opening cinematic storybook frame for The telegram that almost started WW3, tense atmosphere, dramatic rim light, empty stage before the crisis, vertical 9:16 illustration"
+      },
+      {
+        "id": "setup",
+        "label": "Setup",
+        "narration": "The world looked stable. People went about their day. Nobody realized how close history was to snapping — until the moment behind The telegram that almost started WW3 started to unfold.",
+        "visualPrompt": "Everyday period scene just before crisis for The telegram that almost started WW3, calm surface, subtle unease, documentary storybook illustration, 9:16"
+      },
+      {
+        "id": "almost",
+        "label": "The almost",
+        "narration": "Then came the near-miss. One decision. One delay. One telegram, order, or accident away from disaster. For a few breathless hours, The telegram that almost started WW3 hung in the balance.",
+        "visualPrompt": "Peak tension visual for The telegram that almost started WW3, clocks, wires, maps, or war rooms, extreme near-miss energy, cinematic non-photoreal illustration, 9:16"
+      },
+      {
+        "id": "twist",
+        "label": "Twist",
+        "narration": "And then — somehow — it didn't happen. A cooler head. A missed signal. A stroke of luck we still barely understand. The catastrophe that almost was… wasn't.",
+        "visualPrompt": "Aftermath breath for The telegram that almost started WW3, tension releasing, soft light after storm, symbolic near-miss resolution, storybook illustration, 9:16"
+      },
+      {
+        "id": "button",
+        "label": "Button",
+        "narration": "History remembers the wars that started. It forgets the ones that almost did. Follow for more history's almosts — the nights the world nearly changed forever.",
+        "visualPrompt": "Closing emblematic frame for The telegram that almost started WW3, quiet horizon after crisis, reflective documentary illustration, no text, 9:16"
+      }
+    ]
+  }
+}

@@ -1,0 +1,62 @@
+[
+  {
+    "id": "t01",
+    "title": "The telegram that almost started WW3",
+    "hook": "One mistranslated message nearly lit the fuse.",
+    "note": "Near-miss diplomacy / Cold War"
+  },
+  {
+    "id": "t02",
+    "title": "The patent that almost killed the lightbulb",
+    "hook": "Edison wasn't the only name in the race.",
+    "note": "Invention near-miss"
+  },
+  {
+    "id": "t03",
+    "title": "The vote that almost erased America",
+    "hook": "One ballot changed a constitution's fate.",
+    "note": "Political almost"
+  },
+  {
+    "id": "t04",
+    "title": "The flight that almost never left Kitty Hawk",
+    "hook": "Weather, money, and one stubborn morning.",
+    "note": "Aviation"
+  },
+  {
+    "id": "t05",
+    "title": "The asteroid that almost hit Earth in 2019",
+    "hook": "We saw it… two hours after closest approach.",
+    "note": "Space near-miss"
+  },
+  {
+    "id": "t06",
+    "title": "The email that almost crashed the stock market",
+    "hook": "A typo, a send, and a global panic.",
+    "note": "Modern finance almost"
+  },
+  {
+    "id": "t07",
+    "title": "The map that almost hid the New World",
+    "hook": "One cartographer almost rewrote discovery.",
+    "note": "Exploration"
+  },
+  {
+    "id": "t08",
+    "title": "The vaccine that almost stayed a secret",
+    "hook": "A dairymaid's observation nearly stayed local folklore.",
+    "note": "Medicine"
+  },
+  {
+    "id": "t09",
+    "title": "The bridge that almost never spanned the bay",
+    "hook": "Budgets, winds, and a design everyone hated first.",
+    "note": "Engineering"
+  },
+  {
+    "id": "t10",
+    "title": "The song that almost stayed unpublished",
+    "hook": "A scrap paper demo became an anthem.",
+    "note": "Culture near-miss"
+  }
+]

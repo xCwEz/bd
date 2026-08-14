@@ -1,0 +1,15 @@
+{
+  "nicheName": "History's almosts",
+  "tagline": "Near-misses that almost changed everything",
+  "format": {
+    "aspectRatio": "9:16",
+    "motion": "animated",
+    "targetSeconds": 60,
+    "subtitles": true,
+    "channelType": "History"
+  },
+  "styleNotes": "Cinematic storybook / documentary-adjacent look. Non-photoreal. Lock one house style on your first real Higgsfield render, then reuse it.",
+  "voiceNotes": "One external narrator voice. Characters never talk on screen. Calm, curious, slightly dramatic.",
+  "aigcDisclosure": true,
+  "cadencePerWeek": 3
+}
